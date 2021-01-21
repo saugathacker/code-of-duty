@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">code-of-duty</string>
+    <string name="hello_world_kotlin">Hello World - Kotlin</string>
+    <string name="from_group_name">from group: Code of Duty</string>
+</resources>
