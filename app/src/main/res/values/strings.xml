@@ -2,4 +2,14 @@
     <string name="app_name">code-of-duty</string>
     <string name="hello_world_kotlin">Hello World - Kotlin</string>
     <string name="from_group_name">from group: Code of Duty</string>
+    <string name="location_check">location_check</string>
+    <string name="enable_gps">Please enable GPS</string>
+    <string name="permission_request">App requires location permission</string>
+    <string name="radiobutton">RadioButton</string>
+    <string name="name_of_location">Name of Location</string>
+    <string name="place">Place</string>
+    <string name="button">Button</string>
+    <string name="indoor">Indoor</string>
+    <string name="outdoor">Outdoor</string>
+    <string name="save">Save Location</string>
 </resources>

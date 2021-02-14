@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+
+<!- Wrapping the layout into /layout to make it available with data binding. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Data to make available to the XML via data binding. In this case,
+         the whole ViewModel, so that we can access the LiveData,
+         click handlers, and state variables. -->
+    <data>
+        <variable
+            name="locationViewModel"
+            type="com.example.code_of_duty.location.LocationViewModel" />
+    </data>
+
+    <!-- Start of the visible fragment layout using ConstraintLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".location.Location">
+
+        <!-- Simplest way of displaying scrollable text and data. There is a
+             better and more efficient way to do this, and you will learn about
+             RecyclerView in a later lesson. -->
+
+
+        <TextView
+            android:id="@+id/locationDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@{locationViewModel.coord}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextLocationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="@string/name_of_location"
+            android:inputType="textShortMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationDisplay"
+            android:autofillHints="" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="60dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextLocationName">
+
+            <RadioButton
+                android:id="@+id/indoor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/indoor"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/outdoor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/outdoor" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button"
+            tools:layout_editor_absoluteX="128dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginVertical="32dp"
+                android:text="Place: coordinates. This is indoor."
+                />
+
+
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
