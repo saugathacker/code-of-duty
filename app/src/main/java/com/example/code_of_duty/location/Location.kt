@@ -17,6 +17,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.code_of_duty.R
+import com.example.code_of_duty.database.SavedLocationDao
+import com.example.code_of_duty.database.SavedLocationDatabase
 import com.example.code_of_duty.databinding.LocationCheckBinding
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
@@ -39,7 +41,15 @@ class Location : Fragment(), LocationListener {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.location_check, container, false)
 
-        viewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+
+        val dataSource = SavedLocationDatabase.getInstance(application).savedLocationDao
+
+        val viewModelFactory = LocationViewModelFactory(dataSource,application)
+
+
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LocationViewModel::class.java)
 
         binding.lifecycleOwner = this
         binding.locationViewModel = viewModel
@@ -62,6 +72,10 @@ class Location : Fragment(), LocationListener {
             locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300, .02f, this)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+
+        binding.saveButton.setOnClickListener(){
+            viewModel.onSaveLocation(binding.editTextLocationName.text.toString(),binding.radioGroup.checkedRadioButtonId)
         }
 
         return binding.root
