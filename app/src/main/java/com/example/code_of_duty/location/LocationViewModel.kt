@@ -38,7 +38,6 @@ class LocationViewModel(
     private val locations = database.allLocation()
 
 
-
     init {
         _latitude.value = 10.0
         _longitude.value = 10.0
@@ -101,10 +100,5 @@ class LocationViewModel(
             database.clear()
         }
     }
-
-
-
-
-
 
 }

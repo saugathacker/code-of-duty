@@ -109,11 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginVertical="32dp"
-                android:text="@{locationViewModel.locationString}"
-                />
-
-
-
+                android:text="@{locationViewModel.locationString}" />
         </ScrollView>
 
 

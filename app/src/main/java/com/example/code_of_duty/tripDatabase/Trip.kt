@@ -21,3 +21,17 @@ data class Trip(
     @ColumnInfo(name = "truck_desc")
     var truckDesc: String = ""
 )
+
+fun List<Trip>.asDomainModel(): List<Trip> {
+    return map {
+        Trip(
+            tripId = it.tripId,
+            tripName = it.tripName,
+            driverCode = it.driverCode,
+            driverName = it.driverName,
+            truckId = it.truckId,
+            truckCode = it.truckCode,
+            truckDesc = it.truckDesc
+            )
+    }
+}
