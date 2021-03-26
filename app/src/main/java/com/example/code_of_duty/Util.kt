@@ -1,11 +1,10 @@
 package com.example.code_of_duty
 
-import android.content.res.Resources
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import androidx.core.text.HtmlCompat
-import com.example.code_of_duty.database.SavedLocation
+import com.example.code_of_duty.locationDatabase.SavedLocation
 
 fun formatLocations(locations: List<SavedLocation>): Spanned {
     val sb = StringBuilder()

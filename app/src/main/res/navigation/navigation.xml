@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/location_check">
+    app:startDestination="@id/currentTripFragment">
 
     <fragment
         android:id="@+id/location_check"
@@ -11,6 +11,10 @@
         android:label="@string/location_check"
         tools:layout="@layout/location_check">
     </fragment>
+    <fragment
+        android:id="@+id/currentTripFragment"
+        android:name="com.example.code_of_duty.currentTrip.CurrentTripFragment"
+        android:label="CurrentTripFragment" />
 
 
 </navigation>

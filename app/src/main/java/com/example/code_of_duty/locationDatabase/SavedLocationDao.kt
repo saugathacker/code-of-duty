@@ -1,4 +1,4 @@
-package com.example.code_of_duty.database
+package com.example.code_of_duty.locationDatabase
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

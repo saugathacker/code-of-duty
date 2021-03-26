@@ -1,4 +1,4 @@
-package com.example.code_of_duty.database
+package com.example.code_of_duty.locationDatabase
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

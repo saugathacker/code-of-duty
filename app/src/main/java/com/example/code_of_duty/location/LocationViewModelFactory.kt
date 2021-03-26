@@ -3,8 +3,7 @@ package com.example.code_of_duty.location
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.code_of_duty.database.SavedLocationDao
-import javax.sql.DataSource
+import com.example.code_of_duty.locationDatabase.SavedLocationDao
 
 class LocationViewModelFactory(
     private val dataSource: SavedLocationDao,

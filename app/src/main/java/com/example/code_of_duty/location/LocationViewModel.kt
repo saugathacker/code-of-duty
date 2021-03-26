@@ -2,8 +2,8 @@ package com.example.code_of_duty.location
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.code_of_duty.database.SavedLocation
-import com.example.code_of_duty.database.SavedLocationDao
+import com.example.code_of_duty.locationDatabase.SavedLocation
+import com.example.code_of_duty.locationDatabase.SavedLocationDao
 import com.example.code_of_duty.formatLocations
 import kotlinx.coroutines.*
 
