@@ -1,5 +1,6 @@
 package com.example.code_of_duty.network
 
+import com.example.code_of_duty.tripDatabase.Point
 import com.example.code_of_duty.tripDatabase.Trip
 import com.squareup.moshi.Json
 
@@ -85,8 +86,8 @@ data class Waypoint(
     val uOM: String?,
     @Json(name = "Fill")
     val fill: String
-){
-    fun getTrip(): Trip{
+) {
+    fun getTrip(): Trip {
         val newTrip = Trip()
         newTrip.tripId = tripId
         newTrip.tripName = tripName
@@ -95,7 +96,35 @@ data class Waypoint(
         newTrip.truckCode = truckCode
         newTrip.truckDesc = truckDesc
         newTrip.truckId = truckId
-        return  newTrip
+        return newTrip
+    }
+
+    fun getPoint(): Point {
+        return Point(
+            tripId,
+            address1,
+            address2,
+            city,
+            delReqLineNum,
+            delReqNum,
+            destinationCode,
+            destinationName,
+            fill,
+            latitude,
+            longitude,
+            postalCode,
+            productCode,
+            productDesc,
+            productId,
+            requestedQty,
+            seqNum,
+            siteContainerCode,
+            siteContainerDescription,
+            stateAbbrev,
+            uOM,
+            waypointTypeDescription
+        )
+
     }
 }
 

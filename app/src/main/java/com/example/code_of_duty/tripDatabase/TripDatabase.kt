@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.code_of_duty.locationDatabase.SavedLocationDatabase
 
-@Database(entities = [Trip::class], version = 1, exportSchema = false)
+@Database(entities = [Trip::class,Point::class], version = 1, exportSchema = false)
 abstract class TripDatabase: RoomDatabase() {
     abstract val tripDao: TripDao
 
@@ -22,7 +22,7 @@ abstract class TripDatabase: RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         TripDatabase::class.java,
-                        "trip_table"
+                        "trips"
                     )
                         .build()
 

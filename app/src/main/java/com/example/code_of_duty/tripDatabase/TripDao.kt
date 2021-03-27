@@ -21,4 +21,10 @@ interface TripDao {
     @Query("Delete from trip_table")
     fun clearAll()
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllPoints(points: List<Point>)
+
+    @Query("Select * from point_table")
+    fun allPoints(): LiveData<List<Point>>
+
 }
