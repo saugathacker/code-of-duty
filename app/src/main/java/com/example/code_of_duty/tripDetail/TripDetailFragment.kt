@@ -17,7 +17,7 @@ import com.example.code_of_duty.databinding.FragmentCurrentTripBinding
 import com.example.code_of_duty.databinding.FragmentTripDetailBinding
 import com.example.code_of_duty.tripDatabase.TripDatabase
 
-class TripDetail : Fragment() {
+class TripDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentTripDetailBinding
     private lateinit var viewModel: TripDetailViewModel

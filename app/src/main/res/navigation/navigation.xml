@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/tripDetail"
-        android:name="com.example.code_of_duty.tripDetail.TripDetail"
+        android:name="com.example.code_of_duty.tripDetail.TripDetailFragment"
         android:label="TripDetail" >
         <action
             android:id="@+id/action_tripDetail_to_currentTripFragment"
