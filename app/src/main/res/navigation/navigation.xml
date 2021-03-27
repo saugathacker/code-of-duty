@@ -6,15 +6,22 @@
     app:startDestination="@id/currentTripFragment">
 
     <fragment
-        android:id="@+id/location_check"
-        android:name="com.example.code_of_duty.location.Location"
-        android:label="@string/location_check"
-        tools:layout="@layout/location_check">
-    </fragment>
-    <fragment
         android:id="@+id/currentTripFragment"
         android:name="com.example.code_of_duty.currentTrip.CurrentTripFragment"
-        android:label="CurrentTripFragment" />
+        android:label="CurrentTripFragment" >
+        <action
+            android:id="@+id/action_currentTripFragment_to_tripDetail"
+            app:destination="@id/tripDetail"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/tripDetail"
+        android:name="com.example.code_of_duty.tripDetail.TripDetail"
+        android:label="TripDetail" >
+        <action
+            android:id="@+id/action_tripDetail_to_currentTripFragment"
+            app:destination="@id/currentTripFragment" />
+    </fragment>
 
 
 </navigation>

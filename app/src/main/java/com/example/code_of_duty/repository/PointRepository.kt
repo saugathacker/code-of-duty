@@ -7,7 +7,7 @@ import com.example.code_of_duty.tripDatabase.TripDatabase
 
 class PointRepository (private val database: TripDatabase){
 
-    fun getPointByTripId(id: Long): LiveData<List<Point>>{
-        return database.tripDao.getPointByTripId(id)
+    fun getPointsByTripId(): LiveData<List<Point>>{
+        return database.tripDao.getPointsByTripId(159L)
     }
 }

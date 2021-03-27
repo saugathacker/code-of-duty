@@ -1,45 +1,41 @@
 package com.example.code_of_duty.currentTrip
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.code_of_duty.R
+import com.example.code_of_duty.databinding.ListItemCurrentTripBinding
 import com.example.code_of_duty.tripDatabase.Trip
 
-class CurrentTripAdapter : ListAdapter<Trip, CurrentTripAdapter.ViewHolder>(TripDiffCallback()) {
+class CurrentTripAdapter(private val clickListener: TripListener) : ListAdapter<Trip, CurrentTripAdapter.ViewHolder>(TripDiffCallback()) {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
 
-        holder.bind(item)
+
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tripName: TextView = itemView.findViewById(R.id.trip_item)
-        private val driverName: TextView = itemView.findViewById(R.id.driver_name)
+    class ViewHolder private constructor(private val binding: ListItemCurrentTripBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Trip) {
-
-            tripName.text = "Tripname: ${item.tripName} with Trip Id: ${item.tripId} "
-            driverName.text = "Driver Name: ${item.driverName.trim()} with Truck Id: ${item.truckId}"
+        fun bind(item: Trip, clickListener: TripListener) {
+            binding.trip = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater
-                    .inflate(R.layout.list_item_current_trip, parent, false)
-
-                return ViewHolder(view)
+                val binding = ListItemCurrentTripBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
 
@@ -55,4 +51,8 @@ class TripDiffCallback : DiffUtil.ItemCallback<Trip>() {
     override fun areContentsTheSame(oldItem: Trip, newItem: Trip): Boolean {
         return oldItem == newItem
     }
+}
+
+class TripListener(val clickListener: (tripId: Long?) -> Unit) {
+    fun onClick(trip: Trip?) = clickListener(trip?.tripId)
 }
