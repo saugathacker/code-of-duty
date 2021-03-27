@@ -27,4 +27,7 @@ interface TripDao {
     @Query("Select * from point_table")
     fun allPoints(): LiveData<List<Point>>
 
+    @Query("Select * from point_table where tripId = :tId ")
+    fun getPointByTripId(tId: Long): LiveData<List<Point>>
+
 }

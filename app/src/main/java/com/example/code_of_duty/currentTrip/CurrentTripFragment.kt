@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.code_of_duty.R
 import com.example.code_of_duty.databinding.FragmentCurrentTripBinding
@@ -32,6 +33,16 @@ class CurrentTripFragment : Fragment(){
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        val adapter = CurrentTripAdapter()
+
+        binding.tripRecyclerview.adapter = adapter
+
+        viewModel.trips.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
         return binding.root
     }

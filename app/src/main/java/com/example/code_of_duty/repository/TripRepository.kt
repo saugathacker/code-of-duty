@@ -34,7 +34,7 @@ class TripRepository(private val database: TripDatabase) {
            Log.d("OK",pointList.toString())
             database.tripDao.insertAll(tripList)
 
-            //database.tripDao.insertAllPoints(pointList)
+            database.tripDao.insertAllPoints(pointList)
         }
     }
 }
