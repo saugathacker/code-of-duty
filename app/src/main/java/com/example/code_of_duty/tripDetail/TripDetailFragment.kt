@@ -12,7 +12,6 @@ import com.example.code_of_duty.R
 import com.example.code_of_duty.currentTrip.CurrentTripAdapter
 import com.example.code_of_duty.currentTrip.CurrentTripViewModel
 import com.example.code_of_duty.currentTrip.CurrentTripViewModelFactory
-import com.example.code_of_duty.currentTrip.TripListener
 import com.example.code_of_duty.databinding.FragmentCurrentTripBinding
 import com.example.code_of_duty.databinding.FragmentTripDetailBinding
 import com.example.code_of_duty.tripDatabase.TripDatabase

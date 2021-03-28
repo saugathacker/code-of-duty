@@ -5,15 +5,17 @@
 
     <data>
         <variable
-            name="trip"
-            type="com.example.code_of_duty.tripDatabase.Trip" />
+            name="point"
+            type="com.example.code_of_duty.tripDatabase.Point" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="#FF5722">
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginVertical="8dp"
+        android:background="#FF9800">
 
 
         <ImageView
@@ -24,36 +26,50 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_local_shipping"
-            tools:ignore="VectorDrawableCompat"
-            app:tint="@color/white" />
+            app:srcCompat="@drawable/ic_local_gas_station"
+            app:tint="@color/white"
+            tools:ignore="VectorDrawableCompat" />
 
         <TextView
-            android:id="@+id/trip_item"
+            android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:tripName="@{trip}"/>
+            tools:text="Name" />
 
         <TextView
-            android:id="@+id/driver_name"
+            android:id="@+id/address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
             android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="Address" />
+
+        <TextView
+            android:id="@+id/gas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="TextView"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trip_item"
-            tools:text="Driver Name"
-            app:driverName="@{trip}"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/address"
+            tools:text="Gas" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

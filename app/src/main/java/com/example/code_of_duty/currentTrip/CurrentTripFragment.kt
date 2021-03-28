@@ -37,26 +37,28 @@ class CurrentTripFragment : Fragment(){
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val adapter = CurrentTripAdapter(TripListener {
-            viewModel.onTripClicked(it)
-        })
 
+        val adapter = CurrentTripAdapter()
+        val pointAdapter = PointAdapter()
 
 
         binding.tripRecyclerview.adapter = adapter
 
         viewModel.trips.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                adapter.addHeaderAndSubmitList(it)
             }
         })
 
-       viewModel.navigateToTripDetail.observe(viewLifecycleOwner, Observer {trip ->
-            trip?.let {
-                this.findNavController().navigate(R.id.action_currentTripFragment_to_tripDetail)
-                viewModel.onTripDetailNavigated()
+        binding.tripRecyclerview2.adapter = pointAdapter
+
+        viewModel.points.observe(viewLifecycleOwner, Observer {
+            it?.let{
+                pointAdapter.submitList(it)
             }
         })
+
+
 
         return binding.root
     }

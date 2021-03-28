@@ -43,13 +43,6 @@ class CurrentTripViewModel(
 
     val trips = tripRepository.trips
 
-    fun onTripClicked(id: Long?){
-        _navigateToTripDetail.value = id!!
-    }
-
-    fun onTripDetailNavigated(){
-        _navigateToTripDetail.value = 0
-    }
 
 
 
