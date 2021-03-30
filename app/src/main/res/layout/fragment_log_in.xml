@@ -27,7 +27,7 @@
         android:fontFamily="@font/roboto"
         android:text="Welcome!"
         android:textAlignment="center"
-        android:textColor="@color/AIMS_orange"
+        android:textColor="@color/aims_orange"
         android:textSize="25sp" />
 
     <EditText

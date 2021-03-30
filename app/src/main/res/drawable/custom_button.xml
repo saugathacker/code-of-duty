@@ -6,9 +6,9 @@
             <gradient
                 android:angle="90"
                 android:centerX="40%"
-                android:centerColor="@color/AIMS_orange"
-                android:endColor="@color/AIMS_red"
-                android:startColor="@color/AIMS_orange" />
+                android:centerColor="@color/aims_orange"
+                android:endColor="@color/aims_red"
+                android:startColor="@color/aims_dark_red" />
 
             <corners android:radius="15dp" />
         </shape>
