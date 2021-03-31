@@ -1,7 +1,7 @@
-package com.example.aimsapp
+package com.example.aimsapp.views.map
 
 import androidx.lifecycle.ViewModel
 
-class CurrentTripViewModel : ViewModel() {
+class MapViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

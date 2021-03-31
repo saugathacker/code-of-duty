@@ -1,4 +1,4 @@
-package com.example.aimsapp
+package com.example.aimsapp.views.profile
 
 import androidx.lifecycle.ViewModel
 

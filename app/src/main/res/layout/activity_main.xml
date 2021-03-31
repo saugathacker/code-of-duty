@@ -26,24 +26,14 @@
                 </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
-        <androidx.core.widget.NestedScrollView
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <fragment
-                    android:id="@+id/nav_host_fragment"
-                    android:name="androidx.navigation.fragment.NavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:defaultNavHost="true"
-                    app:navGraph="@navigation/nav_graph"
-                    />
-
-        </androidx.core.widget.NestedScrollView>
-
-
-
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph"
+            />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bttm_nav"
@@ -55,8 +45,5 @@
             app:itemTextColor="@color/white"
             android:layout_gravity="bottom"
             />
-
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

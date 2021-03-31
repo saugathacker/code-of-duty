@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/current_trip"
-        android:name="com.example.aimsapp.CurrentTripFragment"
+        android:name="com.example.aimsapp.views.currentTrip.CurrentTripFragment"
         android:label="fragment_current_trips"
         tools:layout="@layout/fragment_current_trips" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.aimsapp.ProfileFragment"
+        android:name="com.example.aimsapp.views.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/map"
-        android:name="com.example.aimsapp.MapFragment"
+        android:name="com.example.aimsapp.views.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action

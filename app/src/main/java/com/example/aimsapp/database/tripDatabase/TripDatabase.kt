@@ -21,7 +21,7 @@ abstract class TripDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         TripDatabase::class.java,
-                        "Trips"
+                        "Trips2"
                     ).build()
 
                     INSTANCE = instance
