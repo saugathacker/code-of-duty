@@ -43,10 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/bottom_nav_menu"
-            android:background="@color/aims_orange"
-            app:itemIconTint="@color/white"
-            app:itemTextColor="@color/white"
             android:layout_gravity="bottom"
+            app:elevation="8dp"
             />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
