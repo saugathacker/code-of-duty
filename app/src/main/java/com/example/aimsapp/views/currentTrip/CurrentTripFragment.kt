@@ -31,9 +31,13 @@ class CurrentTripFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        val adapter = TripAdapter()
+
+        binding.tripRecyclerView.adapter = adapter
+
         viewModel.trips.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding.content.text = it.toString()
+                adapter.submitList(it)
             }
         })
 
