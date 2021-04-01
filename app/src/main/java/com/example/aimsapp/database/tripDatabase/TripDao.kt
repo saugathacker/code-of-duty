@@ -1,5 +1,6 @@
 package com.example.aimsapp.database.tripDatabase
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,7 +16,7 @@ interface TripDao{
     fun insertAllTrips(trips: List<Trip>)
 
     @Query("Select * from trip_table")
-    fun getAllTrips(): List<Trip>
+    fun getAllTrips(): LiveData<List<Trip>>
 
     @Query("Delete from trip_table")
     fun clearAllTrips()
@@ -30,6 +31,6 @@ interface TripDao{
     fun clearAllWayPoints()
 
     @Query("Select * from way_point_table where ownerTripId = :tripId")
-    fun getWayPointsByTripId(tripId: Long)
+    fun getWayPointsByTripId(tripId: Long): LiveData<List<WayPoint>>
 
 }
