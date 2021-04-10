@@ -16,16 +16,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CurrentTripViewModel(
-    dataSource: TripDao,
-    application: Application
-) : AndroidViewModel(application) {
+class CurrentTripViewModel(dataSource: TripDao, application: Application) : AndroidViewModel(application)
+{
 
     private lateinit var tripDatabase: TripDatabase
     private lateinit var repo: TripRepository
     private var viewModelJob = Job()
-
-
 
     init{
         viewModelScope.launch{

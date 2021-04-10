@@ -1,8 +1,11 @@
 package com.example.aimsapp.database.tripDatabase
 
+import android.os.Parcelable
 import androidx.room.*
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "trip_table")
+@Parcelize
 data class Trip(
     @PrimaryKey
     var tripId:Long = 0L,
@@ -16,13 +19,14 @@ data class Trip(
     var trailerCode:String = "",
     var trailerDesc:String = "",
     var tripDate:String = ""
-)
+) : Parcelable
 
 @Entity(tableName = "way_point_table",foreignKeys = [(ForeignKey(entity = Trip::class,
     parentColumns = arrayOf("tripId"),
     childColumns = arrayOf("ownerTripId"),
     onDelete = ForeignKey.CASCADE))],indices = [
     Index("ownerTripId")])
+@Parcelize
 data class WayPoint(
     @PrimaryKey()
     var seqNum: Long = 0,
@@ -47,6 +51,6 @@ data class WayPoint(
     var stateAbbrev: String ="",
     var uOM: String? ="",
     var waypointTypeDescription: String = ""
-)
+) : Parcelable
 
 
