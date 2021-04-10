@@ -106,4 +106,7 @@ dependencies {
 
     //Here Map
     implementation(name:'HERE-sdk', ext:'aar')
+
+    //Google PLay Services Map
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }
