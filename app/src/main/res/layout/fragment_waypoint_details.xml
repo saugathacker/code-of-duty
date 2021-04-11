@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aimsapp.WayPointDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".WayPointDetailsFragment">
+
+        <TextView
+            android:id="@+id/waypointTypeDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectedWayPoint.waypointTypeDescription}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/destinationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectedWayPoint.destinationName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/waypointTypeDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectedWayPoint.address1}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/destinationName"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectedWayPoint.address2}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address1"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/productId_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product ID:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address2"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/productId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.selectedWayPoint.productId)}"
+            app:layout_constraintStart_toEndOf="@id/productId_title"
+            app:layout_constraintTop_toBottomOf="@id/address2"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/productCode_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Code:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productId"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/productCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectedWayPoint.productCode}"
+            app:layout_constraintStart_toEndOf="@id/productCode_title"
+            app:layout_constraintTop_toBottomOf="@id/productId"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/productDesc_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Description:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productCode"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/productDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectedWayPoint.productDesc}"
+            app:layout_constraintStart_toEndOf="@id/productDesc_title"
+            app:layout_constraintTop_toBottomOf="@id/productCode"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/requestedQty_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Requested Quantity:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productDesc"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/requestedQty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.selectedWayPoint.requestedQty)}"
+            app:layout_constraintStart_toEndOf="@id/requestedQty_title"
+            app:layout_constraintTop_toBottomOf="@id/productDesc"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/siteContainerCode_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Site Container Code:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/requestedQty"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/siteContainerCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectedWayPoint.siteContainerCode}"
+            app:layout_constraintStart_toEndOf="@id/siteContainerCode_title"
+            app:layout_constraintTop_toBottomOf="@id/requestedQty"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/siteContainerDescription_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Site Container Description:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/siteContainerCode"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/siteContainerDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectedWayPoint.siteContainerDescription}"
+            app:layout_constraintStart_toEndOf="@id/siteContainerDescription_title"
+            app:layout_constraintTop_toBottomOf="@id/siteContainerCode"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <Button
+            android:id="@+id/forms_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forms"
+            app:layout_constraintBaseline_toBaselineOf="@+id/navigate_button"
+            app:layout_constraintEnd_toStartOf="@id/navigate_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/navigate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Navigate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/forms_button"
+            android:layout_marginBottom="100dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
