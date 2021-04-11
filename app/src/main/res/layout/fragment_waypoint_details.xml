@@ -107,7 +107,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="id" />
 
-                <view
+                <View
                     style="@style/Divider"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -138,7 +138,7 @@
                     app:layout_constraintTop_toBottomOf="@id/productId"
                     tools:text="code" />
 
-                <view
+                <View
                     style="@style/Divider"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -169,7 +169,7 @@
                     app:layout_constraintTop_toBottomOf="@id/productCode"
                     tools:text="Unleaded" />
 
-                <view
+                <View
                     style="@style/Divider"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -200,7 +200,17 @@
                     app:layout_constraintTop_toBottomOf="@id/productDesc"
                     tools:text="10000" />
 
-                <view
+                <TextView
+                    android:id="@+id/unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{viewModel.selectedWayPoint.UOM}"
+                    app:layout_constraintBaseline_toBaselineOf="@id/requestedQty"
+                    app:layout_constraintStart_toEndOf="@+id/requestedQty"
+                    tools:text="GL" />
+
+                <View
                     style="@style/Divider"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -231,7 +241,7 @@
                     app:layout_constraintTop_toBottomOf="@id/requestedQty"
                     tools:text="007" />
 
-                <view
+                <View
                     style="@style/Divider"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
