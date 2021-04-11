@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">AIMS App</string>
-
+    <string name="Upload_bill">Upload Bill</string>
+    <string name="bill_of_lading">Bill Of Lading</string>
+    <string name="amount">Amount</string>
+    <string name="date_and_time">Date And Time</string>
+    <string name="product">Product</string>
+    <string name="source_form">Source Form</string>
+    <string name="destination_form">Destination Form</string>
+    <string name="product_dropped">Product Dropped</string>
+    <string name="drop_date_and_time">Drop Date And Time</string>
+    <string name="readings">Readings</string>
     <string name="hello_blank_fragment">Hello, you are in the Waypoint Details Fragment</string>
 </resources>
