@@ -54,13 +54,19 @@
         <argument
             android:name="selectedTrip"
             app:argType="com.example.aimsapp.database.tripDatabase.Trip" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_current_trip"
+            app:destination="@id/current_trip" />
     </fragment>
     <fragment
         android:id="@+id/wayPointDetailsFragment"
-        android:name="com.example.aimsapp.WayPointDetailsFragment"
+        android:name="com.example.aimsapp.views.waypointDetailFragment.WayPointDetailsFragment"
         android:label="WayPointDetailsFragment" >
         <argument
             android:name="selectedWayPoint"
             app:argType="com.example.aimsapp.database.tripDatabase.WayPoint" />
+        <action
+            android:id="@+id/action_wayPointDetailsFragment_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
     </fragment>
 </navigation>

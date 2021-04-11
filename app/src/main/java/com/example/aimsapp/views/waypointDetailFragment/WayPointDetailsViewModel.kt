@@ -1,4 +1,4 @@
-package com.example.aimsapp
+package com.example.aimsapp.views.waypointDetailFragment
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

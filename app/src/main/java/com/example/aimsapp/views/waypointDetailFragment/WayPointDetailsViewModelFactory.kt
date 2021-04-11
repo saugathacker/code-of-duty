@@ -1,4 +1,4 @@
-package com.example.aimsapp
+package com.example.aimsapp.views.waypointDetailFragment
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -13,7 +13,11 @@ class WayPointDetailsViewModelFactory(private val wayPoint: WayPoint, private va
     {
         if(modelClass.isAssignableFrom(WayPointDetailsViewModel::class.java))
         {
-            return WayPointDetailsViewModel(wayPoint, dataSource, application) as T
+            return WayPointDetailsViewModel(
+                wayPoint,
+                dataSource,
+                application
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

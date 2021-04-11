@@ -47,6 +47,13 @@ class TripDetailFragment : Fragment()
             adapter.submitList(it)
         })
 
+        //Navigating back to the currentTrip list
+        binding.close.setOnClickListener {
+            findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToCurrentTrip())
+        }
+
+
+
         return binding.root
     }
 }
