@@ -216,24 +216,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                    <EditText
-                        android:id="@+id/meter_reading_before"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Meter Reading Before Drop"
-                        android:inputType="numberDecimal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                    <EditText
-                        android:id="@+id/meter_reading_after"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Meter Reading After Drop"
-                        android:inputType="numberDecimal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

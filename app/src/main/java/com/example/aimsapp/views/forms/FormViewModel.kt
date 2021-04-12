@@ -50,4 +50,15 @@ class FormViewModel() : ViewModel(){
         _finalFuelReading.value = 0.0
         _notes.value = ""
     }
+
+    fun setValues(type:String = "", start: String = "", end: String = "", gross:Double =0.0, net:Double = 0.0,initial:Double = 0.0,final:Double = 0.0, notes: String){
+        _productType.value = type
+        _startTimeAndDate.value = start
+        _endTimeAndDate.value = end
+        _grossGallons.value = gross
+        _netGallons.value = net
+        _initialFuelReading.value = initial
+        _finalFuelReading.value = final
+        _notes.value = notes
+    }
 }
