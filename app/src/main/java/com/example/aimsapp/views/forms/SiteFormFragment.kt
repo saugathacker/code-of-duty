@@ -9,11 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aimsapp.R
+import com.example.aimsapp.databinding.FragmentSiteFormBinding
 import com.example.aimsapp.databinding.FragmentSourceFormBinding
 
 class SiteFormFragment : Fragment(){
 
-    private lateinit var binding: FragmentSourceFormBinding
+    private lateinit var binding: FragmentSiteFormBinding
     private lateinit var viewModel: FormViewModel
 
     override fun onCreateView(

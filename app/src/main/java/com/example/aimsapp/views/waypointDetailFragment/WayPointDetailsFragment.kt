@@ -1,5 +1,7 @@
 package com.example.aimsapp.views.waypointDetailFragment
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.aimsapp.R
 import com.example.aimsapp.views.waypointDetailFragment.WayPointDetailsFragmentArgs
 import com.example.aimsapp.database.tripDatabase.TripDatabase
@@ -37,6 +40,24 @@ class WayPointDetailsFragment : Fragment()
         viewModel = ViewModelProvider(this, viewModelFactory).get(WayPointDetailsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        binding.formsButton.setOnClickListener {
+            when(viewModel.selectedWayPoint.value!!.waypointTypeDescription){
+                "Source" -> this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToSourceFormFragment())
+                else -> this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToSiteFormFragment())
+            }
+        }
+
+        binding.navigateButton.setOnClickListener {
+            val alertDialogBuilder =
+                AlertDialog.Builder(requireActivity())
+            alertDialogBuilder.setTitle("Navigation feature is still under development")
+            alertDialogBuilder.setPositiveButton("Cancel"){ dialogInterface: DialogInterface, i: Int ->
+                dialogInterface.dismiss()
+            }
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+        }
 
         return binding.root
     }
