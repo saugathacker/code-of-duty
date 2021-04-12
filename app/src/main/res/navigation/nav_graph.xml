@@ -68,5 +68,27 @@
         <action
             android:id="@+id/action_wayPointDetailsFragment_to_tripDetailFragment"
             app:destination="@id/tripDetailFragment" />
+        <action
+            android:id="@+id/action_wayPointDetailsFragment_to_sourceFormFragment"
+            app:destination="@id/sourceFormFragment" />
+        <action
+            android:id="@+id/action_wayPointDetailsFragment_to_siteFormFragment"
+            app:destination="@id/siteFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/siteFormFragment"
+        android:name="com.example.aimsapp.views.forms.SiteFormFragment"
+        android:label="SiteFormFragment" >
+        <action
+            android:id="@+id/action_siteFormFragment_to_wayPointDetailsFragment"
+            app:destination="@id/wayPointDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sourceFormFragment"
+        android:name="com.example.aimsapp.views.forms.SourceFormFragment"
+        android:label="SourceFormFragment" >
+        <action
+            android:id="@+id/action_sourceFormFragment_to_wayPointDetailsFragment"
+            app:destination="@id/wayPointDetailsFragment" />
     </fragment>
 </navigation>

@@ -4,11 +4,8 @@
 
     <data>
         <variable
-            name="trip"
-            type="com.example.aimsapp.database.tripDatabase.Trip" />
-        <variable
-            name="clickListener"
-            type="com.example.aimsapp.views.currentTrip.TripListener" />
+            name="viewModel"
+            type="com.example.aimsapp.views.forms.FormViewModel" />
 
     </data>
     <LinearLayout
