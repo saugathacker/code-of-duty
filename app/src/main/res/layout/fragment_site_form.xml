@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/destination_form"
-            android:textSize="20sp"
+            android:textSize="24sp"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center"/>
 
         <com.google.android.material.card.MaterialCardView
