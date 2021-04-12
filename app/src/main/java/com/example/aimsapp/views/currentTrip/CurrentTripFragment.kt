@@ -1,6 +1,7 @@
 package com.example.aimsapp.views.currentTrip
 
 import android.app.Activity
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.FrameMetrics
 import android.view.LayoutInflater
@@ -53,6 +54,16 @@ class CurrentTripFragment : Fragment() {
             }
         })
 
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+            binding.swipeRefresh.isRefreshing = false
+        }
+
+        viewModel.showWelcomeText.observe(viewLifecycleOwner, Observer {
+            if(!it){
+                binding.welcomeText.visibility = View.GONE
+            }
+        })
 
         return binding.root
     }
