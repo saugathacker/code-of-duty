@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Trip::class, WayPoint::class], version = 1, exportSchema = false)
+@Database(entities = [Trip::class, WayPoint::class, Form::class], version = 1, exportSchema = false)
 abstract class TripDatabase : RoomDatabase() {
     abstract val dao: TripDao
 
@@ -21,7 +21,7 @@ abstract class TripDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         TripDatabase::class.java,
-                        "Trips2"
+                        "TripsWithForms"
                     ).build()
 
                     INSTANCE = instance

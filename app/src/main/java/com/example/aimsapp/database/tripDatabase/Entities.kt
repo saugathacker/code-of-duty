@@ -1,8 +1,12 @@
 package com.example.aimsapp.database.tripDatabase
 
+import android.os.Parcelable
 import androidx.room.*
+import kotlinx.android.parcel.Parcelize
+import java.sql.Time
 
 @Entity(tableName = "trip_table")
+@Parcelize
 data class Trip(
     @PrimaryKey
     var tripId:Long = 0L,
@@ -16,13 +20,14 @@ data class Trip(
     var trailerCode:String = "",
     var trailerDesc:String = "",
     var tripDate:String = ""
-)
+) : Parcelable
 
 @Entity(tableName = "way_point_table",foreignKeys = [(ForeignKey(entity = Trip::class,
     parentColumns = arrayOf("tripId"),
     childColumns = arrayOf("ownerTripId"),
     onDelete = ForeignKey.CASCADE))],indices = [
     Index("ownerTripId")])
+@Parcelize
 data class WayPoint(
     @PrimaryKey()
     var seqNum: Long = 0,
@@ -47,6 +52,24 @@ data class WayPoint(
     var stateAbbrev: String ="",
     var uOM: String? ="",
     var waypointTypeDescription: String = ""
+) : Parcelable
+
+
+@Entity(tableName = "form_table", foreignKeys = [(ForeignKey(entity = WayPoint::class,
+    parentColumns = [ "seqNum"],
+    childColumns = [ "ownerSeqNum"],
+    onDelete = ForeignKey.CASCADE))],indices = [
+    Index("ownerSeqNum")])
+data class Form(
+    @PrimaryKey(autoGenerate = true)
+    var formId: Long = 0,
+    var productType: String = "",
+    var startDateTime: String = "",
+    var endDateTime: String = "",
+    var grossGallons: Double = 0.0,
+    var netGallons: Double = 0.0,
+    var initialFuelReading: Double = 0.0,
+    var finalFuelReading: Double = 0.0,
+    var notes: String = "",
+    var ownerSeqNum: Long = 0
 )
-
-

@@ -1,6 +1,7 @@
 package com.example.aimsapp.views.currentTrip
 
 import android.app.Activity
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.FrameMetrics
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.Trip
 import com.example.aimsapp.database.tripDatabase.TripDatabase
@@ -27,11 +30,8 @@ class CurrentTripFragment : Fragment() {
     private lateinit var myContext: FragmentActivity
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+    {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_current_trips, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -41,12 +41,10 @@ class CurrentTripFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        val adapter = TripAdapter(TripListener {
+            this.findNavController().navigate(CurrentTripFragmentDirections.actionCurrentTripToTripDetailFragment(it))
 
-        val adapter = TripAdapter( TripListener { tripId ->
-            val dialog = TripDetailFragment()
-            dialog.show(myContext.supportFragmentManager, "Trip Detail dialog")
-//            Toast.makeText(requireContext(), "$tripId", Toast.LENGTH_SHORT).show()
-        } )
+        })
 
         binding.tripRecyclerView.adapter = adapter
 
@@ -56,6 +54,16 @@ class CurrentTripFragment : Fragment() {
             }
         })
 
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+            binding.swipeRefresh.isRefreshing = false
+        }
+
+        viewModel.showWelcomeText.observe(viewLifecycleOwner, Observer {
+            if(!it){
+                binding.welcomeText.visibility = View.GONE
+            }
+        })
 
         return binding.root
     }

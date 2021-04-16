@@ -5,23 +5,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.databinding.ListItemWayPointBinding
 
-class WayPointAdapter : ListAdapter<WayPoint, WayPointAdapter.ViewHolder>(WayPointDiffCallBack()){
+class WayPointAdapter(private val clickListener: WayPointListener) : ListAdapter<WayPoint, WayPointAdapter.ViewHolder>(WayPointDiffCallBack()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WayPointAdapter.ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: WayPointAdapter.ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     class ViewHolder private constructor(private val binding: ListItemWayPointBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: WayPoint){
+        fun bind(item: WayPoint, clickListener: WayPointListener)
+        {
             binding.wayPoint = item
+            binding.clickListener = clickListener
             binding.pointTitle.text = item.destinationName
             val string = "${item.address1.trim()}, ${item.city.trim()}, ${item.stateAbbrev.trim()} ${item.postalCode}"
             binding.pointDetail.text = string
@@ -46,4 +47,9 @@ class WayPointDiffCallBack: DiffUtil.ItemCallback<WayPoint>(){
         return oldItem == newItem
     }
 
+}
+
+class WayPointListener(val clickListener: (wayPoint: WayPoint) -> Unit)
+{
+    fun onClick(wayPoint: WayPoint) = clickListener(wayPoint)
 }

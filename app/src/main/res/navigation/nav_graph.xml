@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_currentTripFragment_to_profileFragment"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_current_trip_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -40,5 +43,52 @@
         <action
             android:id="@+id/action_mapFragment_to_currentTripFragment"
             app:destination="@id/current_trip" />
+    </fragment>
+    <fragment
+        android:id="@+id/tripDetailFragment"
+        android:name="com.example.aimsapp.views.tripDetailFragment.TripDetailFragment"
+        android:label="TripDetailFragment" >
+        <action
+            android:id="@+id/action_tripDetailFragment_to_wayPointDetailsFragment"
+            app:destination="@id/wayPointDetailsFragment" />
+        <argument
+            android:name="selectedTrip"
+            app:argType="com.example.aimsapp.database.tripDatabase.Trip" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_current_trip"
+            app:destination="@id/current_trip" />
+    </fragment>
+    <fragment
+        android:id="@+id/wayPointDetailsFragment"
+        android:name="com.example.aimsapp.views.waypointDetailFragment.WayPointDetailsFragment"
+        android:label="WayPointDetailsFragment" >
+        <argument
+            android:name="selectedWayPoint"
+            app:argType="com.example.aimsapp.database.tripDatabase.WayPoint" />
+        <action
+            android:id="@+id/action_wayPointDetailsFragment_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
+        <action
+            android:id="@+id/action_wayPointDetailsFragment_to_sourceFormFragment"
+            app:destination="@id/sourceFormFragment" />
+        <action
+            android:id="@+id/action_wayPointDetailsFragment_to_siteFormFragment"
+            app:destination="@id/siteFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/siteFormFragment"
+        android:name="com.example.aimsapp.views.forms.SiteFormFragment"
+        android:label="SiteFormFragment" >
+        <action
+            android:id="@+id/action_siteFormFragment_to_wayPointDetailsFragment"
+            app:destination="@id/wayPointDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sourceFormFragment"
+        android:name="com.example.aimsapp.views.forms.SourceFormFragment"
+        android:label="SourceFormFragment" >
+        <action
+            android:id="@+id/action_sourceFormFragment_to_wayPointDetailsFragment"
+            app:destination="@id/wayPointDetailsFragment" />
     </fragment>
 </navigation>

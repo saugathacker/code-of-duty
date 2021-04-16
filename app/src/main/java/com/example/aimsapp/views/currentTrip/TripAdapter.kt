@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aimsapp.database.tripDatabase.Trip
 import com.example.aimsapp.databinding.ListItemTripBinding
 
-class TripAdapter(val clickListener: TripListener) : ListAdapter<Trip, TripAdapter.ViewHolder>(TripDiffCallBack()) {
+class TripAdapter(private val clickListener: TripListener) : ListAdapter<Trip, TripAdapter.ViewHolder>(TripDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripAdapter.ViewHolder {
         return ViewHolder.from(parent)
@@ -22,10 +22,8 @@ class TripAdapter(val clickListener: TripListener) : ListAdapter<Trip, TripAdapt
     class ViewHolder private constructor(private val binding: ListItemTripBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(
-            item: Trip,
-            clickListener: TripListener
-        ) {
+        fun bind(item: Trip, clickListener: TripListener)
+        {
             binding.trip = item
             binding.clickListener = clickListener
             binding.tripTitle.text =
@@ -57,6 +55,7 @@ class TripDiffCallBack : DiffUtil.ItemCallback<Trip>() {
 }
 
 
-class TripListener(val clickListener: (tripId: Long) -> Unit) {
-    fun onClick(trip: Trip) = clickListener(trip.tripId)
+class TripListener(val clickListener: (trip: Trip) -> Unit)
+{
+    fun onClick(trip: Trip) = clickListener(trip)
 }
