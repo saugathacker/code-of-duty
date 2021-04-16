@@ -22,6 +22,7 @@ import com.example.aimsapp.databinding.FragmentMapBinding
 import com.here.android.mpa.common.GeoCoordinate
 import com.here.android.mpa.common.GeoPosition
 import com.here.android.mpa.common.OnEngineInitListener
+import com.here.android.mpa.guidance.AudioPlayerDelegate
 import com.here.android.mpa.guidance.NavigationManager
 import com.here.android.mpa.guidance.NavigationManager.*
 import com.here.android.mpa.guidance.TrafficUpdater
@@ -66,6 +67,11 @@ class MapFragment : Fragment(), LocationListener {
         binding.routeButton.setOnClickListener {
             mapRoute?.let { it1 -> map?.removeMapObject(it1) }
             createRoute()
+        }
+
+        binding.voiceCtrlButton.setOnClickListener {
+            val intent = Intent(requireActivity(), VoiceSkinsActivity::class.java)
+            requireActivity().startActivity(intent)
         }
 
         return binding.root
@@ -177,10 +183,13 @@ class MapFragment : Fragment(), LocationListener {
 
         getLastLocation()?.let { GeoCoordinate(it.latitude, it.longitude) }?.let {
             map?.setCenter(
-                it, Map.Animation.LINEAR
+                it, Map.Animation.BOW
             )
+            mapFragment?.positionIndicator?.isVisible = true
+            map?.setZoomLevel(14.2, Map.Animation.BOW)
+            map?.setTilt(0f, Map.Animation.BOW)
         }
-        map?.setZoomLevel(14.2)
+
     }
 
     private fun createRoute() {
@@ -222,6 +231,12 @@ class MapFragment : Fragment(), LocationListener {
         /* Add both waypoints to the route plan */
         startPoint?.let { routePlan.addWaypoint(it) }
         routePlan.addWaypoint(destination)
+        val alertDialogBuilder =
+            AlertDialog.Builder(requireActivity())
+        alertDialogBuilder.setTitle("Navigation")
+        alertDialogBuilder.setMessage("Calculating Route")
+        alertDialogBuilder.setCancelable(true)
+        val alertDialog = alertDialogBuilder.create()
 
         /* Trigger the route calculation,results will be called back via the listener */
         coreRouter.calculateRoute(
@@ -229,12 +244,15 @@ class MapFragment : Fragment(), LocationListener {
             object : Router.Listener<List<RouteResult>, RoutingError> {
                 override fun onProgress(i: Int) {
                     /* The calculation progress can be retrieved in this callback. */
+                    alertDialog.show()
+
                 }
 
                 override fun onCalculateRouteFinished(
                     routeResults: List<RouteResult>,
                     routingError: RoutingError
                 ) {
+                    alertDialog.dismiss()
                     /* Calculation is done. Let's handle the result */
                     if (routingError == RoutingError.NONE) {
                         route =
@@ -256,7 +274,7 @@ class MapFragment : Fragment(), LocationListener {
                         route.boundingBox?.let {
                             map?.zoomTo(
                                 it,
-                                Map.Animation.NONE,
+                                Map.Animation.BOW,
                                 Map.MOVE_PRESERVE_ORIENTATION
                             )
                         }
@@ -286,7 +304,7 @@ class MapFragment : Fragment(), LocationListener {
                 )
                 if(isAdded){
                     requireActivity().runOnUiThread {
-                        val duration = ttaDownloaded?.duration?.div(120)
+                        val duration = ttaDownloaded?.duration?.div(60)
                         binding.tTA.text = "${duration.toString()} mins"
                     }
                 }
@@ -323,8 +341,8 @@ class MapFragment : Fragment(), LocationListener {
         alertDialogBuilder.setPositiveButton(
             "Simulation"
         ) { dialoginterface, i ->
-            navigationManager.simulate(route, 60) //Simualtion speed is set to 60 m/s
-            map?.setTilt(60f)
+            navigationManager.simulate(route, 500) //Simualtion speed is set to 60 m/s
+            map?.setTilt(70f)
             startForegroundService()
         }
         val alertDialog = alertDialogBuilder.create()
@@ -336,6 +354,17 @@ class MapFragment : Fragment(), LocationListener {
          * found in HERE Mobile SDK for Android (Premium) API doc
          */
         navigationManager.setMapUpdateMode(MapUpdateMode.ROADVIEW)
+        /*
+         * Sets the measuring unit system that is used by voice guidance.
+         * Check VoicePackage.getCustomAttributes() to see whether selected package has needed
+         * unit system.
+         */
+
+        /*
+         * Sets the measuring unit system that is used by voice guidance.
+         * Check VoicePackage.getCustomAttributes() to see whether selected package has needed
+         * unit system.
+         */navigationManager.setDistanceUnit(UnitSystem.IMPERIAL_US)
 
         /*
          * NavigationManager contains a number of listeners which we can use to monitor the
@@ -361,6 +390,10 @@ class MapFragment : Fragment(), LocationListener {
         navigationManager.addPositionListener(
             WeakReference(m_positionListener)
         )
+
+        /* Register a AudioPlayerDelegate to monitor TTS text */
+        navigationManager.getAudioPlayer()
+            .setDelegate(m_audioPlayerDelegate)
     }
 
     private val m_positionListener: NavigationManager.PositionListener =
@@ -373,38 +406,62 @@ class MapFragment : Fragment(), LocationListener {
     private val navigationManagerEventListener: NavigationManagerEventListener =
         object : NavigationManagerEventListener() {
             override fun onRunningStateChanged() {
-//                Toast.makeText(requireActivity(), "Running state changed", Toast.LENGTH_SHORT).show()
+                if (isAdded){
+                    Toast.makeText(requireContext(), "Running state changed", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onNavigationModeChanged() {
-//                Toast.makeText(requireActivity(), "Navigation mode changed", Toast.LENGTH_SHORT).show()
+                if (isAdded){
+                    Toast.makeText(requireContext(), "Navigation mode changed", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onEnded(navigationMode: NavigationManager.NavigationMode) {
-//                Toast.makeText(
-//                    requireActivity(),
-//                    "$navigationMode was ended",
-//                    Toast.LENGTH_SHORT
-//                ).show()
+                if (isAdded){
+                    Toast.makeText(
+                        requireContext(),
+                        "$navigationMode was ended",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                map?.removeMapObject(mapRoute!!)
                 stopForegroundService()
             }
 
             override fun onMapUpdateModeChanged(mapUpdateMode: MapUpdateMode) {
-//                Toast.makeText(
-//                   requireActivity(), "Map update mode is changed to $mapUpdateMode",
-//                    Toast.LENGTH_SHORT
-//                ).show()
+                if (isAdded){
+                    Toast.makeText(
+                        requireContext(), "Map update mode is changed to $mapUpdateMode",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
             }
 
             override fun onRouteUpdated(route: Route) {
-//                Toast.makeText(requireActivity(), "Route updated", Toast.LENGTH_SHORT).show()
+                if (isAdded){
+                    Toast.makeText(requireContext(), "Route updated", Toast.LENGTH_SHORT).show()
+                }
+
             }
 
             override fun onCountryInfo(s: String, s1: String) {
-//                Toast.makeText(
-//                    requireActivity(), "Country info updated from $s to $s1",
-//                    Toast.LENGTH_SHORT
-//                ).show()
+                if (isAdded){
+                    Toast.makeText(
+                        requireContext(), "Country info updated from $s to $s1",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            }
+
+            override fun onDestinationReached() {
+                if (isAdded){
+                    Toast.makeText(requireContext(), "Destination reached", Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
 
@@ -441,6 +498,24 @@ class MapFragment : Fragment(), LocationListener {
             navigationManager.stop()
         }
 
+    }
+
+
+    private val m_audioPlayerDelegate: AudioPlayerDelegate = object : AudioPlayerDelegate {
+        override fun playText(s: String): Boolean {
+            requireActivity().runOnUiThread(Runnable {
+                Toast.makeText(
+                    requireActivity(),
+                    "TTS output: $s",
+                    Toast.LENGTH_SHORT
+                ).show()
+            })
+            return false
+        }
+
+        override fun playFiles(strings: Array<String>): Boolean {
+            return false
+        }
     }
 
 

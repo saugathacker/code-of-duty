@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/myLocation"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_my_location_black"
@@ -52,6 +52,17 @@
             app:layout_constraintBottom_toTopOf="@+id/myLocation"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_map"
+            tools:ignore="VectorDrawableCompat" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/voiceCtrlButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/routeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_notifications"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
