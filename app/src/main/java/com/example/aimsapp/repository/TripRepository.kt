@@ -1,8 +1,6 @@
 package com.example.aimsapp.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.example.aimsapp.database.tripDatabase.Trip
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.database.tripDatabase.WayPoint
@@ -14,7 +12,7 @@ import kotlinx.coroutines.withContext
 class TripRepository(private val database: TripDatabase) {
 
     fun getTrips():LiveData<List<Trip>> = database.dao.getAllTrips()
-    fun getWaPointById():LiveData<List<WayPoint>> = database.dao.getWayPointsByTripId(159)
+    fun getWaPointById(tripId: Long):LiveData<List<WayPoint>> = database.dao.getWayPointsByTripId(tripId)
 
 
     suspend fun refreshTrips() {

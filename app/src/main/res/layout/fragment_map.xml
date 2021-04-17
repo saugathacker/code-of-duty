@@ -32,6 +32,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/tTA"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+            <LinearLayout
+                android:id="@+id/laneInfoLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal" />
+
+        </RelativeLayout>
+
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,18 +59,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_my_location_black"
+            android:foregroundTint="@color/aims_red"
             tools:ignore="VectorDrawableCompat" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/routeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/myLocation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_map"
-            tools:ignore="VectorDrawableCompat" />
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/voiceCtrlButton"
@@ -60,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/routeButton"
+            app:layout_constraintBottom_toTopOf="@+id/myLocation"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_notifications"
             tools:ignore="VectorDrawableCompat" />

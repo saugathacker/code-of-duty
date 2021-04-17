@@ -29,6 +29,10 @@ class CurrentTripFragment : Fragment() {
     private lateinit var viewModel: CurrentTripViewModel
     private lateinit var myContext: FragmentActivity
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -43,7 +47,6 @@ class CurrentTripFragment : Fragment() {
 
         val adapter = TripAdapter(TripListener {
             this.findNavController().navigate(CurrentTripFragmentDirections.actionCurrentTripToTripDetailFragment(it))
-
         })
 
         binding.tripRecyclerView.adapter = adapter

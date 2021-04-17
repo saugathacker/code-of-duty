@@ -1,7 +1,5 @@
 package com.example.aimsapp.views.waypointDetailFragment
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.aimsapp.R
-import com.example.aimsapp.views.waypointDetailFragment.WayPointDetailsFragmentArgs
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.databinding.FragmentWaypointDetailsBinding
 
@@ -49,14 +46,23 @@ class WayPointDetailsFragment : Fragment()
         }
 
         binding.navigateButton.setOnClickListener {
-            val alertDialogBuilder =
-                AlertDialog.Builder(requireActivity())
-            alertDialogBuilder.setTitle("Navigation feature is still under development")
-            alertDialogBuilder.setPositiveButton("Cancel"){ dialogInterface: DialogInterface, i: Int ->
-                dialogInterface.dismiss()
+//            val alertDialogBuilder =
+//                AlertDialog.Builder(requireActivity())
+//            alertDialogBuilder.setTitle("Navigation feature is still under development")
+//            alertDialogBuilder.setPositiveButton("Cancel"){ dialogInterface: DialogInterface, i: Int ->
+//                dialogInterface.dismiss()
+//            }
+//            val alertDialog = alertDialogBuilder.create()
+//            alertDialog.show()
+            viewModel.selectedWayPoint.value?.let { it1 ->
+                WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().latitude =
+                    it1.latitude.toFloat()
+                WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().longitude =
+                    it1.longitude.toFloat()
+                this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().setLatitude(it1.latitude.toFloat()).setLongitude(it1.longitude.toFloat()))
             }
-            val alertDialog = alertDialogBuilder.create()
-            alertDialog.show()
+
+
         }
 
         return binding.root

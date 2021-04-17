@@ -13,7 +13,7 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
     val tripDatabase = getInstance(application)
     val repo = TripRepository(tripDatabase)
 
-    val wayPoints = repo.getWaPointById()
+    val wayPoints = repo.getWaPointById(trip.tripId)
 
     private val _selectedTrip = MutableLiveData<Trip>()
     val selectedTrip: LiveData<Trip>

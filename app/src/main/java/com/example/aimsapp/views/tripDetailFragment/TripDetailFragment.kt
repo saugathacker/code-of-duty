@@ -25,6 +25,11 @@ class TripDetailFragment : Fragment()
     private lateinit var viewModel: TripDetailViewModel
     private lateinit var adapter: WayPointAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trip_detail, container, false)
@@ -39,7 +44,6 @@ class TripDetailFragment : Fragment()
 
         adapter = WayPointAdapter(WayPointListener {
                 this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToWayPointDetailsFragment(it))
-
         })
         binding.wayPointRecyclerView.adapter = adapter
 
