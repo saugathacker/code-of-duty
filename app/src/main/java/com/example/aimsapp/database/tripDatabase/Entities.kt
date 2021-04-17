@@ -11,14 +11,6 @@ data class Trip(
     @PrimaryKey
     var tripId:Long = 0L,
     var tripName: String = "",
-    var driverCode: String = "",
-    var driverName: String = "",
-    var truckId: Long = 0L,
-    var truckCode: String = "",
-    var truckDesc: String = "",
-    var trailerId:Long = 0L,
-    var trailerCode:String = "",
-    var trailerDesc:String = "",
     var tripDate:String = ""
 ) : Parcelable
 
@@ -31,6 +23,7 @@ data class Trip(
 data class WayPoint(
     @PrimaryKey()
     var seqNum: Long = 0,
+    var tripId:Long = 0L,
     var ownerTripId: Long = 0,
     var address1: String = "",
     var address2: String? = "",
@@ -63,6 +56,7 @@ data class WayPoint(
 data class Form(
     @PrimaryKey(autoGenerate = true)
     var formId: Long = 0,
+    var seqNum: Long = 0,
     var productType: String = "",
     var startDateTime: String = "",
     var endDateTime: String = "",
@@ -72,4 +66,35 @@ data class Form(
     var finalFuelReading: Double = 0.0,
     var notes: String = "",
     var ownerSeqNum: Long = 0
+)
+
+@Entity(tableName = "driver_table")
+data class Driver(
+    @PrimaryKey
+    var driverCode: String = "",
+    var driverName: String = ""
+)
+
+@Entity(tableName = "account_table")
+data class Account(
+    @PrimaryKey
+    var accountId: Long = 0,
+    var driverCode: String = ""
+)
+
+@Entity(tableName = "truck_table")
+data class Truck(
+    @PrimaryKey
+    var truckId: Long = 0L,
+    var truckCode: String = "",
+    var truckDesc: String = ""
+
+)
+
+@Entity(tableName = "trailer_table")
+data class Trailer(
+    @PrimaryKey
+    var trailerId:Long = 0L,
+    var trailerCode:String = "",
+    var trailerDesc:String = ""
 )
