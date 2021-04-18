@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/destination_form"
+            android:text="@string/pre_delivery_form"
             android:textSize="24sp"
             android:layout_marginBottom="16dp"
             android:layout_gravity="center"/>
@@ -37,25 +37,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/product_dropped"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="@string/product_dropped"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/product_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Product Type"
-                        android:inputType="text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:hint="@string/product_dropped"
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -83,25 +80,39 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/drop_date_and_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="@string/drop_date_and_time"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
 
-                    <EditText
-                        android:id="@+id/drop_date_time"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/drop_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Drop Date/Time"
-                        android:inputType="datetime"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:hint="@string/drop_date"
+                        app:startIconDrawable="@drawable/ic_calendar"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        >
+
+
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/drop_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/drop_time"
+                        app:startIconDrawable="@drawable/ic_calendar"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        >
+
+
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -130,36 +141,36 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="@string/amount"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/gross_gallons_dropped"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Gross Gallons Dropped"
-                        android:autofillHints="Gross Gallons Dropped"
-                        android:inputType="numberDecimal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:hint="@string/gross_gallons_dropped"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <EditText
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/net_gallons_dropped"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Net Gallons Dropped"
-                        android:inputType="numberDecimal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:hint="@string/net_gallons_dropped"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,36 +197,92 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/readings"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="@string/readings"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
-
-                    <EditText
-                        android:id="@+id/stick_reading_before"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/meter_reading_before"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Stick Reading Before Drop"
-                        android:inputType="numberDecimal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:hint="@string/meter_reading_before"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <EditText
-                        android:id="@+id/stick_reading_after"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/meter_reading_after"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Stick Reading After Drop"
-                        android:inputType="numberDecimal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:hint="@string/meter_reading_after"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/trailer_reading_before"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/trailer_reading_before"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/trailer_reading_after"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/trailer_reading_after"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
