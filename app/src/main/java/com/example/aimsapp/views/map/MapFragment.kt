@@ -20,6 +20,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.FragmentMapBinding
 import com.here.android.mpa.common.*
@@ -37,19 +39,20 @@ import java.lang.ref.WeakReference
 
 class MapFragment : Fragment(), LocationListener {
 
-
     private lateinit var binding: FragmentMapBinding
+    private lateinit var viewModel: MapViewModel
+
     private var mapRoute: MapRoute? = null
     private var map: Map? = null
     private lateinit var route:Route
     private lateinit var requestInfo: TrafficUpdater.RequestInfo
     private var navigationManager: NavigationManager? = null
     private var m_foregroundServiceStarted = false
-
-
     private var mapFragment: AndroidXMapFragment? = null
+
     private var locationManager: LocationManager? = null
     private var lastLocation: Location? = null
+
     private var lat = 0.0
     private var long = 0.0
     private var zoom = 0.0
@@ -79,25 +82,36 @@ class MapFragment : Fragment(), LocationListener {
             requireActivity().startActivity(intent)
         }
 
-
-
+        binding.endNavigation.setOnClickListener {
+            viewModel.navigationEnded()
+            map?.removeMapObject(mapRoute!!)
+            navigationManager?.let {
+                it.stop()
+            }
+            stopForegroundService()
+            it.visibility = View.GONE
+        }
         arr1 = floatArrayOf(MapFragmentArgs.fromBundle(requireArguments()).latitude,MapFragmentArgs.fromBundle(requireArguments()).longitude)
-
-
-
-
 
         return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
         val sharedPreferences = requireContext().getSharedPreferences("shared prefs", Context.MODE_PRIVATE)
 
         lat = sharedPreferences.getFloat("lat", 0.0F).toDouble()
         long = sharedPreferences.getFloat("long", 0.0F).toDouble()
         zoom = sharedPreferences.getFloat("zoom", 0.0F).toDouble()
         orientaion = sharedPreferences.getFloat("orientation", 0.0F)
+
+        if(sharedPreferences.getBoolean("nav",false)){
+            viewModel.navigationStarted()
+        }
+
+        Toast.makeText(requireContext(),"${viewModel.inNavigationMode.toString()}", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -185,6 +199,55 @@ class MapFragment : Fragment(), LocationListener {
                 if(arr1?.get(0) !== 0.0f){
                     createRoute(arr1!!)
                 }
+                if(viewModel.inNavigationMode){
+                    /* Create a MapRoute so that it can be placed on the map */
+
+                        viewModel.route?.let {
+                            route = it
+                            mapRoute = MapRoute(route)
+
+                            /* Show the maneuver number on top of the route */
+                            mapRoute?.isManeuverNumberVisible = true
+
+                            /* Add the MapRoute to the map */
+                            map?.addMapObject(mapRoute!!)
+
+
+                            /* Configure Navigation manager to launch navigation on current map */
+                            navigationManager?.setMap(map)
+
+                            navigationManager?.startNavigation(route)
+                            map?.tilt = 60f
+                            startForegroundService()
+                            /*
+         * Set the map update mode to ROADVIEW.This will enable the automatic map movement based on
+         * the current location.If user gestures are expected during the navigation, it's
+         * recommended to set the map update mode to NONE first. Other supported update mode can be
+         * found in HERE Mobile SDK for Android (Premium) API doc
+         */
+                            navigationManager?.setMapUpdateMode(MapUpdateMode.ROADVIEW)
+
+                            /*
+                             * Sets the measuring unit system that is used by voice guidance.
+                             * Check VoicePackage.getCustomAttributes() to see whether selected package has needed
+                             * unit system.
+                             */navigationManager?.setDistanceUnit(UnitSystem.IMPERIAL_US)
+
+                            /*
+                             * NavigationManager contains a number of listeners which we can use to monitor the
+                             * navigation status and getting relevant instructions.In this example, we will add 2
+                             * listeners for demo purpose,please refer to HERE Android SDK API documentation for details
+                             */
+                            addNavigationListeners()
+                            binding.endNavigation.visibility = View.VISIBLE
+                        }
+
+
+
+
+
+                }
+
 
 
             } else {
@@ -309,11 +372,13 @@ class MapFragment : Fragment(), LocationListener {
                             routeResults[0].route
 
                         /* Create a MapRoute so that it can be placed on the map */
+
                         mapRoute = MapRoute(route)
 
                         /* Show the maneuver number on top of the route */
                         mapRoute?.isManeuverNumberVisible = true
 
+                        map?.removeAllMapObjects()
                         /* Add the MapRoute to the map */
                         map?.addMapObject(mapRoute!!)
 
@@ -329,7 +394,8 @@ class MapFragment : Fragment(), LocationListener {
                             )
                         }
 
-                        calculateTrafficTTA()
+                        viewModel.route = route
+
                         startNavigation()
 
                     } else {
@@ -343,24 +409,6 @@ class MapFragment : Fragment(), LocationListener {
             })
     }
 
-    private fun calculateTrafficTTA() {
-        /* Turn on traffic updates */
-        TrafficUpdater.getInstance().enableUpdate(true)
-
-        requestInfo = TrafficUpdater.getInstance().request(
-            route, TrafficUpdater.Listener {
-                val ttaDownloaded: RouteTta? = route.getTtaUsingDownloadedTraffic(
-                    Route.WHOLE_ROUTE
-                )
-                if(isAdded){
-                    requireActivity().runOnUiThread {
-                        val duration = ttaDownloaded?.duration?.div(60)
-                        binding.tTA.text = "${duration.toString()} mins"
-                    }
-                }
-
-            })
-    }
 
     private fun startNavigation() {
 
@@ -375,6 +423,8 @@ class MapFragment : Fragment(), LocationListener {
          * suitable for walking. Simulation and tracking modes can also be launched at this moment
          * by calling either simulate() or startTracking()
          */
+        viewModel.navigationStarted()
+
 
         /* Choose navigation modes between real time navigation and simulation */
         val alertDialogBuilder =
@@ -405,11 +455,6 @@ class MapFragment : Fragment(), LocationListener {
          * found in HERE Mobile SDK for Android (Premium) API doc
          */
         navigationManager?.setMapUpdateMode(MapUpdateMode.ROADVIEW)
-        /*
-         * Sets the measuring unit system that is used by voice guidance.
-         * Check VoicePackage.getCustomAttributes() to see whether selected package has needed
-         * unit system.
-         */
 
         /*
          * Sets the measuring unit system that is used by voice guidance.
@@ -423,6 +468,7 @@ class MapFragment : Fragment(), LocationListener {
          * listeners for demo purpose,please refer to HERE Android SDK API documentation for details
          */
         addNavigationListeners()
+        binding.endNavigation.visibility = View.VISIBLE
     }
 
     private fun addNavigationListeners() {
@@ -479,8 +525,10 @@ class MapFragment : Fragment(), LocationListener {
                     ).show()
                 }
 
+                viewModel.navigationEnded()
                 map?.removeMapObject(mapRoute!!)
                 stopForegroundService()
+                binding.endNavigation.visibility = View.GONE
             }
 
             override fun onMapUpdateModeChanged(mapUpdateMode: MapUpdateMode) {
@@ -518,6 +566,8 @@ class MapFragment : Fragment(), LocationListener {
                 }
                 map?.removeMapObject(mapRoute!!)
                 stopForegroundService()
+                viewModel.navigationEnded()
+                binding.endNavigation.visibility = View.GONE
 
             }
         }
@@ -562,6 +612,7 @@ class MapFragment : Fragment(), LocationListener {
             map?.center?.longitude?.toFloat()?.let { putFloat("long", it) }
             map?.zoomLevel?.toFloat()?.let { putFloat("zoom", it) }
             map?.orientation?.let { putFloat("orientation", it) }
+            putBoolean("nav",viewModel.inNavigationMode)
         }.apply()
     }
 
@@ -581,4 +632,5 @@ class MapFragment : Fragment(), LocationListener {
             return false
         }
     }
+
 }
