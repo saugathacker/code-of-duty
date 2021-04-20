@@ -26,4 +26,5 @@
     <string name="meter_reading_after">Meter Reading After</string>
     <string name="trailer_reading_before">Trailer Meter Reading</string>
     <string name="trailer_reading_after">Trailer Reading After</string>
+    <string name="notes">Notes</string>
 </resources>
