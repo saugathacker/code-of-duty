@@ -27,7 +27,7 @@ class TripAdapter(private val clickListener: TripListener) : ListAdapter<Trip, T
             binding.trip = item
             binding.clickListener = clickListener
             binding.tripTitle.text =
-                "Trip Name: ${item.tripName} Trip Id: ${item.tripId}"
+                "Trip Name: ${item.tripName} \nTrip Id: ${item.tripId}"
             binding.driverDetail.text = "Driver Name: ${item.driverName} Truck Id: ${item.truckId}"
         }
 
