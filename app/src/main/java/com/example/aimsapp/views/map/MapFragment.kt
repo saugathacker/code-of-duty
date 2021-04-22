@@ -110,7 +110,7 @@ class MapFragment : Fragment(), LocationListener {
             viewModel.navigationStarted()
         }
 
-        Toast.makeText(requireContext(),"${viewModel.inNavigationMode.toString()}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(),"${viewModel.inNavigationMode}", Toast.LENGTH_SHORT).show()
 
     }
 
@@ -171,7 +171,7 @@ class MapFragment : Fragment(), LocationListener {
         mapFragment!!.init(OnEngineInitListener { error ->
             if (error == OnEngineInitListener.Error.NONE) {
                 binding.textView3.visibility = View.GONE
-                map = mapFragment!!.getMap()
+                map = mapFragment!!.map
                 mapFragment?.positionIndicator?.isVisible = true
 
 //                map?.setCenter(
@@ -183,14 +183,14 @@ class MapFragment : Fragment(), LocationListener {
                         map?.setCenter(
                             it, Map.Animation.NONE
                         )
-                        map?.setZoomLevel(14.1)
+                        map?.zoomLevel = 14.1
                         map?.setOrientation(0.0f)
                     }
                 }
                 else{
                     map?.setCenter(GeoCoordinate(lat,long), Map.Animation.NONE)
-                    map?.setZoomLevel(zoom)
-                    map?.setOrientation(orientaion)
+                    map?.zoomLevel = zoom
+                    map?.orientation = orientaion
                 }
 
 
@@ -225,13 +225,13 @@ class MapFragment : Fragment(), LocationListener {
          * recommended to set the map update mode to NONE first. Other supported update mode can be
          * found in HERE Mobile SDK for Android (Premium) API doc
          */
-                            navigationManager?.setMapUpdateMode(MapUpdateMode.ROADVIEW)
+                            navigationManager?.mapUpdateMode = MapUpdateMode.ROADVIEW
 
                             /*
                              * Sets the measuring unit system that is used by voice guidance.
                              * Check VoicePackage.getCustomAttributes() to see whether selected package has needed
                              * unit system.
-                             */navigationManager?.setDistanceUnit(UnitSystem.IMPERIAL_US)
+                             */navigationManager?.distanceUnit = UnitSystem.IMPERIAL_US
 
                             /*
                              * NavigationManager contains a number of listeners which we can use to monitor the
@@ -251,7 +251,7 @@ class MapFragment : Fragment(), LocationListener {
 
 
             } else {
-                Toast.makeText(requireContext(), "${error.toString()}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -443,7 +443,7 @@ class MapFragment : Fragment(), LocationListener {
             "Simulation"
         ) { dialoginterface, i ->
             navigationManager?.simulate(route, 100) //Simualtion speed is set to 60 m/s
-            map?.setTilt(70f)
+            map?.tilt = 70f
             startForegroundService()
         }
         val alertDialog = alertDialogBuilder.create()
@@ -454,13 +454,13 @@ class MapFragment : Fragment(), LocationListener {
          * recommended to set the map update mode to NONE first. Other supported update mode can be
          * found in HERE Mobile SDK for Android (Premium) API doc
          */
-        navigationManager?.setMapUpdateMode(MapUpdateMode.ROADVIEW)
+        navigationManager?.mapUpdateMode = MapUpdateMode.ROADVIEW
 
         /*
          * Sets the measuring unit system that is used by voice guidance.
          * Check VoicePackage.getCustomAttributes() to see whether selected package has needed
          * unit system.
-         */navigationManager?.setDistanceUnit(UnitSystem.IMPERIAL_US)
+         */navigationManager?.distanceUnit = UnitSystem.IMPERIAL_US
 
         /*
          * NavigationManager contains a number of listeners which we can use to monitor the
@@ -490,7 +490,7 @@ class MapFragment : Fragment(), LocationListener {
         )
 
         /* Register a AudioPlayerDelegate to monitor TTS text */
-        navigationManager?.getAudioPlayer()
+        navigationManager?.audioPlayer
             ?.setDelegate(m_audioPlayerDelegate)
     }
 
@@ -584,7 +584,7 @@ class MapFragment : Fragment(), LocationListener {
             m_foregroundServiceStarted = true
             val startIntent = Intent(requireActivity(), ForegroundService::class.java)
             startIntent.action = ForegroundService.START_ACTION
-            requireActivity().getApplicationContext().startService(startIntent)
+            requireActivity().applicationContext.startService(startIntent)
         }
     }
 
@@ -593,7 +593,7 @@ class MapFragment : Fragment(), LocationListener {
             m_foregroundServiceStarted = false
             val stopIntent = Intent(requireActivity(), ForegroundService::class.java)
             stopIntent.action = ForegroundService.STOP_ACTION
-            requireActivity().getApplicationContext().startService(stopIntent)
+            requireActivity().applicationContext.startService(stopIntent)
         }
     }
 

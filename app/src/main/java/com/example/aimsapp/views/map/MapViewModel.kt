@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.here.android.mpa.routing.Route
 
-class MapViewModel() : ViewModel() {
+class MapViewModel : ViewModel() {
 
 
     var route: Route? = null
