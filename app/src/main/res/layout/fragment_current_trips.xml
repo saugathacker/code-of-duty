@@ -44,7 +44,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/list_item_trip"
-                tools:itemCount="1"/>
+                tools:itemCount="3"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
