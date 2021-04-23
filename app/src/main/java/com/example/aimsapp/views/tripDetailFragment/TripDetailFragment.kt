@@ -56,7 +56,21 @@ class TripDetailFragment : Fragment()
             findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToCurrentTrip())
         }
 
-
+        if (trip.started){
+            binding.startTrip.text = "Resume Trip"
+            binding.startTrip.setOnClickListener {
+                viewModel.completedTrip()
+            }
+            if(trip.completed){
+                binding.startTrip.text = "Trip Completed"
+                binding.startTrip.isEnabled = false
+            }
+        }
+        else{
+            binding.startTrip.setOnClickListener {
+                viewModel.startTrip()
+            }
+        }
 
         return binding.root
     }

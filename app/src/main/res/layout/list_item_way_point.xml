@@ -38,8 +38,7 @@
                 android:src="@drawable/ic_local_gas_station"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/LogoPrimary"
-                />
+                app:tint="@color/material_on_surface_emphasis_high_type" />
 
             <TextView
                 android:id="@+id/pointTitle"
@@ -84,7 +83,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_oil_source"
-                    style="@style/LogoPrimary"/>
+                    app:tint="@color/material_on_surface_emphasis_high_type"/>
 
                 <TextView
                     android:id="@+id/typeTitle"

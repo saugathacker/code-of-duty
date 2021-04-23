@@ -19,7 +19,9 @@ data class Trip(
     var trailerId:Long = 0L,
     var trailerCode:String = "",
     var trailerDesc:String = "",
-    var tripDate:String = ""
+    var tripDate:String = "",
+    var completed: Boolean = false,
+    var started: Boolean = false
 ) : Parcelable
 
 @Entity(tableName = "way_point_table",foreignKeys = [(ForeignKey(entity = Trip::class,
@@ -51,7 +53,9 @@ data class WayPoint(
     var siteContainerDescription: String? = "",
     var stateAbbrev: String ="",
     var uOM: String? ="",
-    var waypointTypeDescription: String = ""
+    var waypointTypeDescription: String = "",
+    var completed: Boolean = false,
+    var started: Boolean = false
 ) : Parcelable
 
 

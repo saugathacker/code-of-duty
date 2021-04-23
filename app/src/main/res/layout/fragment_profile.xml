@@ -21,7 +21,7 @@
                 android:layout_height="150dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_local_gas_station"
+                android:src="@drawable/ic_profile"
                 app:civ_shadow="true"
                 app:civ_shadow_radius="8dp"
                 app:layout_constraintStart_toStartOf="parent"

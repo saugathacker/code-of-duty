@@ -96,6 +96,8 @@ data class Trips(
         newTrip.truckCode = truckCode
         newTrip.truckDesc = truckDesc
         newTrip.truckId = truckId
+        newTrip.completed = false
+        newTrip.started = false
         return newTrip
     }
 
@@ -123,6 +125,8 @@ data class Trips(
         newWayPoint.stateAbbrev = stateAbbrev
         newWayPoint.uOM = uOM
         newWayPoint.waypointTypeDescription = waypointTypeDescription
+        newWayPoint.completed = false
+        newWayPoint.started = false
         return newWayPoint
     }
 }
