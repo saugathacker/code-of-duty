@@ -61,6 +61,10 @@ class TripDetailFragment : Fragment()
             binding.startTrip.setOnClickListener {
                 val point = viewModel.getNextWayPoint()
                 if (point != null) {
+                    if(!point.started){
+                        point.started = true
+                        viewModel.updatePoint(point)
+                    }
                     this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()))
                 }
             }

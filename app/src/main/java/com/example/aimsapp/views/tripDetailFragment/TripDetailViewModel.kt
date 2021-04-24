@@ -37,6 +37,11 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
     fun startTrip(){
         _selectedTrip.value?.started = true
         _selectedTrip.value?.let { updateTrip(it) }
+        val point = getNextWayPoint()
+        if (point != null) {
+            point.started = true
+            updatePoint(point)
+        }
     }
 
     fun completedTrip(){

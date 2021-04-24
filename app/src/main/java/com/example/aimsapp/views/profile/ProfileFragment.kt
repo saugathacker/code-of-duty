@@ -41,7 +41,7 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "Settings has not been implemented", Toast.LENGTH_SHORT).show()
         }
         binding.helpCard.setOnClickListener {
-            Toast.makeText(requireContext(), "Help has not been implemented", Toast.LENGTH_SHORT).show()
+            showHelp()
         }
         binding.aboutCard.setOnClickListener {
             showAbout()
@@ -49,6 +49,17 @@ class ProfileFragment : Fragment() {
         binding.logoutCard.setOnClickListener {
             Toast.makeText(requireContext(), "Logout has not been implemented", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showHelp() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_help)
+        dialog.setCancelable(true)
+        dialog.findViewById<MaterialButton>(R.id.done).setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun showAbout() {

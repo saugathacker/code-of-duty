@@ -10,7 +10,7 @@ interface TripDao{
     @Insert
     fun insertTrip(trip: Trip)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllTrips(trips: List<Trip>)
 
     @Query("Select * from trip_table")
