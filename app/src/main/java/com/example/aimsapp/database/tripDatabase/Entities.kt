@@ -5,6 +5,10 @@ import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 import java.sql.Time
 
+/**
+ * Trip table with primary key tripID and fields tripName, driverCode, driverName, truckId,
+ * truckCode, truckDesc, trailerId, trailerCode, trailerDesc, tripleDate, completed, started.
+ */
 @Entity(tableName = "trip_table")
 @Parcelize
 data class Trip(
@@ -24,6 +28,10 @@ data class Trip(
     var started: Boolean = false
 ) : Parcelable
 
+/**
+ * WayPoint table with tripId as foreign key which references ownerTripId
+ * The primary key for WayPoint Table is seqNum
+ */
 @Entity(tableName = "way_point_table",foreignKeys = [(ForeignKey(entity = Trip::class,
     parentColumns = arrayOf("tripId"),
     childColumns = arrayOf("ownerTripId"),
@@ -58,7 +66,10 @@ data class WayPoint(
     var started: Boolean = false
 ) : Parcelable
 
-
+/**
+ * From table with primary key formId and a number of fields
+ * The foreign key for Form table is seqNum.
+ */
 @Entity(tableName = "form_table", foreignKeys = [(ForeignKey(entity = WayPoint::class,
     parentColumns = [ "seqNum"],
     childColumns = [ "ownerSeqNum"],
