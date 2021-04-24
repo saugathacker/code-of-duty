@@ -35,7 +35,7 @@ class CurrentTripViewModel(dataSource: TripDao, application: Application) : Andr
     }
 
     val trips = repo.getTrips()
-    val points = repo.getWaPointById()
+
 
 
 }
