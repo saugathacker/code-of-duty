@@ -22,9 +22,12 @@
     <string name="gross_gallons_dropped">Gross Gallons Dropped</string>
     <string name="net_gallons">Net Gallons</string>
     <string name="net_gallons_dropped">Net Gallons Dropped</string>
-    <string name="meter_reading_before">Meter Reading Before</string>
-    <string name="meter_reading_after">Meter Reading After</string>
-    <string name="trailer_reading_before">Trailer Meter Reading</string>
-    <string name="trailer_reading_after">Trailer Reading After</string>
+    <string name="initial_meter_reading">Initial Meter Reading</string>
+    <string name="final_meter_reading">Final Meter Reading </string>
+    <string name="initial_trailer_reading">Initial Trailer Reading</string>
+    <string name="final_trailer_reading">Final Trailer Reading </string>
     <string name="notes">Notes</string>
+    <string name="agreement">I agree to the terms</string>
+    <string name="clear_pad">Clear</string>
+    <string name="save_signature">Save</string>
 </resources>

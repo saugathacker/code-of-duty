@@ -27,9 +27,9 @@ class SiteFormFragment : Fragment(){
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        binding.Submit.setOnClickListener {
-            submitHandler()
-        }
+     //   binding.submitButton.setOnClickListener {
+    //        submitHandler()
+      //  }
 
         return binding.root
     }
@@ -42,14 +42,14 @@ class SiteFormFragment : Fragment(){
             alertDialogBuilder.setTitle("Please fill out the form before submitting")
         }
         else{
-            viewModel.setValues(binding.productType.toString(),
-                binding.dropDate.toString(),
-                binding.dropTime.toString(),
-                binding.grossGallonsDropped.toString().toDouble(),
-                binding.netGallonsDropped.toString().toDouble(),
-                binding.meterReadingBefore.toString().toDouble(),
-                binding.meterReadingAfter.toString().toDouble(),
-                "")
+         //   viewModel.setValues(binding.productDropped.toString(),
+         //       binding.dropDate.toString(),
+          //      binding.dropTime.toString())
+         //       binding.grossGallonsDropped.toString().toDouble(),
+          //      binding.netGallonsDropped.toString().toDouble(),
+          //      binding.initialMeterReading.toString().toDouble(),
+         //     binding.finalMeterReading.toString().toDouble(),
+           //     "")
             alertDialogBuilder.setTitle("Form Sent to Dispatcher")
             alertDialogBuilder.setMessage("Product Type: ${viewModel.productType.value} \nStart Date: ${viewModel.startDate.value} \nStart Time:${viewModel.startTime.value} \n" +
                     "End Date:${viewModel.endDate.value}\n" +
@@ -65,9 +65,11 @@ class SiteFormFragment : Fragment(){
     }
 
     private fun formIsEmpty(): Boolean{
-        if (binding.productType.toString() == "" || binding.dropDate.toString() == ""
-            || binding.grossGallonsDropped.toString() == "" || binding.netGallonsDropped.toString() == ""
-            || binding.meterReadingBefore.toString() == "" || binding.meterReadingAfter.toString() == ""){
+        if (binding.productDropped.toString() == "" || binding.dropDate.toString() == ""
+   //         || binding.grossGallonsDropped.toString() == "" || binding.netGallonsDropped.toString() == ""
+    //       || binding.initialMeterReading.toString() == "" || binding.finalMeterReading.toString() == ""
+                  )
+           {
             return true
         }
         return false

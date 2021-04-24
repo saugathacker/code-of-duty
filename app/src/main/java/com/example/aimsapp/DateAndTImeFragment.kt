@@ -8,7 +8,6 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.fragment_source_form.*
-import kotlinx.android.synthetic.main.fragment_source_form2.*
 import java.util.*
 
 class DatePickerFragment(contentLayoutId: Int) : AppCompatActivity(contentLayoutId), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
@@ -24,7 +23,6 @@ class DatePickerFragment(contentLayoutId: Int) : AppCompatActivity(contentLayout
     var savedMinute=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_source_form2)
         setContentView(R.layout.fragment_delivered_form)
 
         pickDate()
