@@ -59,7 +59,10 @@ class TripDetailFragment : Fragment()
         if (trip.started){
             binding.startTrip.text = "Resume Trip"
             binding.startTrip.setOnClickListener {
-                viewModel.completedTrip()
+                val point = viewModel.getNextWayPoint()
+                if (point != null) {
+                    this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()))
+                }
             }
             if(trip.completed){
                 binding.startTrip.text = "Trip Completed"
@@ -69,6 +72,10 @@ class TripDetailFragment : Fragment()
         else{
             binding.startTrip.setOnClickListener {
                 viewModel.startTrip()
+                val point = viewModel.getNextWayPoint()
+                if (point != null) {
+                    this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()))
+                }
             }
         }
 

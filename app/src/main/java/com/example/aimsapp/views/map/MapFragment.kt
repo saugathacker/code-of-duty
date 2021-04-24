@@ -24,6 +24,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.FragmentMapBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.here.android.mpa.common.*
 import com.here.android.mpa.guidance.AudioPlayerDelegate
 import com.here.android.mpa.guidance.LaneInformation
@@ -90,6 +91,23 @@ class MapFragment : Fragment(), LocationListener {
             }
             stopForegroundService()
             it.visibility = View.GONE
+            val alertDialogBuilder =
+                AlertDialog.Builder(requireActivity())
+            alertDialogBuilder.setTitle("End Navigation")
+            alertDialogBuilder.setMessage("Have you reached your destination?")
+            alertDialogBuilder.setNegativeButton(
+                "No"
+            ) { dialoginterface, i ->
+
+            }
+            alertDialogBuilder.setPositiveButton(
+                "Yes"
+            ) { dialoginterface, i ->
+
+            }
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+
         }
         arr1 = floatArrayOf(MapFragmentArgs.fromBundle(requireArguments()).latitude,MapFragmentArgs.fromBundle(requireArguments()).longitude)
 

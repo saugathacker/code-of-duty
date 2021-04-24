@@ -7,4 +7,5 @@
     <color name="aims_yellow">#ffba00</color>
     <color name="aims_dark_red">#ba2c31</color>
     <color name="grey_80">#121212</color>
+    <color name="grey_light">#696969</color>
 </resources>

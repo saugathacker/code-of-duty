@@ -43,4 +43,13 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
         _selectedTrip.value?.completed = true
         _selectedTrip.value?.let { updateTrip(it) }
     }
+
+    fun getNextWayPoint(): WayPoint? {
+        for (point in wayPoints.value!!){
+            if(!point.completed){
+                return point
+            }
+        }
+        return null
+    }
 }
