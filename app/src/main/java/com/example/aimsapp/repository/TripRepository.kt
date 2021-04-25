@@ -9,6 +9,9 @@ import com.example.aimsapp.network.Trips
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * TripRepository to get data from database
+ */
 class TripRepository(private val database: TripDatabase) {
 
     fun getTrips():LiveData<List<Trip>> = database.dao.getAllTrips()
@@ -17,7 +20,9 @@ class TripRepository(private val database: TripDatabase) {
     suspend fun updateTrip(trip: Trip) = database.dao.updateTrip(trip)
     suspend fun updatePoint(point: WayPoint) = database.dao.updatePoint(point)
 
-
+    /**
+     * Refreshes trips and waypoints in app
+     */
     suspend fun refreshTrips() {
         withContext(Dispatchers.IO) {
             val response = TripApi.retrofitService.getProperties().await()
