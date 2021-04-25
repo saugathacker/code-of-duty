@@ -14,6 +14,9 @@ class TripRepository(private val database: TripDatabase) {
     fun getTrips():LiveData<List<Trip>> = database.dao.getAllTrips()
     fun getWaPointById(tripId: Long):LiveData<List<WayPoint>> = database.dao.getWayPointsByTripId(tripId)
 
+    suspend fun updateTrip(trip: Trip) = database.dao.updateTrip(trip)
+    suspend fun updatePoint(point: WayPoint) = database.dao.updatePoint(point)
+
 
     suspend fun refreshTrips() {
         withContext(Dispatchers.IO) {

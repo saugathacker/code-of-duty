@@ -57,10 +57,6 @@ class ForegroundService : Service() {
         notificationManager.createNotificationChannel(channel)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     override fun onBind(intent: Intent): IBinder? {
         // Used only in case of bound services.
         return null

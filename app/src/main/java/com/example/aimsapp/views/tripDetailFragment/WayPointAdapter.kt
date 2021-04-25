@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.databinding.ListItemWayPointBinding
 
@@ -26,6 +27,10 @@ class WayPointAdapter(private val clickListener: WayPointListener) : ListAdapter
             binding.pointTitle.text = item.destinationName
             val string = "${item.address1.trim()}, ${item.city.trim()}, ${item.stateAbbrev.trim()} ${item.postalCode}"
             binding.pointDetail.text = string
+            if (!item.waypointTypeDescription.equals("Source")){
+                binding.typeIcon.setImageResource(R.drawable.ic_gas_site)
+                binding.typeTitle.text = item.waypointTypeDescription.subSequence(0,4)
+            }
         }
 
         companion object{

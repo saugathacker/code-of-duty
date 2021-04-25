@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_tripDetailFragment_to_current_trip"
             app:destination="@id/current_trip" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_map"
+            app:destination="@id/map" />
     </fragment>
     <fragment
         android:id="@+id/wayPointDetailsFragment"

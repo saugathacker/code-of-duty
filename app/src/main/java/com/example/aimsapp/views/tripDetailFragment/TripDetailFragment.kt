@@ -56,7 +56,32 @@ class TripDetailFragment : Fragment()
             findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToCurrentTrip())
         }
 
-
+        if (trip.started){
+            binding.startTrip.text = "Resume Trip"
+            binding.startTrip.setOnClickListener {
+                val point = viewModel.getNextWayPoint()
+                if (point != null) {
+                    if(!point.started){
+                        point.started = true
+                        viewModel.updatePoint(point)
+                    }
+                    this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()))
+                }
+            }
+            if(trip.completed){
+                binding.startTrip.text = "Trip Completed"
+                binding.startTrip.isEnabled = false
+            }
+        }
+        else{
+            binding.startTrip.setOnClickListener {
+                viewModel.startTrip()
+                val point = viewModel.getNextWayPoint()
+                if (point != null) {
+                    this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()))
+                }
+            }
+        }
 
         return binding.root
     }

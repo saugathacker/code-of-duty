@@ -27,7 +27,7 @@ class VoicePackagesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_voice_packages)
-        setTitle("Voice Packages")
+        title = "Voice Packages"
         m_progressBar = findViewById(R.id.progressBar)
         m_packagesView = findViewById(R.id.voicePackagesView)
         downloadVoiceCatalog()
