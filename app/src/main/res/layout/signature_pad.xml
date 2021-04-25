@@ -1,76 +1,50 @@
+
 <layout xmlns:tools="http://schemas.android.com/tools"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-<data>
-    <variable
-        name="viewModel"
-        type="com.example.aimsapp.views.forms.FormViewModel" />
-</data>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.forms.SignaturePad">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aimsapp.views.forms.FormViewModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.signaturecapture.MainActivity"
+        >
 
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/buttons_container"
-        android:id="@+id/signature_pad_container">
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginBottom="8dp"
-            android:layout_above="@+id/signature_agreement" />
-
-        <TextView
-            android:id="@+id/signature_agreement"
-            android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="16dp"
-            android:layout_alignParentBottom="true"
-            android:text="@string/agreement" />
 
         <com.github.gcacace.signaturepad.views.SignaturePad
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:bind="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/signature_pad"
+            android:id="@+id/signaturePad"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            bind:onStartSigning="@{activity.onStartSigning}"
-            bind:onSigned="@{activity.onSigned}"
-            bind:onClear="@{activity.onClear}" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"/>
 
-    <LinearLayout
-        android:id="@+id/buttons_container"
-        android:paddingTop="16dp"
-        android:layout_width="fill_parent"
+        <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/clear_pad"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/clear_pad"
-            android:enabled="false" />
+            android:id="@+id/saveButton"
+            android:text="Save"
+            android:layout_weight="1"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/save_signature"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save_signature"
-            android:enabled="false" />
+            android:id="@+id/clearButton"
+            android:text="Clear"
+            android:layout_weight="1"/>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
+
 </layout>

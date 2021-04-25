@@ -92,5 +92,12 @@
         <action
             android:id="@+id/action_sourceFormFragment_to_wayPointDetailsFragment"
             app:destination="@id/wayPointDetailsFragment" />
+        <action
+            android:id="@+id/action_sourceFormFragment_to_signatureFragment"
+            app:destination="@id/signatureFragment" />
     </fragment>
+    <activity
+        android:id="@+id/signatureFragment"
+        android:name="com.example.aimsapp.views.forms.SignatureFragment"
+        android:label="SignatureFragment" />
 </navigation>

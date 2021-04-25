@@ -15,8 +15,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.FragmentSourceFormBinding
+import com.example.aimsapp.databinding.SignaturePadBinding
 import kotlinx.android.synthetic.main.fragment_source_form.*
 
 class SourceFormFragment: Fragment() {
@@ -40,12 +42,16 @@ class SourceFormFragment: Fragment() {
             submitHandler()
         }
 
+
         binding.uploadButton.setOnClickListener {
             CAMERA_REQUEST_CODE = 200
             checkPermissionAndOpenCamera(CAMERA_REQUEST_CODE)
 
         }
 
+        binding.signatureButton.setOnClickListener {
+            findNavController().navigate(SourceFormFragmentDirections.actionSourceFormFragmentToSignatureFragment())
+        }
         return binding.root
     }
 
