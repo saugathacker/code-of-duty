@@ -40,7 +40,7 @@ class SourceFormDialog : DialogFragment() {
         initComponent()
         val pagerAdapter = ViewPagerAdapter(requireActivity())
         binding.viewPager.adapter = pagerAdapter
-
+        binding.viewPager.isUserInputEnabled = false
         toggleButtons()
 
     }
