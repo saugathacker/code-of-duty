@@ -23,7 +23,7 @@ class DatePickerFragment(contentLayoutId: Int) : AppCompatActivity(contentLayout
     var savedMinute=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_delivered_form)
+//        setContentView(R.layout.fragment_delivered_form)
 
         pickDate()
     }

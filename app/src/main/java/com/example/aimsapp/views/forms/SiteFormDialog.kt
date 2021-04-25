@@ -2,25 +2,27 @@ package com.example.aimsapp.views.forms
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.*
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.aimsapp.R
+import com.example.aimsapp.databinding.DialogSiteFormBinding
 import com.example.aimsapp.databinding.DialogSourceFormBinding
 
+class SiteFormDialog: DialogFragment() {
 
-class SourceFormDialog : DialogFragment() {
     private var current_step = 1
-    private lateinit var binding: DialogSourceFormBinding
+    private lateinit var binding: DialogSiteFormBinding
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val dialog = Dialog(requireContext(), R.style.DialogTheme)
         dialog.setContentView(binding.root)
-
-
 
 //        return AlertDialog.Builder(activity, R.style.DialogTheme)
 //            .setView(binding.root)
@@ -33,7 +35,7 @@ class SourceFormDialog : DialogFragment() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.dialog_source_form,
+            R.layout.dialog_site_form,
             null,
             false
         )
@@ -59,6 +61,7 @@ class SourceFormDialog : DialogFragment() {
         binding.lytBack.setOnClickListener {
             backStep(current_step)
             toggleButtons()
+
         }
         binding.lytNext.setOnClickListener {
             nextStep(current_step)
@@ -101,9 +104,8 @@ class SourceFormDialog : DialogFragment() {
 
         override fun createFragment(position: Int): Fragment {
             when (position) {
-                0 -> return SourceFormFragment(0)
-                1 -> return SourceFormFragment(1)
-
+                0 -> return SiteFormFragment(0)
+                1 -> return SiteFormFragment(1)
             }
             return SourceFormFragment(0)
         }
