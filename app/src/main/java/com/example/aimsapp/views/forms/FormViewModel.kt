@@ -12,13 +12,21 @@ class FormViewModel : ViewModel(){
     val productType: LiveData<String>
         get() = _productType
 
-    private val _startTimeAndDate = MutableLiveData<String>()
-    val startTimeAndDate: LiveData<String>
-        get() = _startTimeAndDate
+    private val _startTime = MutableLiveData<String>()
+    val startTime: LiveData<String>
+        get() = _startTime
 
-    private val _endTimeAndDate = MutableLiveData<String>()
-    val endTimeAndDate: LiveData<String>
-        get() = _endTimeAndDate
+    private val _startDate = MutableLiveData<String>()
+    val startDate: LiveData<String>
+        get() = _startDate
+
+    private val _endTime = MutableLiveData<String>()
+    val endTime: LiveData<String>
+        get() = _endTime
+
+    private val _endDate = MutableLiveData<String>()
+    val endDate: LiveData<String>
+        get() = _endDate
 
     private val _grossGallons = MutableLiveData<Double>()
     val grossGallons: LiveData<Double>
@@ -42,8 +50,10 @@ class FormViewModel : ViewModel(){
 
     init {
         _productType.value = ""
-        _startTimeAndDate.value = ""
-        _endTimeAndDate.value = ""
+        _startTime.value = ""
+        _startDate.value=""
+        _endTime.value = ""
+        _endDate.value=""
         _grossGallons.value = 0.0
         _netGallons.value = 0.0
         _initialFuelReading.value = 0.0
@@ -53,8 +63,10 @@ class FormViewModel : ViewModel(){
 
     fun setValues(type:String = "", start: String = "", end: String = "", gross:Double =0.0, net:Double = 0.0,initial:Double = 0.0,final:Double = 0.0, notes: String){
         _productType.value = type
-        _startTimeAndDate.value = start
-        _endTimeAndDate.value = end
+        _startTime.value = start
+        _startDate.value= start
+        _endTime.value = end
+        _endDate.value=end
         _grossGallons.value = gross
         _netGallons.value = net
         _initialFuelReading.value = initial

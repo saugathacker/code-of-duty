@@ -25,16 +25,22 @@
         android:supportsRtl="true"
         android:fullBackupContent="true"
         android:theme="@style/Theme.AIMSApp">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" android:launchMode = "singleTask"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.map.VoicePackagesActivity">
+        <activity android:name=".views.map.VoicePackagesActivity"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".views.map.VoiceSkinsActivity">
+        <activity android:name=".views.map.VoiceSkinsActivity"
+            android:screenOrientation="portrait"
+            >
         </activity>
         <meta-data
             android:name="preloaded_fonts"

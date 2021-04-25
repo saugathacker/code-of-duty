@@ -10,65 +10,66 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.FragmentSiteFormBinding
+import com.example.aimsapp.databinding.SitePostFormBinding
+import com.example.aimsapp.databinding.SitePreFormBinding
 
-class SiteFormFragment : Fragment(){
+class SiteFormFragment(num: Int) : Fragment(){
 
-    private lateinit var binding: FragmentSiteFormBinding
+    private lateinit var binding1: SitePreFormBinding
+    private lateinit var binding2: SitePostFormBinding
     private lateinit var viewModel: FormViewModel
+    private val no = num
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_site_form,container,false)
+
+        if(no == 0){
+            binding1 = DataBindingUtil.inflate(inflater,R.layout.site_pre_form,container,false)
+
+        }else{
+            binding2 = DataBindingUtil.inflate(inflater,R.layout.site_post_form,container, false)
+            binding2.submitButton.setOnClickListener {
+                submitHandler()
+            }
+            return binding2.root
+
+        }
         viewModel = ViewModelProvider(this).get(FormViewModel::class.java)
 
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-
-        binding.Submit.setOnClickListener {
-            submitHandler()
-        }
-
-        return binding.root
+        return binding1.root
     }
 
     private fun submitHandler(){
 
         val alertDialogBuilder =
             AlertDialog.Builder(requireActivity())
-        if(formIsEmpty()){
-            alertDialogBuilder.setTitle("Please fill out the form before submitting")
-        }
-        else{
-            viewModel.setValues(binding.productType.text.toString(),
-                binding.dropDateTime.text.toString(),
-                binding.dropDateTime.text.toString(),
-                binding.grossGallonsDropped.text.toString().toDouble(),
-                binding.netGallonsDropped.text.toString().toDouble(),
-                binding.stickReadingBefore.text.toString().toDouble(),
-                binding.stickReadingAfter.text.toString().toDouble(),
-                "")
-            alertDialogBuilder.setTitle("Form Sent to Dispatcher")
-            alertDialogBuilder.setMessage("Product Type: ${viewModel.productType.value} \nStart Date and Time: ${viewModel.startTimeAndDate.value} \nEnd Date and Time: ${viewModel.endTimeAndDate.value} \n" +
-                    "Gross Gallons: ${viewModel.grossGallons.value.toString()} \n" +
-                    "Net Gallons: ${viewModel.netGallons.value.toString()} \n" +
-                    "Stick Reading Before: ${viewModel.initialFuelReading.value} \n" +
-                    "Stick Reading After: ${viewModel.finalFuelReading.value.toString()}")
-        }
+        //   viewModel.setValues(binding.productDropped.toString(),
+        //       binding.dropDate.toString(),
+        //      binding.dropTime.toString())
+        //       binding.grossGallonsDropped.toString().toDouble(),
+        //      binding.netGallonsDropped.toString().toDouble(),
+        //      binding.initialMeterReading.toString().toDouble(),
+        //     binding.finalMeterReading.toString().toDouble(),
+        //     "")
+        alertDialogBuilder.setTitle("Form Sent to Dispatcher")
+        alertDialogBuilder.setMessage("Demo")
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
     }
 
-    private fun formIsEmpty(): Boolean{
-        if (binding.productType.text.toString() == "" || binding.dropDateTime.text.toString() == ""
-            || binding.grossGallonsDropped.text.toString() == "" || binding.netGallonsDropped.text.toString() == ""
-            || binding.stickReadingBefore.text.toString() == "" || binding.stickReadingAfter.text.toString() == ""){
-            return true
-        }
-        return false
-    }
+//    private fun formIsEmpty(): Boolean{
+//        if (binding.productDropped.toString() == "" || binding.dropDate.toString() == ""
+//   //         || binding.grossGallonsDropped.toString() == "" || binding.netGallonsDropped.toString() == ""
+//    //       || binding.initialMeterReading.toString() == "" || binding.finalMeterReading.toString() == ""
+//                  )
+//           {
+//            return true
+//        }
+//        return false
+//    }
 
 }

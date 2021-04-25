@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.databinding.FragmentWaypointDetailsBinding
+import com.example.aimsapp.views.forms.SiteFormDialog
+import com.example.aimsapp.views.forms.SourceFormDialog
 
 class WayPointDetailsFragment : Fragment()
 {
@@ -39,21 +42,17 @@ class WayPointDetailsFragment : Fragment()
         binding.viewModel = viewModel
 
         binding.formsButton.setOnClickListener {
+            var dialog: DialogFragment
             when(viewModel.selectedWayPoint.value!!.waypointTypeDescription){
-                "Source" -> this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToSourceFormFragment())
-                else -> this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToSiteFormFragment())
+                "Source" -> dialog = SourceFormDialog()
+
+                else -> dialog = SiteFormDialog()
             }
+            dialog.show(childFragmentManager,"Form")
         }
 
         binding.navigateButton.setOnClickListener {
-//            val alertDialogBuilder =
-//                AlertDialog.Builder(requireActivity())
-//            alertDialogBuilder.setTitle("Navigation feature is still under development")
-//            alertDialogBuilder.setPositiveButton("Cancel"){ dialogInterface: DialogInterface, i: Int ->
-//                dialogInterface.dismiss()
-//            }
-//            val alertDialog = alertDialogBuilder.create()
-//            alertDialog.show()
+
             viewModel.selectedWayPoint.value?.let { it1 ->
                 WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().latitude =
                     it1.latitude.toFloat()
