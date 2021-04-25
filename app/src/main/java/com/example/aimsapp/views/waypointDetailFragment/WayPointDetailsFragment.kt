@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.databinding.FragmentWaypointDetailsBinding
+import com.example.aimsapp.views.forms.SourceFormDialog
 
 class WayPointDetailsFragment : Fragment()
 {
@@ -39,10 +40,12 @@ class WayPointDetailsFragment : Fragment()
         binding.viewModel = viewModel
 
         binding.formsButton.setOnClickListener {
-            when(viewModel.selectedWayPoint.value!!.waypointTypeDescription){
-                "Source" -> this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToSourceFormFragment())
-                else -> this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToSiteFormFragment())
-            }
+//            when(viewModel.selectedWayPoint.value!!.waypointTypeDescription){
+//                "Source" -> this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToSourceFormFragment())
+//                else -> this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToSiteFormFragment())
+//            }
+            val dialog = SourceFormDialog()
+            dialog.show(childFragmentManager,"Source Form")
         }
 
         binding.navigateButton.setOnClickListener {
