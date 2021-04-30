@@ -3,9 +3,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:android="http://schemas.android.com/apk/res/android">
 
 <data>
-    <variable
-        name="viewModel"
-        type="com.example.aimsapp.views.forms.FormViewModel" />
+
 </data>
 <RelativeLayout
     android:layout_width="match_parent"
@@ -36,15 +34,13 @@ xmlns:android="http://schemas.android.com/apk/res/android">
             android:layout_alignParentBottom="true"
             android:text="@string/agreement" />
 
-<!--        <com.github.gcacace.signaturepad.views.SignaturePad-->
-<!--            xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--            xmlns:bind="http://schemas.android.com/apk/res-auto"-->
-<!--            android:id="@+id/signature_pad"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            bind:onStartSigning="@{activity.onStartSigning}"-->
-<!--            bind:onSigned="@{activity.onSigned}"-->
-<!--            bind:onClear="@{activity.onClear}" />-->
+        <com.github.gcacace.signaturepad.views.SignaturePad
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:bind="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/signature_pad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
     </RelativeLayout>
 
     <LinearLayout

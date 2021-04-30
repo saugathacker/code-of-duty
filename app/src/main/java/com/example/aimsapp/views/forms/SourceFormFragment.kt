@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,7 +20,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.FragmentSourceFormBinding
 import com.example.aimsapp.databinding.SourcePostFormBinding
-import com.example.aimsapp.databinding.SourcePostFormBindingImpl
 import com.example.aimsapp.databinding.SourcePreFormBinding
 
 class SourceFormFragment(num: Int): Fragment() {
@@ -51,6 +51,11 @@ class SourceFormFragment(num: Int): Fragment() {
                 CAMERA_REQUEST_CODE = 200
                 checkPermissionAndOpenCamera(CAMERA_REQUEST_CODE)
 
+            }
+
+            binding2.signatureButton.setOnClickListener {
+                val dialog = SignaturePad()
+                dialog.show(childFragmentManager,"SignaturePad")
             }
 
             return binding2.root
@@ -116,7 +121,17 @@ class SourceFormFragment(num: Int): Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 200 && data != null) {
-            binding2.imageView.setImageBitmap(data.extras?.get("data") as Bitmap)
+            val photo = binding2.imageView
+            val bitmap = data.extras?.get("data") as Bitmap
+            photo.setImageBitmap(bitmap)
+            photo.requestLayout()
+            photo.layoutParams.width = bitmap.width + 200
+            photo.layoutParams.height = bitmap.height + 200
+            Toast.makeText(requireContext(), "${bitmap.height}, ${bitmap.width}", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun updateSignatureDisplay(bitmap: Bitmap){
+        binding2.signatureView.setImageBitmap(bitmap)
     }
 }

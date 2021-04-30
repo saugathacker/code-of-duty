@@ -65,7 +65,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:enabled="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,10 +86,12 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:enabled="false"
                     android:inputType="time" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                 android:id="@+id/startButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,7 +117,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:enabled="false"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,11 +139,14 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:enabled="false"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                 android:id="@+id/endButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
