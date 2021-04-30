@@ -62,8 +62,14 @@ data class WayPoint(
 @Entity(tableName = "form_table", foreignKeys = [(ForeignKey(entity = WayPoint::class,
     parentColumns = [ "seqNum"],
     childColumns = [ "ownerSeqNum"],
-    onDelete = ForeignKey.CASCADE))],indices = [
-    Index("ownerSeqNum")])
+    onDelete = ForeignKey.CASCADE)),
+    (ForeignKey(entity = Trip::class,
+    parentColumns = ["tripId"],
+    childColumns = ["ownerTripId"],
+    onDelete = ForeignKey.CASCADE))],
+    indices = [
+    Index("ownerSeqNum"),
+    Index("ownerTripId")])
 data class Form(
     @PrimaryKey(autoGenerate = true)
     var formId: Long = 0,
@@ -75,5 +81,6 @@ data class Form(
     var initialFuelReading: Double = 0.0,
     var finalFuelReading: Double = 0.0,
     var notes: String = "",
-    var ownerSeqNum: Long = 0
+    var ownerSeqNum: Long = 0,
+    var ownerTripId: Long = 0
 )
