@@ -55,7 +55,8 @@ data class WayPoint(
     var uOM: String? ="",
     var waypointTypeDescription: String = "",
     var completed: Boolean = false,
-    var started: Boolean = false
+    var started: Boolean = false,
+    var arrived: Boolean = false,
 ) : Parcelable
 
 
