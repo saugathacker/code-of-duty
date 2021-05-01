@@ -9,17 +9,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aimsapp.R
+import com.example.aimsapp.database.tripDatabase.WayPoint
+import com.example.aimsapp.databinding.SiteMidFormBinding
 import com.example.aimsapp.databinding.SitePostFormBinding
 import com.example.aimsapp.databinding.SitePreFormBinding
-import com.example.aimsapp.views.forms.FormViewModel
-import com.example.aimsapp.views.forms.source.SourceViewModelFactory
 
-class SiteFormFragment(num: Int) : Fragment(){
+class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
 
     private lateinit var binding1: SitePreFormBinding
     private lateinit var binding2: SitePostFormBinding
-    private lateinit var viewModel: FormViewModel
+    private lateinit var binding3: SiteMidFormBinding
+    private lateinit var viewModel: SiteViewModel
     private val no = num
+    private val wayPoint = wayPoint
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,14 +34,17 @@ class SiteFormFragment(num: Int) : Fragment(){
             binding1 = DataBindingUtil.inflate(inflater,R.layout.site_pre_form,container,false)
 
         }else{
+            if(no == 1){
+                binding3 = DataBindingUtil.inflate(inflater, R.layout.site_mid_form, container, false)
+                return binding3.root
+            }
             binding2 = DataBindingUtil.inflate(inflater,R.layout.site_post_form,container, false)
             binding2.submitButton.setOnClickListener {
                 submitHandler()
             }
             return binding2.root
-
         }
-        viewModel = ViewModelProvider(this).get(FormViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(SiteViewModel::class.java)
 
         return binding1.root
     }

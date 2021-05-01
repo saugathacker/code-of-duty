@@ -46,7 +46,7 @@ class WayPointDetailsFragment() : Fragment()
             when(viewModel.selectedWayPoint.value!!.waypointTypeDescription){
                 "Source" -> dialog = SourceFormDialog(viewModel.selectedWayPoint.value!!)
 
-                else -> dialog = SiteFormDialog()
+                else -> dialog = SiteFormDialog(viewModel.selectedWayPoint.value!!)
             }
             dialog.show(childFragmentManager,"Form")
         }

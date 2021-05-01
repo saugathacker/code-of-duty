@@ -7,16 +7,17 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.aimsapp.R
+import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.databinding.DialogSiteFormBinding
-import com.example.aimsapp.views.forms.source.SourceFormFragment
+import com.example.aimsapp.databinding.DialogSourceFormBinding
 
-class SiteFormDialog: DialogFragment() {
+class SiteFormDialog(wayPoint: WayPoint): DialogFragment() {
 
     private var current_step = 1
-    private lateinit var binding: DialogSiteFormBinding
+    private lateinit var binding: DialogSourceFormBinding
+    private val wayPoint = wayPoint
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -35,12 +36,12 @@ class SiteFormDialog: DialogFragment() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.dialog_site_form,
+            R.layout.dialog_source_form,
             null,
             false
         )
         initComponent()
-        val pagerAdapter = ViewPagerAdapter(requireActivity())
+        val pagerAdapter = ViewPagerAdapter(this, wayPoint)
         binding.viewPager.adapter = pagerAdapter
         binding.viewPager.isUserInputEnabled = false
         toggleButtons()
@@ -51,7 +52,10 @@ class SiteFormDialog: DialogFragment() {
         if (current_step == 1) {
             binding.lytBack.visibility = View.GONE
             binding.lytNext.visibility = View.VISIBLE
-        } else {
+        } else if (current_step == 2) {
+            binding.lytNext.visibility = View.VISIBLE
+            binding.lytBack.visibility = View.VISIBLE
+        } else{
             binding.lytNext.visibility = View.GONE
             binding.lytBack.visibility = View.VISIBLE
         }
@@ -95,19 +99,21 @@ class SiteFormDialog: DialogFragment() {
         private const val MAX_STEP = 3
     }
 
-    class ViewPagerAdapter(fm: FragmentActivity?) : FragmentStateAdapter(fm!!) {
+    class ViewPagerAdapter(fm: SiteFormDialog, wayPoint: WayPoint) : FragmentStateAdapter(fm!!) {
 
+        private var wayPoint = wayPoint
 
         override fun getItemCount(): Int {
-            return 2
+            return 3
         }
 
         override fun createFragment(position: Int): Fragment {
             when (position) {
-                0 -> return SiteFormFragment(0)
-                1 -> return SiteFormFragment(1)
+                0 -> return SiteFormFragment(0, wayPoint)
+                1 -> return SiteFormFragment(1, wayPoint)
+                2 -> return SiteFormFragment(2, wayPoint)
             }
-            return SiteFormFragment(0)
+            return SiteFormFragment(0, wayPoint)
         }
     }
 }
