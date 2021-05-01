@@ -149,7 +149,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
 
 
     private fun submitHandler(){
-        viewModel.saveForm()
+        viewModel.startForm(wayPoint)
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
         if(formIsEmpty()){
             alertDialogBuilder.setTitle("Please fill out the form")
@@ -163,6 +163,8 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
             alertDialogBuilder.setMessage("Demo")
             alertDialogBuilder.setCancelable(false)
             alertDialogBuilder.setPositiveButton("Done"){_,_ ->
+                wayPoint.completed = true
+                viewModel.updatePoint(wayPoint)
                 val frag = parentFragment as SourceFormDialog
                 frag.dismiss()
             }

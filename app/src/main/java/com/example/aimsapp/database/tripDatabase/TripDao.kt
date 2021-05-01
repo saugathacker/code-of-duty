@@ -31,6 +31,9 @@ interface TripDao{
     @Query("Select * from way_point_table where ownerTripId = :tripId")
     fun getWayPointsByTripId(tripId: Long): LiveData<List<WayPoint>>
 
+    @Query("Select * from way_point_table where ownerTripId = :tripId and seqNum = :seqNum")
+    suspend fun getWayPointByIds(tripId: Long, seqNum: Long): List<WayPoint>
+
     @Update
     suspend fun updateTrip(trip: Trip)
 

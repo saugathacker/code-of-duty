@@ -19,11 +19,15 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.FragmentMapBinding
+import com.example.aimsapp.views.forms.site.SiteFormDialog
+import com.example.aimsapp.views.forms.source.SourceFormDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.here.android.mpa.common.*
 import com.here.android.mpa.guidance.AudioPlayerDelegate
@@ -59,6 +63,9 @@ class MapFragment : Fragment(), LocationListener {
     private var zoom = 0.0
     private var orientaion = 0.0f
     private var arr1: FloatArray? = null
+    private var tripId = -1L
+    private var seqNum = -1L
+
 
 
 
@@ -84,13 +91,7 @@ class MapFragment : Fragment(), LocationListener {
         }
 
         binding.endNavigation.setOnClickListener {
-            viewModel.navigationEnded()
-            map?.removeMapObject(mapRoute!!)
-            navigationManager?.let {
-                it.stop()
-            }
-            stopForegroundService()
-            it.visibility = View.GONE
+
             val alertDialogBuilder =
                 AlertDialog.Builder(requireActivity())
             alertDialogBuilder.setTitle("End Navigation")
@@ -103,15 +104,41 @@ class MapFragment : Fragment(), LocationListener {
             alertDialogBuilder.setPositiveButton(
                 "Yes"
             ) { dialoginterface, i ->
+                viewModel.navigationEnded()
+                map?.removeMapObject(mapRoute!!)
+                navigationManager?.let {
+                    it.stop()
+                }
+                stopForegroundService()
+                it.visibility = View.GONE
 
+                viewModel.pointArrived()
+                var dialog: DialogFragment
+                when(viewModel.wayPoint.waypointTypeDescription){
+                    "Source" -> dialog = SourceFormDialog(viewModel.wayPoint)
+
+                    else -> dialog = SiteFormDialog(viewModel.wayPoint)
+                }
+                dialog.show(childFragmentManager,"Form")
             }
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
 
         }
         arr1 = floatArrayOf(MapFragmentArgs.fromBundle(requireArguments()).latitude,MapFragmentArgs.fromBundle(requireArguments()).longitude)
-
+        tripId = MapFragmentArgs.fromBundle(requireArguments()).ownerTripId
+        seqNum = MapFragmentArgs.fromBundle(requireArguments()).seqNum
+        getPoint()
         return binding.root
+    }
+
+    private fun getPoint() {
+        if(tripId.equals(-1)){
+
+        }
+        else{
+            viewModel.getPoint(tripId,seqNum)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,7 +156,6 @@ class MapFragment : Fragment(), LocationListener {
         }
 
         Toast.makeText(requireContext(),"${viewModel.inNavigationMode}", Toast.LENGTH_SHORT).show()
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -211,7 +237,6 @@ class MapFragment : Fragment(), LocationListener {
                     map?.orientation = orientaion
                 }
 
-
                 navigationManager = getInstance()
 
                 if(arr1?.get(0) !== 0.0f){
@@ -259,15 +284,7 @@ class MapFragment : Fragment(), LocationListener {
                             addNavigationListeners()
                             binding.endNavigation.visibility = View.VISIBLE
                         }
-
-
-
-
-
                 }
-
-
-
             } else {
                 Toast.makeText(requireContext(), "$error", Toast.LENGTH_SHORT).show()
             }
@@ -413,7 +430,6 @@ class MapFragment : Fragment(), LocationListener {
                         }
 
                         viewModel.route = route
-
                         startNavigation()
 
                     } else {

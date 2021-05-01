@@ -20,6 +20,7 @@ class TripRepository(private val database: TripDatabase) {
     suspend fun getFormById(seqNum: Long, tripId: Long) = database.dao.getFormById(seqNum,tripId)
     suspend fun insertForm(form: Form) = database.dao.insertForm(form)
     suspend fun updateForm(form: Form) = database.dao.updateForm(form)
+    suspend fun getWayPointByIds(tripId: Long, seqNum: Long) = database.dao.getWayPointByIds(tripId,seqNum)
 
 
     suspend fun refreshTrips() {

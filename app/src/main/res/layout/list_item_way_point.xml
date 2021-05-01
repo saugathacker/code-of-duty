@@ -48,7 +48,6 @@
                 android:layout_marginEnd="8dp"
                 android:text="TextView"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/pointIcon"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout"
                 app:layout_constraintStart_toEndOf="@+id/pointIcon"
                 app:layout_constraintTop_toTopOf="@+id/pointIcon" />

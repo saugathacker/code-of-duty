@@ -128,4 +128,10 @@ class SiteViewModel(application: Application): AndroidViewModel(application), Ob
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
         callbacks.remove(callback)
     }
+
+    fun updatePoint(wayPoint: WayPoint) {
+        viewModelScope.launch {
+            repo.updatePoint(wayPoint)
+        }
+    }
 }

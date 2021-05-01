@@ -1,5 +1,6 @@
 package com.example.aimsapp.views.tripDetailFragment
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -30,6 +31,9 @@ class WayPointAdapter(private val clickListener: WayPointListener) : ListAdapter
             if (!item.waypointTypeDescription.equals("Source")){
                 binding.typeIcon.setImageResource(R.drawable.ic_gas_site)
                 binding.typeTitle.text = item.waypointTypeDescription.subSequence(0,4)
+            }
+            if (item.completed){
+                binding.typeTitle.paintFlags =  Paint.STRIKE_THRU_TEXT_FLAG
             }
         }
 

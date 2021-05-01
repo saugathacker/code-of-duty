@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.databinding.FragmentTripDetailBinding
+import com.example.aimsapp.views.forms.site.SiteFormDialog
+import com.example.aimsapp.views.forms.source.SourceFormDialog
 
 
 class TripDetailFragment : Fragment()
@@ -65,7 +67,17 @@ class TripDetailFragment : Fragment()
                         point.started = true
                         viewModel.updatePoint(point)
                     }
-                    this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()))
+                    if(point.arrived){
+                        val dialog: DialogFragment
+                        when(point.waypointTypeDescription){
+                            "Source" -> dialog = SourceFormDialog(point)
+                            else -> dialog = SiteFormDialog(point)
+                        }
+                        dialog.show(childFragmentManager, "Forms")
+                    }
+                    else{
+                        this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()).setOwnerTripId(point.ownerTripId).setSeqNum(point.seqNum))
+                    }
                 }
             }
             if(trip.completed){
@@ -78,7 +90,7 @@ class TripDetailFragment : Fragment()
                 viewModel.startTrip()
                 val point = viewModel.getNextWayPoint()
                 if (point != null) {
-                    this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()))
+                    this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()).setOwnerTripId(point.ownerTripId).setSeqNum(point.seqNum))
                 }
             }
         }

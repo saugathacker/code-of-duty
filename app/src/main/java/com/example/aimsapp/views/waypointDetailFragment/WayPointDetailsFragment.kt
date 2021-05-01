@@ -54,11 +54,11 @@ class WayPointDetailsFragment() : Fragment()
         binding.navigateButton.setOnClickListener {
 
             viewModel.selectedWayPoint.value?.let { it1 ->
-                WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().latitude =
-                    it1.latitude.toFloat()
-                WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().longitude =
-                    it1.longitude.toFloat()
-                this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().setLatitude(it1.latitude.toFloat()).setLongitude(it1.longitude.toFloat()))
+//                WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().latitude =
+//                    it1.latitude.toFloat()
+//                WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().longitude =
+//                    it1.longitude.toFloat()
+                this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().setLatitude(it1.latitude.toFloat()).setLongitude(it1.longitude.toFloat()).setOwnerTripId(it1.ownerTripId).setSeqNum(it1.seqNum))
             }
 
 

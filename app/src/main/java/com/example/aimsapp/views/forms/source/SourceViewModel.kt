@@ -107,6 +107,12 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
                 " ${billOfLading.value}, ${notes.value}")
     }
 
+    fun updatePoint(wayPoint: WayPoint) {
+        viewModelScope.launch {
+            repo.updatePoint(wayPoint)
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         Log.i("CloseForm", "ViewModel destroyed")
@@ -121,4 +127,6 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
         callbacks.remove(callback)
     }
+
+
 }
