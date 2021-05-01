@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 private const val BASE_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/"
-private const val DRIVER_ID = "D1"
+private const val DRIVER_ID = "CodeOfDuty"
 private const val API_KEY = "f20f8b25-b149-481c-9d2c-41aeb76246ef"
 
 private val moshi = Moshi.Builder()

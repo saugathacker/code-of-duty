@@ -1,25 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aimsapp">
+
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGe"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:hardwareAccelerated="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:fullBackupContent="true"
         android:theme="@style/Theme.AIMSApp">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" android:launchMode = "singleTask"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".views.map.VoicePackagesActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity android:name=".views.map.VoiceSkinsActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data android:name="com.here.android.maps.appid" android:value="yusWSZ47oiXj6jrJoIME"/>
+        <meta-data android:name="com.here.android.maps.apptoken" android:value="_9WPuSktm1GRocwVT0BWUA"/>
+        <meta-data android:name="com.here.android.maps.license.key" android:value="KEaFgSa3WuPLjt/oqAOQDrtF2NNnTUuBnUce5pWFI47f2+buzaiMN9xDPg6YDxVOOBs3kskr4gBSZmaXy2eSDk6RmiNkncmhbxIRB7TSLMv9nxaWF+/rajZ71uKJ/XRxGXS15sAbNjkzSwk8qttG+8fZikzMTjWCBQRLG7GgcMDwsyYJZAYoAe5PKWb5UYNmcFnoWeamSkCqAbEAs+x0O8RKQBtoc41LR4vV7J1OCHRnXM1xjXrGOlv+xRJ2z9SRtKtXRDbxVazYMoXOE3UxAJX3UjAXeiEz+vc6hDoLgLtq0AZkk99wm0Y/2E4za+mclYZYSYpVcJgRh1oe76ZVdE2eaAXZa8+4Vd5wwBs/a7Dz/w+fhfQirO0NIqJA6Fn9o4EwMMjzu26cZvKhCMdp15u3thFKsfnpUfy5VoumJwhwXi+/iGuSqS0zpGz5Osa3wX/A2C6RnEuoJDHIsOiqygQSNmwcf2QfZGUJgznlOrsfSxOskL2Kcy7mRciKIG28SHWQPOq+oo8nZmyG+iSSQQDygY8s8BEIk3TYt0Vl7SuWE2BygrGqsAWcMnpvMlVfm773EDBPjmt63nbowm6gkB7qK9ovXZHqI6rizxVjLBCBihFOC1n/WAUHshxE65IEFeTz6KDx4u9SQWTSsxM5tXCHNe8BJVNlnZ45PPibL9A="/>
     </application>
 
 </manifest>

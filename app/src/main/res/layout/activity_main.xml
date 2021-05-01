@@ -12,24 +12,56 @@
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/topAppBar"
+                    style="@style/TopMenuBar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:menu="@menu/top_menu_bar"
-                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
                     >
-                        <ImageView
-                            android:id="@+id/hero_image"
-                            android:layout_width="150dp"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/aims_logo"
-                            android:contentDescription="@string/app_name"/>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/wheel"
+                                    android:layout_width="36dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="180dp"
+                                    android:src="@drawable/ic_drop_silhouette"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    style="@style/LogoPrimary" />
+
+
+                                <ImageView
+                                    android:id="@+id/hero_image"
+                                    android:layout_width="150dp"
+                                    android:layout_height="match_parent"
+                                    android:contentDescription="@string/app_name"
+                                    app:layout_constraintStart_toEndOf="@+id/wheel"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_aims"
+                                    style = "@style/LogoPrimary"
+                                    tools:ignore="VectorDrawableCompat" />
+
+                                <ImageView
+                                    style="@style/LogoPrimary"
+                                    android:layout_width="36dp"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_delivery"
+                                    app:layout_constraintStart_toEndOf="@+id/hero_image"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                 </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        
+
         <fragment
             android:layout_marginTop="55dp"
+            android:layout_marginBottom="55dp"
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"

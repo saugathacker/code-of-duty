@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.aimsapp.views.waypointDetailFragment.WayPointDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.waypointDetailFragment.WayPointDetailsFragment">
+
+
+        <TextView
+            android:id="@+id/waypointTypeDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@{viewModel.selectedWayPoint.waypointTypeDescription}"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Source" />
+
+        <TextView
+            android:id="@+id/destinationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewModel.selectedWayPoint.destinationName}"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/waypointTypeDescription"
+            tools:text="Name of Destination" />
+
+        <TextView
+            android:id="@+id/address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewModel.selectedWayPoint.address1}"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/destinationName"
+            tools:text="Address" />
+
+        <TextView
+            android:id="@+id/address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewModel.selectedWayPoint.address2}"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address1"
+            tools:text="Address 2" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="@dimen/cardview_compat_inset_shadow"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/productId_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Product ID:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/productId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{String.valueOf(viewModel.selectedWayPoint.productId)}"
+                    app:layout_constraintStart_toEndOf="@id/productId_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="id" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productId" />
+
+                <TextView
+                    android:id="@+id/productCode_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Product Code:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productId" />
+
+                <TextView
+                    android:id="@+id/productCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.selectedWayPoint.productCode}"
+                    app:layout_constraintStart_toEndOf="@id/productCode_title"
+                    app:layout_constraintTop_toBottomOf="@id/productId"
+                    tools:text="code" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productCode" />
+
+                <TextView
+                    android:id="@+id/productDesc_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Product Description:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productCode" />
+
+                <TextView
+                    android:id="@+id/productDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.selectedWayPoint.productDesc}"
+                    app:layout_constraintStart_toEndOf="@id/productDesc_title"
+                    app:layout_constraintTop_toBottomOf="@id/productCode"
+                    tools:text="Unleaded" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productDesc" />
+
+                <TextView
+                    android:id="@+id/requestedQty_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Requested Quantity:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productDesc" />
+
+                <TextView
+                    android:id="@+id/requestedQty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{String.valueOf(viewModel.selectedWayPoint.requestedQty)}"
+                    app:layout_constraintStart_toEndOf="@id/requestedQty_title"
+                    app:layout_constraintTop_toBottomOf="@id/productDesc"
+                    tools:text="10000" />
+
+                <TextView
+                    android:id="@+id/unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{viewModel.selectedWayPoint.UOM}"
+                    app:layout_constraintBaseline_toBaselineOf="@id/requestedQty"
+                    app:layout_constraintStart_toEndOf="@+id/requestedQty"
+                    tools:text="GL" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/requestedQty" />
+
+                <TextView
+                    android:id="@+id/siteContainerCode_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Site Container Code:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/requestedQty" />
+
+                <TextView
+                    android:id="@+id/siteContainerCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.selectedWayPoint.siteContainerCode}"
+                    app:layout_constraintStart_toEndOf="@id/siteContainerCode_title"
+                    app:layout_constraintTop_toBottomOf="@id/requestedQty"
+                    tools:text="007" />
+
+                <View
+                    style="@style/Divider"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/siteContainerCode" />
+
+                <TextView
+                    android:id="@+id/siteContainerDescription_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Site Container Description:"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/siteContainerCode" />
+
+                <TextView
+                    android:id="@+id/siteContainerDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@{viewModel.selectedWayPoint.siteContainerDescription}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/siteContainerDescription_title"
+                    app:layout_constraintTop_toBottomOf="@id/siteContainerCode"
+                    tools:text="Container" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/forms_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cornerRadius="15dp"
+            android:text="Forms"
+            app:layout_constraintBaseline_toBaselineOf="@+id/navigate_button"
+            app:layout_constraintEnd_toStartOf="@id/navigate_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/navigate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cornerRadius="15dp"
+            android:text="Navigate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/forms_button"
+            android:layout_marginBottom="100dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

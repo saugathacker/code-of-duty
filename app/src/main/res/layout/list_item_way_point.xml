@@ -7,6 +7,9 @@
         <variable
             name="wayPoint"
             type="com.example.aimsapp.database.tripDatabase.WayPoint" />
+        <variable
+            name="clickListener"
+            type="com.example.aimsapp.views.tripDetailFragment.WayPointListener" />
 
     </data>
 
@@ -15,11 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardElevation="2dp"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="@{() -> clickListener.onClick(wayPoint)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,7 +37,8 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_local_gas_station"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/material_on_surface_emphasis_high_type" />
 
             <TextView
                 android:id="@+id/pointTitle"
@@ -42,7 +47,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout"
                 app:layout_constraintStart_toEndOf="@+id/pointIcon"
                 app:layout_constraintTop_toTopOf="@+id/pointIcon" />
 
@@ -52,25 +58,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/mapIcon"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout"
                 app:layout_constraintStart_toEndOf="@+id/pointIcon"
                 app:layout_constraintTop_toBottomOf="@+id/pointTitle" />
 
-            <ImageView
-                android:id="@+id/mapIcon"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_map"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/pointDetail" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/typeIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_oil_source"
+                    app:tint="@color/material_on_surface_emphasis_high_type"/>
+
+                <TextView
+                    android:id="@+id/typeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Source"
+                    android:textSize="8dp"
+                   android:textColor="@color/material_on_surface_emphasis_high_type"
+                    />
+
+
+            </LinearLayout>
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

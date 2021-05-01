@@ -13,4 +13,19 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="DialogTheme" parent="Theme.AIMSApp">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="TopMenuBar">
+        <item name = "android:background">@color/grey_80</item>
+    </style>
+    <style name = "LogoPrimary">
+        <item name = "android:tint">@color/aims_red</item>
+
+    </style>
 </resources>

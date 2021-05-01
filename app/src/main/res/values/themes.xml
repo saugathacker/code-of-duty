@@ -1,22 +1,53 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.AIMSApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name = "android:textColor">@color/black</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/aims_orange</item>
-        <item name="colorPrimaryVariant">@color/aims_orange</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name = "android:textColorPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/aims_red</item>
-        <item name="colorSecondaryVariant">@color/aims_dark_red</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
         <item name="colorOnSecondary">@color/white</item>
+        <item name = "android:textColorSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/secondaryLightColor</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="DialogTheme" parent="Theme.AIMSApp">
-        <item name="android:windowNoTitle">false</item>
-        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsFloating">false</item>
     </style>
+
+    //Horizontal Line
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">15dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="buttonTint">@color/aims_orange</item>
+    </style>
+
+    <style name="TopMenuBar">
+        <item name = "android:background">@color/white</item>
+    </style>
+
+    <style name = "LogoPrimary">
+        <item name = "android:tint">@color/primaryColor</item>
+    </style>
+
+
 </resources>

@@ -11,20 +11,14 @@
         android:label="fragment_current_trips"
         tools:layout="@layout/fragment_current_trips" >
         <action
-            android:id="@+id/action_currentTripFragment_to_mapFragment"
-            app:destination="@id/map" />
-        <action
-            android:id="@+id/action_currentTripFragment_to_profileFragment"
-            app:destination="@id/profile" />
+            android:id="@+id/action_current_trip_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="com.example.aimsapp.views.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_mapFragment"
-            app:destination="@id/map" />
         <action
             android:id="@+id/action_profileFragment_to_currentTripFragment"
             app:destination="@id/current_trip" />
@@ -40,5 +34,52 @@
         <action
             android:id="@+id/action_mapFragment_to_currentTripFragment"
             app:destination="@id/current_trip" />
+        <argument
+            android:name="latitude"
+            app:argType="float"
+            android:defaultValue="0.0" />
+        <argument
+            android:name="longitude"
+            app:argType="float"
+            android:defaultValue="0.0" />
+        <argument
+            android:name="ownerTripId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="seqNum"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/tripDetailFragment"
+        android:name="com.example.aimsapp.views.tripDetailFragment.TripDetailFragment"
+        android:label="TripDetailFragment" >
+        <action
+            android:id="@+id/action_tripDetailFragment_to_wayPointDetailsFragment"
+            app:destination="@id/wayPointDetailsFragment" />
+        <argument
+            android:name="selectedTrip"
+            app:argType="com.example.aimsapp.database.tripDatabase.Trip" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_current_trip"
+            app:destination="@id/current_trip" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_map"
+            app:destination="@id/map" />
+    </fragment>
+    <fragment
+        android:id="@+id/wayPointDetailsFragment"
+        android:name="com.example.aimsapp.views.waypointDetailFragment.WayPointDetailsFragment"
+        android:label="WayPointDetailsFragment" >
+        <argument
+            android:name="selectedWayPoint"
+            app:argType="com.example.aimsapp.database.tripDatabase.WayPoint" />
+        <action
+            android:id="@+id/action_wayPointDetailsFragment_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
+        <action
+            android:id="@+id/action_wayPointDetailsFragment_to_map"
+            app:destination="@id/map" />
     </fragment>
 </navigation>

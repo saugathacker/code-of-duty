@@ -4,7 +4,7 @@
     <item
         android:id="@+id/current_trip"
         android:icon="@drawable/ic_current_trip"
-        android:title="Current Trip" />
+        android:title="Trip List" />
     <item
         android:id="@+id/map"
         android:icon="@drawable/ic_map"

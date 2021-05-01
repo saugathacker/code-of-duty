@@ -1,5 +1,33 @@
 <resources>
-    <string name="app_name">AIMS App</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">COD-Gamma</string>
+    <string name="Upload_bill">Upload Bill</string>
+    <string name="bill_of_lading">Bill Of Lading</string>
+    <string name="amount">Amount</string>
+    <string name="date_and_time">Date And Time</string>
+    <string name="product_code">Product Code</string>
+    <string name="source_form">Source Form</string>
+    <string name="post_delivery_form">Post Delivery Form</string>
+    <string name="pre_delivery_form">Pre Delivery Form</string>
+    <string name="product_dropped">Product Dropped</string>
+    <string name="drop_date_and_time">Drop Date And Time</string>
+    <string name="readings">Readings</string>
+    <string name="hello_blank_fragment">Hello, you are in the Waypoint Details Fragment</string>
+    <string name="start_date">Start Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_date">End Date</string>
+    <string name="end_time">End Time</string>
+    <string name="drop_date">Drop Date</string>
+    <string name="drop_time">Drop Time</string>
+    <string name="gross_gallons">Gross Gallons</string>
+    <string name="gross_gallons_dropped">Gross Gallons Dropped</string>
+    <string name="net_gallons">Net Gallons</string>
+    <string name="net_gallons_dropped">Net Gallons Dropped</string>
+    <string name="initial_meter_reading">Initial Meter Reading</string>
+    <string name="final_meter_reading">Final Meter Reading </string>
+    <string name="initial_trailer_reading">Initial Trailer Reading</string>
+    <string name="final_trailer_reading">Final Trailer Reading </string>
+    <string name="notes">Notes</string>
+    <string name="agreement">I agree to the terms</string>
+    <string name="clear_pad">Clear</string>
+    <string name="save_signature">Save</string>
 </resources>

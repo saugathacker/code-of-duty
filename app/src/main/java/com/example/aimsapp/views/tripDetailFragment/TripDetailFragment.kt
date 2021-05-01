@@ -8,50 +8,93 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aimsapp.R
+import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.databinding.FragmentTripDetailBinding
+import com.example.aimsapp.views.forms.site.SiteFormDialog
+import com.example.aimsapp.views.forms.source.SourceFormDialog
 
 
-class TripDetailFragment : DialogFragment(){
+class TripDetailFragment : Fragment()
+{
+    private lateinit var binding: FragmentTripDetailBinding
+    private lateinit var viewModel: TripDetailViewModel
+    private lateinit var adapter: WayPointAdapter
 
-    lateinit var binding: FragmentTripDetailBinding
-    lateinit var viewModel: TripDetailViewModel
-    lateinit var adapter: WayPointAdapter
-
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.fragment_trip_detail, null, false )
-        binding.close.setOnClickListener {
-            dismiss()
-        }
-         viewModel = ViewModelProvider(this).get(TripDetailViewModel::class.java)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-        return AlertDialog.Builder(activity, R.style.DialogTheme)
-            .setView(binding.root)
-            .create()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+    {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trip_detail, container, false)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val rootView: View = inflater.inflate(R.layout.list_item_way_point, container)
+        val application = requireNotNull(this.activity).application
+        val dataSource = TripDatabase.getInstance(application).dao
+        val trip = TripDetailFragmentArgs.fromBundle(requireArguments()).selectedTrip
+        val viewModelFactory = TripDetailViewModelFactory(trip, dataSource,application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(TripDetailViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
-        adapter = WayPointAdapter()
+        adapter = WayPointAdapter(WayPointListener {
+                this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToWayPointDetailsFragment(it))
+        })
         binding.wayPointRecyclerView.adapter = adapter
 
         viewModel.wayPoints.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 
-        return rootView
+        //Navigating back to the currentTrip list
+        binding.close.setOnClickListener {
+            findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToCurrentTrip())
+        }
+
+        if (trip.started){
+            binding.startTrip.text = "Resume Trip"
+            binding.startTrip.setOnClickListener {
+                val point = viewModel.getNextWayPoint()
+                if (point != null) {
+                    if(!point.started){
+                        point.started = true
+                        viewModel.updatePoint(point)
+                    }
+                    if(point.arrived){
+                        val dialog: DialogFragment
+                        when(point.waypointTypeDescription){
+                            "Source" -> dialog = SourceFormDialog(point)
+                            else -> dialog = SiteFormDialog(point)
+                        }
+                        dialog.show(childFragmentManager, "Forms")
+                    }
+                    else{
+                        this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()).setOwnerTripId(point.ownerTripId).setSeqNum(point.seqNum))
+                    }
+                }
+            }
+            if(trip.completed){
+                binding.startTrip.text = "Trip Completed"
+                binding.startTrip.isEnabled = false
+            }
+        }
+        else{
+            binding.startTrip.setOnClickListener {
+                viewModel.startTrip()
+                val point = viewModel.getNextWayPoint()
+                if (point != null) {
+                    this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()).setOwnerTripId(point.ownerTripId).setSeqNum(point.seqNum))
+                }
+            }
+        }
+
+        return binding.root
     }
 }
