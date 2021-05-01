@@ -63,8 +63,10 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/product_dropped_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={viewModel.productType}"
                     android:inputType="text"
                     />
 
@@ -197,8 +199,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/startButton">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/initial_meter_reading_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:text="@={viewModel.initialMeterReading}"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -215,8 +219,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/initial_meter_reading">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/initial_trailer_reading_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:text="@={viewModel.initialTrailerReading}"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>

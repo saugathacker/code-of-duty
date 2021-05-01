@@ -1,9 +1,11 @@
 package com.example.aimsapp.views.forms.site
 
 import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -107,6 +109,7 @@ class SiteFormDialog(wayPoint: WayPoint): DialogFragment() {
             return 3
         }
 
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun createFragment(position: Int): Fragment {
             when (position) {
                 0 -> return SiteFormFragment(0, wayPoint)

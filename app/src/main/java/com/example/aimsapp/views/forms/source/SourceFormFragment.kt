@@ -82,7 +82,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
                     checkPermissionAndOpenCamera(CAMERA_REQUEST_CODE)
                 }
                 signatureButton.setOnClickListener {
-                    val dialog = SignaturePad()
+                    val dialog = SignaturePad(0)
                     dialog.show(childFragmentManager,"SignaturePad")
                 }
             }

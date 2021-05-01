@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.example.aimsapp.views.forms.site.SiteViewModel" />
 
     </data>
 
@@ -79,8 +82,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/signature_button">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/notes_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:text="@={viewModel.notes}"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
