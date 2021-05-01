@@ -1,16 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.AIMSApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name = "android:textColor">@color/black</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/aims_orange</item>
-        <item name="colorPrimaryVariant">@color/aims_orange</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name = "android:textColorPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/aims_red</item>
-        <item name="colorSecondaryVariant">@color/aims_dark_red</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
         <item name="colorOnSecondary">@color/white</item>
+        <item name = "android:textColorSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/secondaryLightColor</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -41,9 +44,10 @@
     <style name="TopMenuBar">
         <item name = "android:background">@color/white</item>
     </style>
-    <style name = "LogoPrimary">
-        <item name = "android:tint">@color/aims_orange</item>
 
+    <style name = "LogoPrimary">
+        <item name = "android:tint">@color/primaryColor</item>
     </style>
+
 
 </resources>

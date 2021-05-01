@@ -4,7 +4,7 @@
     xmlns:android = "http://schemas.android.com/apk/res/android" >
 
     <gradient
-        android:startColor = "@color/aims_orange"
+        android:startColor = "@color/primaryLightColor"
         android:endColor = "@color/white"
         android:angle="45"
         android:gradientRadius="500dp"

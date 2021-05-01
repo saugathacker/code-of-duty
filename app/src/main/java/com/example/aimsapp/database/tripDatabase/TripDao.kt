@@ -36,4 +36,13 @@ interface TripDao{
 
     @Update
     suspend fun updatePoint(point: WayPoint)
+
+    @Insert
+    suspend fun insertForm(form: Form)
+
+    @Update
+    suspend fun updateForm(form: Form)
+
+    @Query("Select * from form_table where ownerSeqNum =:seqNum and ownerTripId = :tripId")
+    suspend fun getFormById(seqNum: Long, tripId: Long): List<Form>
 }

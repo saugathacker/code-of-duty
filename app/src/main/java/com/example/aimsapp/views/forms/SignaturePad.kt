@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -16,11 +17,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.SignaturePadBinding
+import com.example.aimsapp.views.forms.source.SourceFormFragment
 import com.github.gcacace.signaturepad.views.SignaturePad
 import java.io.*
 
@@ -49,6 +52,7 @@ class SignaturePad : DialogFragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         verifyStoragePermissions(requireActivity())

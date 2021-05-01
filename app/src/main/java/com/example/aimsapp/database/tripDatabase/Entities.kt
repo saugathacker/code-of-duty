@@ -74,13 +74,18 @@ data class Form(
     @PrimaryKey(autoGenerate = true)
     var formId: Long = 0,
     var productType: String = "",
-    var startDateTime: String = "",
-    var endDateTime: String = "",
+    var startDate: String = "",
+    var startTime: String = "",
+    var endDate: String = "",
+    var endTime: String = "",
     var grossGallons: Double = 0.0,
     var netGallons: Double = 0.0,
-    var initialFuelReading: Double = 0.0,
-    var finalFuelReading: Double = 0.0,
+    var initialMeterReading: Double = 0.0,
+    var initialTrailerReading: Double = 0.0,
+    var finalMeterReading: Double = 0.0,
+    var finalTrailerReading: Double = 0.0,
     var notes: String = "",
+    var billOfLading: String = "",
     var ownerSeqNum: Long = 0,
     var ownerTripId: Long = 0
 )

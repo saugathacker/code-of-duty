@@ -1,6 +1,7 @@
 package com.example.aimsapp.repository
 
 import androidx.lifecycle.LiveData
+import com.example.aimsapp.database.tripDatabase.Form
 import com.example.aimsapp.database.tripDatabase.Trip
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.database.tripDatabase.WayPoint
@@ -16,6 +17,9 @@ class TripRepository(private val database: TripDatabase) {
 
     suspend fun updateTrip(trip: Trip) = database.dao.updateTrip(trip)
     suspend fun updatePoint(point: WayPoint) = database.dao.updatePoint(point)
+    suspend fun getFormById(seqNum: Long, tripId: Long) = database.dao.getFormById(seqNum,tripId)
+    suspend fun insertForm(form: Form) = database.dao.insertForm(form)
+    suspend fun updateForm(form: Form) = database.dao.updateForm(form)
 
 
     suspend fun refreshTrips() {

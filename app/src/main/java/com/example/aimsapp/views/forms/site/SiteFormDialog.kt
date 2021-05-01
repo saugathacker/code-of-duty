@@ -1,4 +1,4 @@
-package com.example.aimsapp.views.forms
+package com.example.aimsapp.views.forms.site
 
 import android.app.Dialog
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.DialogSiteFormBinding
-import com.example.aimsapp.databinding.DialogSourceFormBinding
+import com.example.aimsapp.views.forms.source.SourceFormFragment
 
 class SiteFormDialog: DialogFragment() {
 
@@ -107,7 +107,7 @@ class SiteFormDialog: DialogFragment() {
                 0 -> return SiteFormFragment(0)
                 1 -> return SiteFormFragment(1)
             }
-            return SourceFormFragment(0)
+            return SiteFormFragment(0)
         }
     }
 }

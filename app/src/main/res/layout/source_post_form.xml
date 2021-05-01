@@ -5,7 +5,9 @@
     >
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.aimsapp.views.forms.source.SourceViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -14,9 +16,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/upload_button"
@@ -57,7 +56,6 @@
             app:layout_constraintTop_toBottomOf="@+id/upload_button"
             />
 
-
         <ImageView
             android:id="@+id/image_View"
             android:layout_width="250dp"
@@ -81,9 +79,12 @@
             app:layout_constraintTop_toBottomOf="@+id/signature_button">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/notesEdit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@={viewModel.notes}"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.button.MaterialButton
@@ -96,7 +97,8 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_margin="32dp"
             app:layout_constraintTop_toBottomOf="@+id/notes"
-            android:text="submit" />
+            android:text="submit"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

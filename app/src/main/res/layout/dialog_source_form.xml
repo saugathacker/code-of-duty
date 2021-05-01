@@ -46,14 +46,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_chevron_left"
-                        app:tint="@color/material_on_surface_emphasis_high_type"
+                        style="@style/LogoPrimary"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Back"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/primaryColor"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -80,14 +80,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Next"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/primaryColor"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_chevron_right"
-                        app:tint="@color/material_on_surface_emphasis_high_type"
+                        style="@style/LogoPrimary"
                         tools:ignore="VectorDrawableCompat" />
 
                 </LinearLayout>

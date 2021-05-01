@@ -24,8 +24,8 @@
                                     android:id="@+id/wheel"
                                     android:layout_width="36dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="160dp"
-                                    android:src="@drawable/ic_steering_wheel"
+                                    android:layout_marginEnd="180dp"
+                                    android:src="@drawable/ic_drop_silhouette"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
@@ -42,6 +42,14 @@
                                     app:srcCompat="@drawable/ic_aims"
                                     style = "@style/LogoPrimary"
                                     tools:ignore="VectorDrawableCompat" />
+
+                                <ImageView
+                                    style="@style/LogoPrimary"
+                                    android:layout_width="36dp"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_delivery"
+                                    app:layout_constraintStart_toEndOf="@+id/hero_image"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 

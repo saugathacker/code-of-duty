@@ -1,4 +1,4 @@
-package com.example.aimsapp.views.forms
+package com.example.aimsapp.views.forms.site
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -9,9 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aimsapp.R
-import com.example.aimsapp.databinding.FragmentSiteFormBinding
 import com.example.aimsapp.databinding.SitePostFormBinding
 import com.example.aimsapp.databinding.SitePreFormBinding
+import com.example.aimsapp.views.forms.FormViewModel
+import com.example.aimsapp.views.forms.source.SourceViewModelFactory
 
 class SiteFormFragment(num: Int) : Fragment(){
 
@@ -25,7 +26,8 @@ class SiteFormFragment(num: Int) : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        val application = requireActivity().application
+        val viewModelFactory = SiteViewModelFactory(application)
         if(no == 0){
             binding1 = DataBindingUtil.inflate(inflater,R.layout.site_pre_form,container,false)
 

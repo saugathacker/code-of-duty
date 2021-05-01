@@ -46,6 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_my_location_black"
             android:foregroundTint="@color/aims_red"
+            android:backgroundTint="@color/primaryColor"
             tools:ignore="VectorDrawableCompat" />
 
 
@@ -59,6 +60,7 @@
             app:layout_constraintBottom_toTopOf="@+id/myLocation"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_notifications"
+            android:backgroundTint="@color/primaryColor"
             tools:ignore="VectorDrawableCompat" />
 
         <com.google.android.material.button.MaterialButton

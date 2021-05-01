@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/siteFormFragment"
-        android:name="com.example.aimsapp.views.forms.SiteFormFragment"
+        android:name="com.example.aimsapp.views.forms.site.SiteFormFragment"
         android:label="SiteFormFragment" >
         <action
             android:id="@+id/action_siteFormFragment_to_wayPointDetailsFragment"
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/sourceFormFragment"
-        android:name="com.example.aimsapp.views.forms.SourceFormFragment"
+        android:name="com.example.aimsapp.views.forms.source.SourceFormFragment"
         android:label="SourceFormFragment" >
         <action
             android:id="@+id/action_sourceFormFragment_to_wayPointDetailsFragment"

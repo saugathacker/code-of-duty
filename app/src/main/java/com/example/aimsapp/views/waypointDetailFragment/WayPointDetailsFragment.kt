@@ -12,10 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.databinding.FragmentWaypointDetailsBinding
-import com.example.aimsapp.views.forms.SiteFormDialog
-import com.example.aimsapp.views.forms.SourceFormDialog
+import com.example.aimsapp.views.forms.site.SiteFormDialog
+import com.example.aimsapp.views.forms.source.SourceFormDialog
 
-class WayPointDetailsFragment : Fragment()
+class WayPointDetailsFragment() : Fragment()
 {
     private lateinit var binding: FragmentWaypointDetailsBinding
     private lateinit var viewModel: WayPointDetailsViewModel
@@ -44,7 +44,7 @@ class WayPointDetailsFragment : Fragment()
         binding.formsButton.setOnClickListener {
             var dialog: DialogFragment
             when(viewModel.selectedWayPoint.value!!.waypointTypeDescription){
-                "Source" -> dialog = SourceFormDialog()
+                "Source" -> dialog = SourceFormDialog(viewModel.selectedWayPoint.value!!)
 
                 else -> dialog = SiteFormDialog()
             }

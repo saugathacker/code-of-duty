@@ -1,18 +1,22 @@
-package com.example.aimsapp.views.forms
+package com.example.aimsapp.views.forms.source
 
 import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.aimsapp.R
+import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.databinding.DialogSourceFormBinding
 
 
-class SourceFormDialog : DialogFragment() {
+class SourceFormDialog(wayPoint: WayPoint) : DialogFragment() {
     private var current_step = 1
     private lateinit var binding: DialogSourceFormBinding
+    var wayPoint= wayPoint
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -38,11 +42,10 @@ class SourceFormDialog : DialogFragment() {
             false
         )
         initComponent()
-        val pagerAdapter = ViewPagerAdapter(requireActivity())
+        val pagerAdapter = ViewPagerAdapter(this, wayPoint)
         binding.viewPager.adapter = pagerAdapter
         binding.viewPager.isUserInputEnabled = false
         toggleButtons()
-
     }
 
     private fun toggleButtons() {
@@ -92,20 +95,22 @@ class SourceFormDialog : DialogFragment() {
         private const val MAX_STEP = 3
     }
 
-    class ViewPagerAdapter(fm: FragmentActivity?) : FragmentStateAdapter(fm!!) {
+    class ViewPagerAdapter(fm: SourceFormDialog, wayPoint: WayPoint) : FragmentStateAdapter(fm!!) {
 
+        private var wayPoint = wayPoint
 
         override fun getItemCount(): Int {
             return 2
         }
 
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun createFragment(position: Int): Fragment {
             when (position) {
-                0 -> return SourceFormFragment(0)
-                1 -> return SourceFormFragment(1)
+                0 -> return SourceFormFragment(0, wayPoint)
+                1 -> return SourceFormFragment(1, wayPoint)
 
             }
-            return SourceFormFragment(0)
+            return SourceFormFragment(0, wayPoint)
         }
     }
 }
