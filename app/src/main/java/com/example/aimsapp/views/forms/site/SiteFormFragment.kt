@@ -25,6 +25,7 @@ import com.example.aimsapp.databinding.SiteMidFormBinding
 import com.example.aimsapp.databinding.SitePostFormBinding
 import com.example.aimsapp.databinding.SitePreFormBinding
 import com.example.aimsapp.views.forms.SignaturePad
+import com.example.aimsapp.views.forms.source.SourceFormDialog
 import com.example.aimsapp.views.forms.source.SourceViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -98,7 +99,15 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         viewModel.startForm(wayPoint)
         viewModel.startDate.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding1.startButton.isEnabled = it.isEmpty()
+                if(it.isEmpty()){
+                    binding1.startButton.isEnabled = true
+                }
+                else{
+                    binding1.startButton.isEnabled = false
+                    if(viewModel.endDate.value?.isEmpty() == true){
+                        binding1.endButton.isEnabled = true
+                    }
+                }
             }
         })
         return binding1.root
@@ -129,34 +138,45 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
     }
 
     private fun submitHandler(){
-
-        val alertDialogBuilder =
-            AlertDialog.Builder(requireActivity())
-        //   viewModel.setValues(binding.productDropped.toString(),
-        //       binding.dropDate.toString(),
-        //      binding.dropTime.toString())
-        //       binding.grossGallonsDropped.toString().toDouble(),
-        //      binding.netGallonsDropped.toString().toDouble(),
-        //      binding.initialMeterReading.toString().toDouble(),
-        //     binding.finalMeterReading.toString().toDouble(),
-        //     "")
-        alertDialogBuilder.setTitle("Form Sent to Dispatcher")
-        alertDialogBuilder.setMessage("Demo")
+        viewModel.saveForm()
+        val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+        if(formIsEmpty()){
+            alertDialogBuilder.setTitle("Please fill out the form")
+            alertDialogBuilder.setMessage("You must fill out all the * field!!")
+            alertDialogBuilder.setCancelable(true)
+            alertDialogBuilder.setNegativeButton("OK") { _, _ ->
+            }
+        }
+        else{
+            alertDialogBuilder.setTitle("Form Sent to Dispatcher")
+            alertDialogBuilder.setMessage("Demo")
+            alertDialogBuilder.setCancelable(false)
+            alertDialogBuilder.setPositiveButton("Done"){_,_ ->
+                val frag = parentFragment as SiteFormDialog
+                frag.dismiss()
+            }
+        }
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
     }
 
-//    private fun formIsEmpty(): Boolean{
-//        if (binding.productDropped.toString() == "" || binding.dropDate.toString() == ""
-//   //         || binding.grossGallonsDropped.toString() == "" || binding.netGallonsDropped.toString() == ""
-//    //       || binding.initialMeterReading.toString() == "" || binding.finalMeterReading.toString() == ""
-//                  )
-//           {
-//            return true
-//        }
-//        return false
-//    }
+    private fun formIsEmpty(): Boolean{
+        if(viewModel.productType.value.toString().isEmpty() || viewModel.startDate.value.toString().isEmpty() || viewModel.startTime.value.toString().isEmpty()
+            || viewModel.endDate.value.toString().isEmpty() || viewModel.endTime.value.toString().isEmpty()
+            || viewModel.grossGallons.value.toString().isEmpty() || viewModel.netGallons.value.toString().isEmpty()
+            || viewModel.billOfLading.value.toString().isEmpty() || viewModel.initialMeterReading.value.toString().isEmpty()
+            || viewModel.initialTrailerReading.value.toString().isEmpty() || viewModel.finalMeterReading.value.toString().isEmpty()
+            || viewModel.finalTrailerReading.value.toString().isEmpty()
+        ){
+
+            return true
+        }
+        if(binding2.signatureView.drawable == null){
+            return true
+        }
+        return false
+    }
 
     private fun takePhotoFromCamera(requestCode:Int){
         val intent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)

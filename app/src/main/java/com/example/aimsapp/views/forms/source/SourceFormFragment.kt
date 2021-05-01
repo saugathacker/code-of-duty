@@ -101,7 +101,15 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
 
         viewModel.startDate.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding1.startButton.isEnabled = it.isEmpty()
+                if(it.isEmpty()){
+                    binding1.startButton.isEnabled = true
+                }
+                else{
+                    binding1.startButton.isEnabled = false
+                    if(viewModel.endDate.value?.isEmpty() == true){
+                        binding1.endButton.isEnabled = true
+                    }
+                }
             }
         })
 
@@ -141,7 +149,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
 
 
     private fun submitHandler(){
-        viewModel.startForm(wayPoint)
+        viewModel.saveForm()
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
         if(formIsEmpty()){
             alertDialogBuilder.setTitle("Please fill out the form")
