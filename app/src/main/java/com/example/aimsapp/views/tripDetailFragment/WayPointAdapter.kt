@@ -33,7 +33,7 @@ class WayPointAdapter(private val clickListener: WayPointListener) : ListAdapter
                 binding.typeTitle.text = item.waypointTypeDescription.subSequence(0,4)
             }
             if (item.completed){
-                binding.typeTitle.paintFlags =  Paint.STRIKE_THRU_TEXT_FLAG
+                binding.pointTitle.paintFlags =  Paint.STRIKE_THRU_TEXT_FLAG
             }
         }
 

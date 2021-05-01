@@ -51,6 +51,10 @@ class WayPointDetailsFragment() : Fragment()
             dialog.show(childFragmentManager,"Form")
         }
 
+        if(wayPoint.completed){
+            binding.navigateButton.isEnabled = false
+        }
+
         binding.navigateButton.setOnClickListener {
 
             viewModel.selectedWayPoint.value?.let { it1 ->
@@ -60,10 +64,7 @@ class WayPointDetailsFragment() : Fragment()
 //                    it1.longitude.toFloat()
                 this.findNavController().navigate(WayPointDetailsFragmentDirections.actionWayPointDetailsFragmentToMap().setLatitude(it1.latitude.toFloat()).setLongitude(it1.longitude.toFloat()).setOwnerTripId(it1.ownerTripId).setSeqNum(it1.seqNum))
             }
-
-
         }
-
         return binding.root
     }
 
