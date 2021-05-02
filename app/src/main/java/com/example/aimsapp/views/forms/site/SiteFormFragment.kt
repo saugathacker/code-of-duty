@@ -41,6 +41,7 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
     private var CAMERA_REQUEST_CODE = 0
     private val no = num
     private val wayPoint = wayPoint
+    private lateinit var frag: SiteFormDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +50,7 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
     ): View? {
         val application = requireActivity().application
         val viewModelFactory = SiteViewModelFactory(application)
+        frag = parentFragment as SiteFormDialog
         if(no == 0){
             binding1 = DataBindingUtil.inflate(inflater,R.layout.site_pre_form,container,false)
 
@@ -65,17 +67,15 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         }else{
             if(no == 1){
                 binding3 = DataBindingUtil.inflate(inflater, R.layout.site_mid_form, container, false)
-                binding3.lifecycleOwner = this
-                viewModel = ViewModelProvider(this, viewModelFactory).get(SiteViewModel::class.java)
-                viewModel.startForm(wayPoint)
+                binding3.lifecycleOwner = frag
+                viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
                 binding3.viewModel = viewModel
 
                 return binding3.root
             }
             binding2 = DataBindingUtil.inflate(inflater,R.layout.site_post_form,container, false)
-            binding2.lifecycleOwner = this
-            viewModel = ViewModelProvider(this, viewModelFactory).get(SiteViewModel::class.java)
-            viewModel.startForm(wayPoint)
+            binding2.lifecycleOwner = frag
+            viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
             binding2.viewModel = viewModel
 
             binding2.apply {
@@ -93,8 +93,8 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
             }
             return binding2.root
         }
-        binding1.lifecycleOwner = this
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SiteViewModel::class.java)
+        binding1.lifecycleOwner = frag
+        viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
         binding1.viewModel = viewModel
         viewModel.startForm(wayPoint)
         viewModel.startDate.observe(viewLifecycleOwner, Observer {
@@ -154,7 +154,6 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
             alertDialogBuilder.setPositiveButton("Done"){_,_ ->
                 wayPoint.completed = true
                 viewModel.updatePoint(wayPoint)
-                val frag = parentFragment as SiteFormDialog
                 frag.dismiss()
             }
         }
@@ -224,10 +223,6 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         binding2.signatureView.setImageBitmap(bitmap)
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.startForm(wayPoint)
-    }
 
     override fun onPause() {
         super.onPause()

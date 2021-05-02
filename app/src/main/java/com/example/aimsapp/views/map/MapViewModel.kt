@@ -23,7 +23,10 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getPoint(tripId: Long, seqNum: Long){
         viewModelScope.launch {
-           wayPoint = repo.getWayPointByIds(tripId,seqNum)[0]
+           val points = repo.getWayPointByIds(tripId,seqNum)
+            if (points.isNotEmpty()){
+                wayPoint = points[0]
+            }
         }
     }
 

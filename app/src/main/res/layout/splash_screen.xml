@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_background"
+    >
+
+    <ImageView
+        android:id="@+id/ilogo"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_aims"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/primaryTextColor" />
+
+    <ImageView
+        android:id="@+id/drop"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:src="@drawable/ic_drop_silhouette"
+        app:layout_constraintBottom_toBottomOf="@+id/ilogo"
+        app:layout_constraintEnd_toStartOf="@+id/ilogo"
+        app:layout_constraintTop_toTopOf="@+id/ilogo"
+        app:tint="@color/primaryTextColor" />
+
+    <ImageView
+        android:id="@+id/truck"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:src="@drawable/ic_delivery"
+        app:layout_constraintBottom_toBottomOf="@+id/ilogo"
+        app:layout_constraintStart_toEndOf="@+id/ilogo"
+        app:layout_constraintTop_toTopOf="@+id/ilogo"
+        app:tint="@color/primaryTextColor" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

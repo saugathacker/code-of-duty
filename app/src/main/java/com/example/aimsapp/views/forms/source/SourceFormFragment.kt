@@ -43,6 +43,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
     private var CAMERA_REQUEST_CODE = 0
     private val no = num
     private val wayPoint = wayPoint
+    private lateinit var frag:SourceFormDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +53,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
 
         val application = requireActivity().application
         val viewModelFactory = SourceViewModelFactory(application)
+        frag = parentFragment as SourceFormDialog
         if (no == 0){
             binding1 = DataBindingUtil.inflate(inflater,R.layout.source_pre_form,container,false)
 
@@ -68,9 +70,8 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
         }
         else{
             binding2 = DataBindingUtil.inflate(inflater,R.layout.source_post_form,container,false)
-            binding2.lifecycleOwner = this
-            viewModel = ViewModelProvider(this, viewModelFactory).get(SourceViewModel::class.java)
-            viewModel.startForm(wayPoint)
+            binding2.lifecycleOwner = frag
+            viewModel = ViewModelProvider(frag, viewModelFactory).get(SourceViewModel::class.java)
             binding2.viewModel = viewModel
 
             binding2.apply {
@@ -87,15 +88,14 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
                 }
             }
 
-
-
+            Log.i("CloseForm","Form Created 2")
 
             return binding2.root
         }
 
 
-        binding1.lifecycleOwner = this
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SourceViewModel::class.java)
+        binding1.lifecycleOwner = frag
+        viewModel = ViewModelProvider(frag, viewModelFactory).get(SourceViewModel::class.java)
         viewModel.startForm(wayPoint)
         binding1.viewModel = viewModel
 
@@ -113,7 +113,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
             }
         })
 
-        Log.i("CloseForm","Form Created ${binding1.startDateEdit.text}")
+        Log.i("CloseForm","Form Created 1 ${binding1.startDateEdit.text}")
 
         return binding1.root
     }
@@ -142,10 +142,6 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.startForm(wayPoint)
-    }
 
 
     private fun submitHandler(){
@@ -165,7 +161,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
             alertDialogBuilder.setPositiveButton("Done"){_,_ ->
                 wayPoint.completed = true
                 viewModel.updatePoint(wayPoint)
-                val frag = parentFragment as SourceFormDialog
+
                 frag.dismiss()
             }
         }
@@ -235,6 +231,8 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
     override fun onPause() {
         super.onPause()
         viewModel.saveForm()
+        Log.i("CloseForm","pause")
+
     }
 
 }

@@ -76,6 +76,9 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
         netGallons.value = if(get.netGallons == 0.0) "" else get.netGallons.toString()
         billOfLading.value = get.billOfLading
         notes.value = get.notes
+
+        Log.i("CloseForm","Data retrieved")
+
     }
 
     fun saveForm(){
