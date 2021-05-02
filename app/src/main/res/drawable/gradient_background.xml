@@ -5,6 +5,7 @@
 
     <gradient
         android:startColor = "@color/primaryLightColor"
+        android:centerColor="@color/primaryLightColor"
         android:endColor = "@color/white"
         android:angle="45"
         android:gradientRadius="500dp"

@@ -11,31 +11,147 @@
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background = "@drawable/gradient_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_close"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/wayPointListTitle"
-            android:layout_width="0dp"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/tripDetailCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:elevation="8dp"
-            android:text="WayPoint List"
-            android:textAlignment="center"
-            android:textSize="24sp"
+            android:layout_marginHorizontal="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/close"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardBackgroundColor="#77ffffff"
+           >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="8dp"
+                android:paddingBottom="8dp"
+               >
+
+                <TextView
+                    android:id="@+id/wayPointListTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:elevation="8dp"
+                    android:text="Trip Name: "
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/wayPointListTitleEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:elevation="8dp"
+                    android:text="A-182"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/wayPointListTitle"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_not_started"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/wayPointListTitle" />
+
+
+                <TextView
+                    android:id="@+id/driverName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Assigned to: "
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wayPointListTitle" />
+
+                <TextView
+                    android:id="@+id/driverNameEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Joe Doe"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/driverName"
+                    app:layout_constraintTop_toTopOf="@id/driverName" />
+
+                <TextView
+                    android:id="@+id/sourceNum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="No. of sources: "
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/driverName"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/sourceNumEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="6"
+                    app:layout_constraintTop_toTopOf="@id/sourceNum"
+                    app:layout_constraintStart_toEndOf="@id/sourceNum"/>
+
+                <TextView
+                    android:id="@+id/siteNum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="No. of sites: "
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/sourceNum"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/siteNumEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="9"
+                    app:layout_constraintTop_toTopOf="@id/siteNum"
+                    app:layout_constraintStart_toEndOf="@id/siteNum"/>
+
+                <TextView
+                    android:id="@+id/completed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Completed: "
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/siteNum"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/completedEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/completed"
+                    app:layout_constraintStart_toEndOf="@id/completed"/>
+
+
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/wayPointRecyclerView"
@@ -49,7 +165,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wayPointListTitle"
+            app:layout_constraintTop_toBottomOf="@id/tripDetailCard"
             app:layout_constraintVertical_bias="0.0"
             tools:itemCount="4"
             tools:listitem="@layout/list_item_way_point" />
