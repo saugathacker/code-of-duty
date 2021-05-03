@@ -602,6 +602,14 @@ class MapFragment : Fragment(), LocationListener {
                 stopForegroundService()
                 viewModel.navigationEnded()
                 binding.endNavigation.visibility = View.GONE
+                viewModel.pointArrived()
+                var dialog: DialogFragment
+                when(viewModel.wayPoint.waypointTypeDescription){
+                    "Source" -> dialog = SourceFormDialog(viewModel.wayPoint)
+
+                    else -> dialog = SiteFormDialog(viewModel.wayPoint)
+                }
+                dialog.show(childFragmentManager,"Form")
 
             }
         }

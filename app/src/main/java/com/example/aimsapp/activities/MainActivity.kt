@@ -1,5 +1,6 @@
 package com.example.aimsapp.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -27,5 +28,12 @@ class MainActivity : AppCompatActivity() {
             bottomNavigationView,
             navController
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharedPreferences = this.getSharedPreferences("login shared prefs", Context.MODE_PRIVATE)
+
+        sharedPreferences.edit().putBoolean("loggedIn", true)
     }
 }

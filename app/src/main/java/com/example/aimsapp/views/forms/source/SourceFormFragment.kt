@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,6 +32,8 @@ import com.example.aimsapp.views.currentTrip.CurrentTripViewModel
 import com.example.aimsapp.views.currentTrip.CurrentTripViewModelFactory
 import com.example.aimsapp.views.forms.FormViewModel
 import com.example.aimsapp.views.forms.SignaturePad
+import java.io.File
+import java.io.FileOutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -145,8 +148,8 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
 
 
     private fun submitHandler(){
-        viewModel.startForm(wayPoint)
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
+
         if(formIsEmpty()){
             alertDialogBuilder.setTitle("Please fill out the form")
             alertDialogBuilder.setMessage("You must fill out all the * field!!")
@@ -169,6 +172,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
     }
+
 
     private fun formIsEmpty(): Boolean{
         if(viewModel.productType.value.toString().isEmpty() || viewModel.startDate.value.toString().isEmpty() || viewModel.startTime.value.toString().isEmpty()
@@ -220,12 +224,27 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint): Fragment() {
             photo.requestLayout()
             photo.layoutParams.width = bitmap.width + 200
             photo.layoutParams.height = bitmap.height + 200
-            Toast.makeText(requireContext(), "${bitmap.height}, ${bitmap.width}", Toast.LENGTH_SHORT).show()
+            //savePhotos(bitmap, true)
         }
+    }
+
+    private fun savePhotos(bitmap: Bitmap, photo: Boolean) {
+        val filepath = Environment.getExternalStorageDirectory()
+        val dir = File("${filepath.absolutePath}/forms/")
+        dir.mkdir()
+        var file: File = if (photo){
+            File("${wayPoint.ownerTripId}${wayPoint.seqNum}p.jpg")
+        } else{
+            File("${wayPoint.ownerTripId}${wayPoint.seqNum}s.jpg")
+        }
+
+        val outputStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream)
     }
 
     fun updateSignatureDisplay(bitmap: Bitmap){
         binding2.signatureView.setImageBitmap(bitmap)
+        savePhotos(bitmap, false)
     }
 
     override fun onPause() {

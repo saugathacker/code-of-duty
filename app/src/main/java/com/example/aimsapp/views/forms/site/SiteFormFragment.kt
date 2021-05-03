@@ -138,7 +138,6 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
     }
 
     private fun submitHandler(){
-        viewModel.startForm(wayPoint)
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
         if(formIsEmpty()){
             alertDialogBuilder.setTitle("Please fill out the form")
