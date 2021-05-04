@@ -57,7 +57,11 @@ data class WayPoint(
     var completed: Boolean = false,
     var started: Boolean = false,
     var arrived: Boolean = false,
-) : Parcelable
+    var sourceId: Long? = 0,
+    var siteId: Long? = 0
+) : Parcelable {
+
+}
 
 
 @Entity(tableName = "form_table", foreignKeys = [(ForeignKey(entity = WayPoint::class,

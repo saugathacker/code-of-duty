@@ -24,7 +24,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface TripApiService {
-    @GET("GetTripListDetailByDriver/{driverId}?apiKey=$API_KEY")
+    @GET("GetDetailedTripListByDriver/{driverId}?apiKey=$API_KEY")
     fun getProperties(
         @Path("driverId") driverId: String
     ):
