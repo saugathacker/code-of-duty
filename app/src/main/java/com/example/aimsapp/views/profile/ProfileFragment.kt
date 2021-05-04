@@ -1,6 +1,8 @@
 package com.example.aimsapp.views.profile
 
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +13,7 @@ import android.view.Window
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.aimsapp.R
+import com.example.aimsapp.activities.SplashScreen
 import com.example.aimsapp.databinding.FragmentProfileBinding
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_profile.view.*
@@ -47,7 +50,11 @@ class ProfileFragment : Fragment() {
             showAbout()
         }
         binding.logoutCard.setOnClickListener {
-            Toast.makeText(requireContext(), "Logout has not been implemented", Toast.LENGTH_SHORT).show()
+            val sharedPreferences = requireContext().getSharedPreferences("login shared prefs", Context.MODE_PRIVATE)
+            sharedPreferences.edit().putBoolean("loggedIn", false).apply()
+            val i = Intent(requireContext(),SplashScreen::class.java)
+            requireActivity().startActivity(i)
+            requireActivity().finish()
         }
     }
 

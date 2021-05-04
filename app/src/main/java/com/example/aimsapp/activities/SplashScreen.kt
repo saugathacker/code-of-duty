@@ -89,7 +89,7 @@ class SplashScreen: AppCompatActivity() {
             }
             else{
                 if (driverIdList.contains(driverId.text.toString())){
-                    sharedPreferences.edit().putBoolean("loggedIn", true)
+                    sharedPreferences.edit().putBoolean("loggedIn", true).apply()
                     val i = Intent(this@SplashScreen, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
                     startActivity(i)

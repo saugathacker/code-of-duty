@@ -130,4 +130,8 @@ dependencies {
     //Circular Image View
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
 
+    //TedPermission
+    implementation 'gun0912.ted:tedpermission:2.1.0'
+
+
 }

@@ -85,7 +85,7 @@ data class Trips(
     @Json(name = "UOM")
     val uOM: String?,
     @Json(name = "Fill")
-    val fill: String
+    val fill: String,
 ) {
     fun getTrip(): Trip {
         val newTrip = Trip()

@@ -24,6 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:fullBackupContent="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.AIMSApp">
         <activity android:name=".activities.SplashScreen"
             android:screenOrientation="portrait"
@@ -50,6 +51,15 @@
             android:screenOrientation="portrait"
             >
         </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.aimsapp"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -57,5 +67,7 @@
         <meta-data android:name="com.here.android.maps.apptoken" android:value="_9WPuSktm1GRocwVT0BWUA"/>
         <meta-data android:name="com.here.android.maps.license.key" android:value="KEaFgSa3WuPLjt/oqAOQDrtF2NNnTUuBnUce5pWFI47f2+buzaiMN9xDPg6YDxVOOBs3kskr4gBSZmaXy2eSDk6RmiNkncmhbxIRB7TSLMv9nxaWF+/rajZ71uKJ/XRxGXS15sAbNjkzSwk8qttG+8fZikzMTjWCBQRLG7GgcMDwsyYJZAYoAe5PKWb5UYNmcFnoWeamSkCqAbEAs+x0O8RKQBtoc41LR4vV7J1OCHRnXM1xjXrGOlv+xRJ2z9SRtKtXRDbxVazYMoXOE3UxAJX3UjAXeiEz+vc6hDoLgLtq0AZkk99wm0Y/2E4za+mclYZYSYpVcJgRh1oe76ZVdE2eaAXZa8+4Vd5wwBs/a7Dz/w+fhfQirO0NIqJA6Fn9o4EwMMjzu26cZvKhCMdp15u3thFKsfnpUfy5VoumJwhwXi+/iGuSqS0zpGz5Osa3wX/A2C6RnEuoJDHIsOiqygQSNmwcf2QfZGUJgznlOrsfSxOskL2Kcy7mRciKIG28SHWQPOq+oo8nZmyG+iSSQQDygY8s8BEIk3TYt0Vl7SuWE2BygrGqsAWcMnpvMlVfm773EDBPjmt63nbowm6gkB7qK9ovXZHqI6rizxVjLBCBihFOC1n/WAUHshxE65IEFeTz6KDx4u9SQWTSsxM5tXCHNe8BJVNlnZ45PPibL9A="/>
     </application>
+
+
 
 </manifest>

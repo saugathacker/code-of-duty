@@ -7,6 +7,7 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 private const val BASE_URL = "https://api.appery.io/rest/1/apiexpress/api/DispatcherMobileApp/"
 private const val DRIVER_ID = "CodeOfDuty"
@@ -23,8 +24,10 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface TripApiService {
-    @GET("GetTripListDetailByDriver/$DRIVER_ID?apiKey=$API_KEY")
-    fun getProperties():
+    @GET("GetTripListDetailByDriver/{driverId}?apiKey=$API_KEY")
+    fun getProperties(
+        @Path("driverId") driverId: String
+    ):
             Deferred<Response>
 }
 

@@ -25,7 +25,7 @@ class TripRepository(private val database: TripDatabase) {
 
     suspend fun refreshTrips() {
         withContext(Dispatchers.IO) {
-            val response = TripApi.retrofitService.getProperties().await()
+            val response = TripApi.retrofitService.getProperties("codeofduty").await()
             val tripList: ArrayList<Trip> = arrayListOf()
             val pointList: ArrayList<WayPoint> = arrayListOf()
 
