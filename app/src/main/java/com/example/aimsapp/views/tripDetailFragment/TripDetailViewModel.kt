@@ -13,17 +13,22 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
 {
 
     val tripDatabase = getInstance(application)
-    val repo = TripRepository(tripDatabase)
+    private val repo = TripRepository(tripDatabase)
 
-    val wayPoints = repo.getWaPointById(trip.tripId)
+    var wayPoints: LiveData<List<WayPoint>>
 
     private val _selectedTrip = MutableLiveData<Trip>()
     val selectedTrip: LiveData<Trip>
         get() = _selectedTrip
 
+    val sourceNum= MutableLiveData<Int>()
+    val siteNum = MutableLiveData<Int>()
+    val completedNum = MutableLiveData<Int>()
+
     init
     {
         _selectedTrip.value = trip
+        wayPoints = repo.getWaPointById(trip.tripId)
     }
 
     fun updateTrip(trip: Trip) = viewModelScope.launch {
@@ -56,5 +61,30 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
             }
         }
         return null
+    }
+
+    fun updateStats(list: List<WayPoint>) {
+        var sourceCounter = 0
+        var siteCounter = 0
+        var completedCounter = 0
+        list?.let {
+            for(point in it){
+                if(point.waypointTypeDescription == "Source")
+                {
+                    sourceCounter++
+                }
+                else{
+                    siteCounter++
+                }
+
+                if(point.completed){
+                    completedCounter++
+                }
+            }
+        }
+
+        sourceNum.value = sourceCounter
+        siteNum.value = siteCounter
+        completedNum.value = completedCounter
     }
 }

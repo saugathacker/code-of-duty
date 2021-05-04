@@ -22,7 +22,7 @@ interface TripDao{
     @Insert
     fun insertPoint(wayPoint: WayPoint)
 
-    @Insert(onConflict =OnConflictStrategy.REPLACE)
+    @Insert(onConflict =OnConflictStrategy.IGNORE)
     fun insertAllPoints(wayPoints: List<WayPoint>)
 
     @Query("Delete from way_point_table")

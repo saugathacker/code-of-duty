@@ -73,29 +73,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/circularImageView" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/settings_card"
+                android:id="@+id/break_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line"
-                android:orientation="horizontal">
+                app:layout_constraintTop_toBottomOf="@+id/line">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_settings"
                     android:layout_margin="8dp"
-                    app:tint="@color/material_on_surface_emphasis_high_type"/>
+                    android:src="@drawable/ic_restaurant"
+                    app:tint="@color/material_on_surface_emphasis_high_type" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="8dp"
                     android:layout_marginStart="40dp"
-                    android:text="Settings"
+                    android:text="Break"
                     android:textColor="@color/material_on_surface_emphasis_high_type"
                     android:textSize="16sp" />
 
@@ -108,17 +109,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settings_card">
+                app:layout_constraintTop_toBottomOf="@+id/break_card">
 
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_help"
                     android:layout_margin="8dp"
-                    app:tint="@color/material_on_surface_emphasis_high_type"/>
+                    android:src="@drawable/ic_help"
+                    app:tint="@color/material_on_surface_emphasis_high_type" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/help_card">
@@ -144,9 +147,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_info"
                     android:layout_margin="8dp"
-                    app:tint="@color/material_on_surface_emphasis_high_type"/>
+                    android:src="@drawable/ic_info"
+                    app:tint="@color/material_on_surface_emphasis_high_type" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -166,6 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -176,9 +180,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_logout"
                     android:layout_margin="8dp"
-                    app:tint="@color/material_on_surface_emphasis_high_type"/>
+                    android:src="@drawable/ic_logout"
+                    app:tint="@color/material_on_surface_emphasis_high_type" />
 
                 <TextView
                     android:layout_width="wrap_content"

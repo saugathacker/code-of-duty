@@ -85,7 +85,11 @@ data class Trips(
     @Json(name = "UOM")
     val uOM: String?,
     @Json(name = "Fill")
-    val fill: String
+    val fill: String,
+    @Json(name = "SourceID")
+    val sourceId: Long?,
+    @Json(name = "SiteID")
+    val siteId: Long?
 ) {
     fun getTrip(): Trip {
         val newTrip = Trip()
@@ -125,6 +129,8 @@ data class Trips(
         newWayPoint.stateAbbrev = stateAbbrev
         newWayPoint.uOM = uOM
         newWayPoint.waypointTypeDescription = waypointTypeDescription
+        newWayPoint.sourceId = sourceId
+        newWayPoint.siteId = siteId
         newWayPoint.completed = false
         newWayPoint.started = false
         return newWayPoint

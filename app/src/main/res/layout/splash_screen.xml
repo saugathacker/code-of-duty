@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/splash_background">
+
+        <ImageView
+            android:id="@+id/ilogo"
+            android:layout_width="240dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/ic_aims"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primaryTextColor" />
+
+        <ImageView
+            android:id="@+id/drop"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:src="@drawable/ic_drop_silhouette"
+            app:layout_constraintBottom_toBottomOf="@+id/ilogo"
+            app:layout_constraintEnd_toStartOf="@+id/ilogo"
+            app:layout_constraintTop_toTopOf="@+id/ilogo"
+            app:tint="@color/primaryTextColor" />
+
+        <ImageView
+            android:id="@+id/truck"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:src="@drawable/ic_delivery"
+            app:layout_constraintBottom_toBottomOf="@+id/ilogo"
+            app:layout_constraintStart_toEndOf="@+id/ilogo"
+            app:layout_constraintTop_toTopOf="@+id/ilogo"
+            app:tint="@color/primaryTextColor" />
+
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/loginLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:elevation="0dp"
+                app:cardBackgroundColor="#aaffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                tools:targetApi="lollipop">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_margin="16dp"
+                        android:id="@+id/aims_logo"
+                        android:layout_gravity="center"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/aims_logo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="16dp"
+                        android:textSize="24sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/driverId"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="Driver Id"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/driverIdEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/password"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="Password"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passwordEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/loginButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log In"
+                        android:layout_marginVertical="24dp"
+                        android:layout_gravity="center"
+                        app:cornerRadius="16dp" />
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
