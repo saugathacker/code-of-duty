@@ -92,5 +92,7 @@ data class Form(
     var notes: String = "",
     var billOfLading: String = "",
     var ownerSeqNum: Long = 0,
-    var ownerTripId: Long = 0
+    var ownerTripId: Long = 0,
+    var photoPath: String = "",
+    var signaturePath: String = ""
 )

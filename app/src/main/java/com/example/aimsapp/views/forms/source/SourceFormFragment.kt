@@ -20,8 +20,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.graphics.rotationMatrix
-import androidx.core.graphics.scaleMatrix
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -94,6 +92,38 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
                 signatureButton.setOnClickListener {
                     val dialog = SignaturePad(0)
                     dialog.show(childFragmentManager, "SignaturePad")
+                }
+            }
+
+            if(!viewModel.form.photoPath.isNullOrBlank()){
+                val photo = binding2.imageView
+                val bitmap = getBitmapFromPath(viewModel.form.photoPath)
+                val rotatedBitmap = rotateBitmap(bitmap, 90f)
+                if (rotatedBitmap != null) {
+                    if (rotatedBitmap.height > rotatedBitmap.width) {
+                        photo.requestLayout()
+                        photo.layoutParams.width = 400
+                        photo.layoutParams.height = 650
+                    }
+                    photo.setImageBitmap(rotatedBitmap)
+                    photo.scaleType = ImageView.ScaleType.FIT_XY
+                    binding2.uploadButton.isEnabled = false
+                }
+            }
+
+            if(!viewModel.form.signaturePath.isNullOrBlank()){
+                val photo = binding2.signatureView
+                val bitmap = getBitmapFromPath(viewModel.form.signaturePath)
+                val rotatedBitmap = rotateBitmap(bitmap, 90f)
+                if (rotatedBitmap != null) {
+                    if (rotatedBitmap.height > rotatedBitmap.width) {
+                        photo.requestLayout()
+                        photo.layoutParams.width = 400
+                        photo.layoutParams.height = 650
+                    }
+                    photo.setImageBitmap(rotatedBitmap)
+                    photo.scaleType = ImageView.ScaleType.FIT_XY
+                    binding2.signatureButton.isEnabled = false
                 }
             }
 
@@ -245,11 +275,12 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        viewModel.form.photoPath = mCurrentPhotoPath
         val photo = binding2.imageView
-        val file = File(mCurrentPhotoPath)
+        //val file = File(mCurrentPhotoPath)
         //val bitmap = data?.extras?.get("data") as Bitmap
         val fullbitmap =
-            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, Uri.fromFile(file))
+           getBitmapFromPath(mCurrentPhotoPath)
         val rotatedBitmap = rotateBitmap(fullbitmap, 90f)
         if (rotatedBitmap != null) {
             if (rotatedBitmap.height > rotatedBitmap.width) {
@@ -277,6 +308,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream)
             outputStream.flush()
             outputStream.close()
+            viewModel.form.signaturePath = image.absolutePath
         } else {
             Toast.makeText(requireContext(), "Can not access the storage", Toast.LENGTH_SHORT)
                 .show()
@@ -310,6 +342,13 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
         val matrix = Matrix()
         matrix.postRotate(angle)
         return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
+    }
+
+    fun getBitmapFromPath(path: String):Bitmap{
+        val file = File(path)
+        val fullbitmap =
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, Uri.fromFile(file))
+        return fullbitmap
     }
 
     override fun onPause() {
