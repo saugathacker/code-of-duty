@@ -5,16 +5,21 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Matrix
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -27,6 +32,9 @@ import com.example.aimsapp.databinding.SitePreFormBinding
 import com.example.aimsapp.views.forms.SignaturePad
 import com.example.aimsapp.views.forms.source.SourceFormDialog
 import com.example.aimsapp.views.forms.source.SourceViewModel
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -42,6 +50,8 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
     private val no = num
     private val wayPoint = wayPoint
     private lateinit var frag: SiteFormDialog
+    private lateinit var mCurrentPhotoPath: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -89,6 +99,38 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
                 signatureButton.setOnClickListener {
                     val dialog = SignaturePad(1)
                     dialog.show(childFragmentManager,"SignaturePad")
+                }
+            }
+
+            if(!viewModel.form.photoPath.isNullOrBlank()){
+                val photo = binding2.imageView
+                val bitmap = getBitmapFromPath(viewModel.form.photoPath)
+                val rotatedBitmap = rotateBitmap(bitmap, 90f)
+                if (rotatedBitmap != null) {
+                    if (rotatedBitmap.height > rotatedBitmap.width) {
+                        photo.requestLayout()
+                        photo.layoutParams.width = 400
+                        photo.layoutParams.height = 650
+                    }
+                    photo.setImageBitmap(rotatedBitmap)
+                    photo.scaleType = ImageView.ScaleType.FIT_XY
+                    binding2.uploadButton.isEnabled = false
+                }
+            }
+
+            if(!viewModel.form.signaturePath.isNullOrBlank()){
+                val photo = binding2.signatureView
+                val bitmap = getBitmapFromPath(viewModel.form.signaturePath)
+                val rotatedBitmap = rotateBitmap(bitmap, 90f)
+                if (rotatedBitmap != null) {
+                    if (rotatedBitmap.height > rotatedBitmap.width) {
+                        photo.requestLayout()
+                        photo.layoutParams.width = 400
+                        photo.layoutParams.height = 650
+                    }
+                    photo.setImageBitmap(rotatedBitmap)
+                    photo.scaleType = ImageView.ScaleType.FIT_XY
+                    binding2.signatureButton.isEnabled = false
                 }
             }
             return binding2.root
@@ -180,7 +222,22 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
 
     private fun takePhotoFromCamera(requestCode:Int){
         val intent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, requestCode)
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            //Create the FIle where the photp should go
+            var photoFile: File? = null
+            try {
+                photoFile = createImageFile()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            //Continue only if the File was successfully created
+            if (photoFile != null) {
+                val photoUri =
+                    FileProvider.getUriForFile(requireContext(), "com.example.aimsapp", photoFile)
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                startActivityForResult(intent, requestCode)
+            }
+        }
     }
     private fun checkPermissionAndOpenCamera(requestCode: Int){
         if (ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.CAMERA)
@@ -207,19 +264,80 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == 200 && data != null) {
-            val photo = binding2.imageView
-            val bitmap = data.extras?.get("data") as Bitmap
-            photo.setImageBitmap(bitmap)
-            photo.requestLayout()
-            photo.layoutParams.width = bitmap.width + 200
-            photo.layoutParams.height = bitmap.height + 200
-            Toast.makeText(requireContext(), "${bitmap.height}, ${bitmap.width}", Toast.LENGTH_SHORT).show()
+        viewModel.form.photoPath = mCurrentPhotoPath
+        val photo = binding2.imageView
+        //val file = File(mCurrentPhotoPath)
+        //val bitmap = data?.extras?.get("data") as Bitmap
+        val fullbitmap =
+            getBitmapFromPath(mCurrentPhotoPath)
+        val rotatedBitmap = rotateBitmap(fullbitmap, 90f)
+        if (rotatedBitmap != null) {
+            if (rotatedBitmap.height > rotatedBitmap.width) {
+                photo.requestLayout()
+                photo.layoutParams.width = 400
+                photo.layoutParams.height = 650
+            }
+            photo.setImageBitmap(rotatedBitmap)
+            photo.scaleType = ImageView.ScaleType.FIT_XY
         }
     }
 
-    fun updateSignatureDisplay(bitmap: Bitmap){
+    private fun savePhotos(bitmap: Bitmap, photo: Boolean) {
+        val filepath = Environment.getExternalStorageDirectory()
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            val storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            if (storageDir != null) {
+                if (!storageDir.exists()) {
+                    storageDir.mkdir()
+                }
+            }
+            val image = File.createTempFile("${wayPoint.ownerTripId}${wayPoint.seqNum}s",".jpg",storageDir)
+
+            val outputStream = FileOutputStream(image)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream)
+            outputStream.flush()
+            outputStream.close()
+            viewModel.form.signaturePath = image.absolutePath
+        } else {
+            Toast.makeText(requireContext(), "Can not access the storage", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    fun updateSignatureDisplay(bitmap: Bitmap) {
         binding2.signatureView.setImageBitmap(bitmap)
+        savePhotos(bitmap, false)
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File? {
+        // Create an image file name
+        val imageFileName = "${wayPoint.ownerTripId}${wayPoint.seqNum}s"
+        val filepath = Environment.getExternalStorageDirectory()
+        val storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+        val image = File.createTempFile(
+            imageFileName,  /* prefix */
+            ".jpg",  /* suffix */
+            storageDir /* directory */
+        )
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.absolutePath
+        return image
+    }
+
+    fun rotateBitmap(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
+    }
+
+    fun getBitmapFromPath(path: String):Bitmap{
+        val file = File(path)
+        val fullbitmap =
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, Uri.fromFile(file))
+        return fullbitmap
     }
 
 

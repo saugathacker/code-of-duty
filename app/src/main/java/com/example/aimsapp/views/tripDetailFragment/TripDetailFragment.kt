@@ -1,5 +1,7 @@
 package com.example.aimsapp.views.tripDetailFragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +24,7 @@ class TripDetailFragment : Fragment()
     private lateinit var binding: FragmentTripDetailBinding
     private lateinit var viewModel: TripDetailViewModel
     private lateinit var adapter: WayPointAdapter
+    private lateinit var sharedPreference: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class TripDetailFragment : Fragment()
         val dataSource = TripDatabase.getInstance(application).dao
         val trip = TripDetailFragmentArgs.fromBundle(requireArguments()).selectedTrip
         val viewModelFactory = TripDetailViewModelFactory(trip, dataSource,application)
+        sharedPreference = requireActivity().getSharedPreferences("tripsStatus shared prefs", Context.MODE_PRIVATE)
         viewModel = ViewModelProvider(this, viewModelFactory).get(TripDetailViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -49,15 +53,19 @@ class TripDetailFragment : Fragment()
             adapter.submitList(it)
         })
 
+        //if trip is already started
         if (trip.started){
             binding.startTrip.text = "Resume Trip"
             binding.startTrip.setOnClickListener {
+                //getting the next incomplete trip
                 val point = viewModel.getNextWayPoint()
                 if (point != null) {
+                    //if the next trip is not started
                     if(!point.started){
                         point.started = true
                         viewModel.updatePoint(point)
                     }
+                    //if the next trip is already started and arrived
                     if(point.arrived){
                         val dialog: DialogFragment
                         when(point.waypointTypeDescription){
@@ -66,11 +74,13 @@ class TripDetailFragment : Fragment()
                         }
                         dialog.show(childFragmentManager, "Forms")
                     }
+                    //if the next trip is already started but not arrived
                     else{
                         this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()).setOwnerTripId(point.ownerTripId).setSeqNum(point.seqNum))
                     }
                 }
             }
+            //if the trip is complete
             if(trip.completed){
                 binding.startTrip.text = "Trip Completed"
                 binding.startTrip.isEnabled = false

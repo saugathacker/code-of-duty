@@ -197,7 +197,6 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
             alertDialogBuilder.setPositiveButton("Done") { _, _ ->
                 wayPoint.completed = true
                 viewModel.updatePoint(wayPoint)
-
                 frag.dismiss()
             }
         }

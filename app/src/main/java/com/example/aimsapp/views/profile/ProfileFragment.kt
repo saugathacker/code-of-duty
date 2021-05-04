@@ -1,8 +1,10 @@
 package com.example.aimsapp.views.profile
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,19 +22,18 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class ProfileFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
-
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: ProfileViewModel
     private lateinit var binding: FragmentProfileBinding
+    private var onBreak = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
-
+        sharedPreferences = requireActivity().getSharedPreferences("tripStatus shared prefs", Context.MODE_PRIVATE)
+        onBreak = sharedPreferences.getBoolean("break", false)
         return binding.root
     }
 
@@ -40,8 +41,34 @@ class ProfileFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        binding.settingsCard.setOnClickListener {
-            Toast.makeText(requireContext(), "Settings has not been implemented", Toast.LENGTH_SHORT).show()
+        binding.breakCard.setOnClickListener {
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            if(onBreak){
+                alertDialogBuilder.apply {
+                    setTitle("You are on a break!")
+                    setMessage("Do you want to end the break?")
+                    setNegativeButton("No"){_,_ ->
+                    }
+                    setPositiveButton("Yes"){_,_->
+                        sharedPreferences.edit().putBoolean("break",false).apply()
+                        onBreak = false
+                    }
+                }
+                alertDialogBuilder.create().show()
+            }
+            else{
+                alertDialogBuilder.apply {
+                    setTitle("Looks like you need a break")
+                    setMessage("Do you want to take a break?")
+                    setNegativeButton("No"){_,_ ->
+                    }
+                    setPositiveButton("Yes"){_,_->
+                        sharedPreferences.edit().putBoolean("break",true).apply()
+                        onBreak = true
+                    }
+                }
+                alertDialogBuilder.create().show()
+            }
         }
         binding.helpCard.setOnClickListener {
             showHelp()
