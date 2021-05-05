@@ -184,7 +184,7 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
         if(formIsEmpty()){
             alertDialogBuilder.setTitle("Please fill out the form")
-            alertDialogBuilder.setMessage("You must fill out all the * field!!")
+            alertDialogBuilder.setMessage("You must fill out all the * field and signature!!!")
             alertDialogBuilder.setCancelable(true)
             alertDialogBuilder.setNegativeButton("OK") { _, _ ->
             }

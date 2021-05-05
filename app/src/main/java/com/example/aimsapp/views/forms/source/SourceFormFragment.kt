@@ -186,7 +186,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
         viewModel.saveForm()
         if (formIsEmpty()) {
             alertDialogBuilder.setTitle("Please fill out the form")
-            alertDialogBuilder.setMessage("You must fill out all the * field!!")
+            alertDialogBuilder.setMessage("You must fill out all the * field and signature!!!")
             alertDialogBuilder.setCancelable(true)
             alertDialogBuilder.setNegativeButton("OK") { _, _ ->
             }
