@@ -130,6 +130,18 @@ class SiteViewModel(application: Application): AndroidViewModel(application), Ob
     }
 
     fun updatePoint(wayPoint: WayPoint) {
+        Log.i("AIMS_Dispatcher", "Product picked up information sent to Dispatcher!\n" +
+                "\"DriverCode\": \"CodeOfDuty\",\n" +
+                "\"TripId\": ${wayPoint.ownerTripId},\n" +
+                "\"SourceId\": ${wayPoint.sourceId},\n" +
+                "\"ProductId\": ${wayPoint.productId},\n" +
+                "\"BOLNum\": \"${form.billOfLading}\",\n" +
+                "\"StartTime\":  \"${form.startTime}\",\n" +
+                "\"EndTime\":  \"${form.endTime}\",\n" +
+                "\"GrossQty\":  ${form.grossGallons},\n" +
+                "\"NetQty\":  ${form.netGallons},\n"+
+                "\"InitMtrRead\":  ${form.initialMeterReading},\n"+
+                "\"FinalMtrRead\": ${form.finalMeterReading}")
         viewModelScope.launch {
             repo.updatePoint(wayPoint)
         }

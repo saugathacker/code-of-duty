@@ -16,7 +16,6 @@ import com.example.aimsapp.repository.TripRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
-@RequiresApi(Build.VERSION_CODES.O)
 
 class SourceViewModel(application: Application): AndroidViewModel(application),Observable {
     val database = getInstance(application)
@@ -108,7 +107,6 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
 
 
     fun updatePoint(wayPoint: WayPoint) {
-        val timestamp = LocalDateTime.now()
         Log.i("AIMS_Dispatcher", "Product picked up information sent to Dispatcher!\n" +
                 "\"DriverCode\": \"CodeOfDuty\",\n" +
                 "\"TripId\": ${wayPoint.ownerTripId},\n" +

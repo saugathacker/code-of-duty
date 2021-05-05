@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -196,6 +197,12 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
                 wayPoint.completed = true
                 viewModel.updatePoint(wayPoint)
                 frag.dismiss()
+                val timestamp = LocalDateTime.now()
+                Log.i("AIMS_Dispatcher", "Trip status sent to Dispatcher!\n\"TripID\": ${wayPoint.ownerTripId},\n" +
+                        "\"StatusCode\": \"LeaveSIite\",\n" +
+                        "\"StatusComment\": \"Leaving Site\",\n" +
+                        "\"Incoming\": true,\n" +
+                        "\"StatusDate\":  \"${timestamp.toString()}\"")
             }
         }
 
