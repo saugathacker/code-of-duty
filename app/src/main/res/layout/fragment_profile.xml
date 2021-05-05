@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.aimsapp.views.profile.ProfileViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -29,39 +31,90 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/driverName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="32dp"
-                android:text="Driver Name"
+                tools:text="DRIVER NAME"
+                android:text="@{viewModel.driverName}"
                 android:textColor="@color/material_on_surface_emphasis_high_type"
-                android:textSize="32sp"
+                android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="@+id/circularImageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/circularImageView"
                 app:layout_constraintTop_toTopOf="@+id/circularImageView" />
 
             <TextView
+                android:textSize="10dp"
                 android:id="@+id/completed_trips"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Trips Completed: 0"
+                android:text="Trips Completed: "
                 android:textAlignment="viewStart"
-                app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintStart_toStartOf="@+id/driverName"
+                app:layout_constraintTop_toBottomOf="@+id/driverName" />
 
             <TextView
+                android:textSize="10dp"
+
+                android:id="@+id/completed_trips_edit"
+                app:layout_constraintTop_toTopOf="@+id/completed_trips"
+                app:layout_constraintStart_toEndOf="@+id/completed_trips"
+                android:text="@{viewModel.tripCompleted}"
+                tools:text="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textSize="10dp"
+
+                android:id="@+id/truck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Truck: "
+                android:textAlignment="viewStart"
+                app:layout_constraintStart_toStartOf="@+id/driverName"
+                app:layout_constraintTop_toBottomOf="@id/completed_trips" />
+
+            <TextView
+                android:textSize="10dp"
+
+                android:id="@+id/truckCode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Truck: TruckCode \nTrailer: TrailerCode"
+                android:text="@{viewModel.truckCode}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/truck"
+                app:layout_constraintTop_toTopOf="@id/truck"
+                tools:text="1" />
+
+            <TextView
+                android:textSize="10dp"
+
+                android:id="@+id/trailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trailer: "
                 android:textAlignment="viewStart"
-                app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@id/completed_trips" />
+                app:layout_constraintStart_toStartOf="@+id/driverName"
+                app:layout_constraintTop_toBottomOf="@id/truckCode" />
+
+            <TextView
+                android:textSize="10dp"
+
+                android:id="@+id/trailerCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.trailerCode}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/trailer"
+                app:layout_constraintTop_toTopOf="@id/trailer"
+                tools:text="1" />
+
+
 
             <View
                 android:id="@+id/line"
