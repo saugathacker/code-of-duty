@@ -2,10 +2,12 @@ package com.example.aimsapp.views.tripDetailFragment
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -31,6 +33,7 @@ class TripDetailFragment : Fragment()
         retainInstance = true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trip_detail, container, false)
@@ -98,6 +101,7 @@ class TripDetailFragment : Fragment()
 
         viewModel.wayPoints.observe(viewLifecycleOwner, Observer {
             viewModel.updateStats(it)
+            adapter.notifyDataSetChanged()
         })
 
         if(trip.started)
