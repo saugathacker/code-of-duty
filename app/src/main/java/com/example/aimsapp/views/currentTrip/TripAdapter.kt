@@ -38,6 +38,7 @@ class TripAdapter(
             binding.tripTitle.text =
                 "Trip Name: ${item.tripName} \nTrip Id: ${item.tripId}"
             binding.driverDetail.text = "Driver Name: ${item.driverName} Truck Id: ${item.truckId}"
+            binding.date.text = "Trip Date: ${item.tripDate.subSequence(0,10)}"
         }
 
         companion object {

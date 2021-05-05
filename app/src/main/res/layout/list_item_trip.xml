@@ -64,13 +64,26 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+
                 android:text="TextView"
                 android:textColor="@color/material_on_surface_emphasis_high_type"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/mapIcon"
                 app:layout_constraintStart_toEndOf="@+id/tripIcon"
                 app:layout_constraintTop_toBottomOf="@+id/tripTitle" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/mapIcon"
+                app:layout_constraintStart_toEndOf="@+id/tripIcon"
+                app:layout_constraintTop_toBottomOf="@+id/driverDetail" />
 
             <ImageView
                 android:id="@+id/mapIcon"
