@@ -40,6 +40,8 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
         wayPoint.arrived = true
         updatePoint(wayPoint)
         val timestamp = LocalDateTime.now()
+        val statusCode = if(wayPoint.waypointTypeDescription.equals("Source")) "ArriveSrc" else "ArriveSite"
+        val statusComment = if(wayPoint.waypointTypeDescription.equals("Source")) "Arrive at Source" else "Arrive at Site"
         Log.i("AIMS_Dispatcher", "Trip status sent to Dispatcher!\n\"TripID\": ${wayPoint.ownerTripId},\n" +
                 "\"StatusCode\": \"ArriveSrc\",\n" +
                 "\"StatusComment\": \"Arrive At Source\",\n" +
