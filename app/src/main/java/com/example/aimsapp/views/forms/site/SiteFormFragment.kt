@@ -199,7 +199,7 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
                 frag.dismiss()
                 val timestamp = LocalDateTime.now()
                 Log.i("AIMS_Dispatcher", "Trip status sent to Dispatcher!\n\"TripID\": ${wayPoint.ownerTripId},\n" +
-                        "\"StatusCode\": \"LeaveSIite\",\n" +
+                        "\"StatusCode\": \"LeaveSite\",\n" +
                         "\"StatusComment\": \"Leaving Site\",\n" +
                         "\"Incoming\": true,\n" +
                         "\"StatusDate\":  \"${timestamp.toString()}\"")

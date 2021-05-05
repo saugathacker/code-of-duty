@@ -43,8 +43,8 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
         val statusCode = if(wayPoint.waypointTypeDescription.equals("Source")) "ArriveSrc" else "ArriveSite"
         val statusComment = if(wayPoint.waypointTypeDescription.equals("Source")) "Arrive at Source" else "Arrive at Site"
         Log.i("AIMS_Dispatcher", "Trip status sent to Dispatcher!\n\"TripID\": ${wayPoint.ownerTripId},\n" +
-                "\"StatusCode\": \"ArriveSrc\",\n" +
-                "\"StatusComment\": \"Arrive At Source\",\n" +
+                "\"StatusCode\": \"$statusCode\",\n" +
+                "\"StatusComment\": \"$statusComment\",\n" +
                 "\"Incoming\": true,\n" +
                 "\"StatusDate\":  \"${timestamp.toString()}\"")
     }
