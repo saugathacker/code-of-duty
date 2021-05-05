@@ -183,7 +183,7 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
 
     private fun submitHandler() {
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
-
+        viewModel.saveForm()
         if (formIsEmpty()) {
             alertDialogBuilder.setTitle("Please fill out the form")
             alertDialogBuilder.setMessage("You must fill out all the * field!!")
@@ -191,13 +191,19 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
             alertDialogBuilder.setNegativeButton("OK") { _, _ ->
             }
         } else {
-            alertDialogBuilder.setTitle("Form Sent to Dispatcher")
-            alertDialogBuilder.setMessage("Demo")
+            alertDialogBuilder.setTitle("Form Completed")
+            alertDialogBuilder.setMessage("Sent to Dispatcher")
             alertDialogBuilder.setCancelable(false)
             alertDialogBuilder.setPositiveButton("Done") { _, _ ->
                 wayPoint.completed = true
                 viewModel.updatePoint(wayPoint)
                 frag.dismiss()
+                val timestamp = LocalDateTime.now()
+                Log.i("AIMS_Dispatcher", "Trip status sent to Dispatcher!\n\"TripID\": ${wayPoint.ownerTripId},\n" +
+                        "\"StatusCode\": \"LeaveSrc\",\n" +
+                        "\"StatusComment\": \"Leaving Source\",\n" +
+                        "\"Incoming\": true,\n" +
+                        "\"StatusDate\":  \"${timestamp.toString()}\"")
             }
         }
 

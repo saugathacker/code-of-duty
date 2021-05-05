@@ -1,7 +1,9 @@
 package com.example.aimsapp.views.forms.source
 
 import android.app.Application
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -13,6 +15,8 @@ import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.repository.TripRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+@RequiresApi(Build.VERSION_CODES.O)
 
 class SourceViewModel(application: Application): AndroidViewModel(application),Observable {
     val database = getInstance(application)
@@ -102,15 +106,19 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
         }
     }
 
-    fun submitForm(){
-        Log.i("AIMSLOG", "Saved for to the database\n" +
-                " ${productType.value}\n ${startDate.value}, ${startTime.value}\n" +
-                " ${endDate.value}, ${endTime.value} \n" +
-                " ${grossGallons.value}, ${netGallons.value}\n" +
-                " ${billOfLading.value}, ${notes.value}")
-    }
 
     fun updatePoint(wayPoint: WayPoint) {
+        val timestamp = LocalDateTime.now()
+        Log.i("AIMS_Dispatcher", "Product picked up information sent to Dispatcher!\n" +
+                "\"DriverCode\": \"CodeOfDuty\",\n" +
+                "\"TripId\": ${wayPoint.ownerTripId},\n" +
+                "\"SourceId\": ${wayPoint.sourceId},\n" +
+                "\"ProductId\": ${wayPoint.productId},\n" +
+                "\"BOLNum\": \"${form.billOfLading}\",\n" +
+                "\"StartTime\":  \"${form.startTime}\",\n" +
+                "\"EndTime\":  \"${form.endTime}\",\n" +
+                "\"GrossQty\":  ${form.grossGallons},\n" +
+                "\"NetQty\":  ${form.netGallons}")
         viewModelScope.launch {
             repo.updatePoint(wayPoint)
         }
@@ -118,6 +126,7 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
 
     override fun onCleared() {
         super.onCleared()
+        saveForm()
         Log.i("CloseForm", "ViewModel destroyed")
     }
 
