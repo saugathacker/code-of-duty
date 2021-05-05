@@ -55,8 +55,10 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
     ): View? {
 
         val application = requireActivity().application
-        val viewModelFactory = SourceViewModelFactory(application)
+        val viewModelFactory = SourceViewModelFactory(application, wayPoint)
         frag = parentFragment as SourceFormDialog
+        viewModel = ViewModelProvider(frag, viewModelFactory).get(SourceViewModel::class.java)
+
         if (no == 0) {
             binding1 = DataBindingUtil.inflate(inflater, R.layout.source_pre_form, container, false)
 
@@ -78,7 +80,6 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
                 false
             )
             binding2.lifecycleOwner = frag
-            viewModel = ViewModelProvider(frag, viewModelFactory).get(SourceViewModel::class.java)
             binding2.viewModel = viewModel
 
             binding2.apply {
@@ -128,13 +129,11 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
             }
 
             Log.i("CloseForm", "Form Created 2")
-
             return binding2.root
         }
 
 
         binding1.lifecycleOwner = frag
-        viewModel = ViewModelProvider(frag, viewModelFactory).get(SourceViewModel::class.java)
         viewModel.startForm(wayPoint)
         binding1.viewModel = viewModel
 

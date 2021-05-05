@@ -40,7 +40,7 @@ interface TripDao{
     @Update
     suspend fun updatePoint(point: WayPoint)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertForm(form: Form)
 
     @Update

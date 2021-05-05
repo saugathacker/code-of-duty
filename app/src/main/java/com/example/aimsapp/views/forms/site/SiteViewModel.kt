@@ -14,7 +14,7 @@ import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.repository.TripRepository
 import kotlinx.coroutines.launch
 
-class SiteViewModel(application: Application): AndroidViewModel(application), Observable {
+class SiteViewModel(application: Application, wayPoint: WayPoint): AndroidViewModel(application), Observable {
 
     val database = getInstance(application)
     val repo = TripRepository(database)
@@ -48,6 +48,15 @@ class SiteViewModel(application: Application): AndroidViewModel(application), Ob
     val finalMeterReading = MutableLiveData<String>()
     @Bindable
     val finalTrailerReading = MutableLiveData<String>()
+
+    init {
+        val newForm = Form()
+        newForm.ownerSeqNum = wayPoint.seqNum
+        newForm.ownerTripId = wayPoint.ownerTripId
+        viewModelScope.launch {
+            repo.insertForm(newForm)
+        }
+    }
 
     fun startForm(wayPoint: WayPoint){
         var forms = listOf<Form>()

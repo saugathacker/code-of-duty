@@ -60,8 +60,11 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val application = requireActivity().application
-        val viewModelFactory = SiteViewModelFactory(application)
+        val viewModelFactory = SiteViewModelFactory(application, wayPoint)
         frag = parentFragment as SiteFormDialog
+
+        viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
+
         if(no == 0){
             binding1 = DataBindingUtil.inflate(inflater,R.layout.site_pre_form,container,false)
 
@@ -79,14 +82,12 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
             if(no == 1){
                 binding3 = DataBindingUtil.inflate(inflater, R.layout.site_mid_form, container, false)
                 binding3.lifecycleOwner = frag
-                viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
                 binding3.viewModel = viewModel
 
                 return binding3.root
             }
             binding2 = DataBindingUtil.inflate(inflater,R.layout.site_post_form,container, false)
             binding2.lifecycleOwner = frag
-            viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
             binding2.viewModel = viewModel
 
             binding2.apply {
@@ -137,7 +138,6 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
             return binding2.root
         }
         binding1.lifecycleOwner = frag
-        viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
         binding1.viewModel = viewModel
         viewModel.startForm(wayPoint)
         viewModel.startDate.observe(viewLifecycleOwner, Observer {

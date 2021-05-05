@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 
-class SourceViewModel(application: Application): AndroidViewModel(application),Observable {
+class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidViewModel(application),Observable {
     val database = getInstance(application)
     val repo = TripRepository(database)
 
@@ -43,6 +43,16 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
     val billOfLading = MutableLiveData<String>()
     @Bindable
     val notes = MutableLiveData<String>()
+
+    init {
+        val newForm = Form()
+        newForm.ownerSeqNum = wayPoint.seqNum
+        newForm.ownerTripId = wayPoint.ownerTripId
+        viewModelScope.launch {
+            repo.insertForm(newForm)
+            Log.i("CloseForm","Form Inserted")
+        }
+    }
 
 
     fun startForm(wayPoint: WayPoint){
@@ -85,7 +95,7 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
     }
 
     fun saveForm(){
-        viewModelScope.launch {
+
             Log.i("CloseForm","Saved")
             form.productType = productType.value.toString()
             form.startDate = startDate.value.toString()
@@ -101,7 +111,8 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
             form.billOfLading = billOfLading.value.toString()
             form.notes = notes.value.toString()
             Log.i("CloseForm","Saved2 ${productType.value}")
-            repo.updateForm(form)
+        viewModelScope.launch {
+            repo.insertForm(form)
         }
     }
 
@@ -124,7 +135,6 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
 
     override fun onCleared() {
         super.onCleared()
-        saveForm()
         Log.i("CloseForm", "ViewModel destroyed")
     }
 
