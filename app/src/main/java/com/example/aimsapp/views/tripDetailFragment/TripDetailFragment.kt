@@ -82,6 +82,10 @@ class TripDetailFragment : Fragment()
                         this.findNavController().navigate(TripDetailFragmentDirections.actionTripDetailFragmentToMap().setLatitude(point.latitude.toFloat()).setLongitude(point.longitude.toFloat()).setOwnerTripId(point.ownerTripId).setSeqNum(point.seqNum))
                     }
                 }
+                else{
+                    binding.startTrip.text = "Trip Completed"
+                    binding.startTrip.isEnabled = false
+                }
             }
             //if the trip is complete
             if(trip.completed){

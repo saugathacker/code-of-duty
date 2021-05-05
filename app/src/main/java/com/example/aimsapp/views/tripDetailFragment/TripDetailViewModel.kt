@@ -26,13 +26,23 @@ class TripDetailViewModel(val trip: Trip, dataSource: TripDao, application: Appl
     val selectedTrip: LiveData<Trip>
         get() = _selectedTrip
 
+    private val _driverName = MutableLiveData<String>()
+    val driverName: LiveData<String>
+        get() = _driverName
+
+    private val _tripName = MutableLiveData<String>()
+    val tripName: LiveData<String>
+        get() = _tripName
+
     val sourceNum= MutableLiveData<Int>()
     val siteNum = MutableLiveData<Int>()
-    val completedNum = MutableLiveData<Int>()
+    val completedNum = MutableLiveData<String>()
 
     init
     {
         _selectedTrip.value = trip
+        _driverName.value = trip.driverName
+        _tripName.value = trip.tripName
         wayPoints = repo.getWaPointById(trip.tripId)
     }
 
@@ -72,6 +82,7 @@ class TripDetailViewModel(val trip: Trip, dataSource: TripDao, application: Appl
                 return point
             }
         }
+        completedTrip()
         return null
     }
 
@@ -97,6 +108,6 @@ class TripDetailViewModel(val trip: Trip, dataSource: TripDao, application: Appl
 
         sourceNum.value = sourceCounter
         siteNum.value = siteCounter
-        completedNum.value = completedCounter
+        completedNum.value = "${completedCounter.toString()}/${list.size}"
     }
 }

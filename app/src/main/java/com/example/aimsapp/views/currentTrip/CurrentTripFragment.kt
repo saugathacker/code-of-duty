@@ -80,11 +80,6 @@ class CurrentTripFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = false
         }
 
-        viewModel.showWelcomeText.observe(viewLifecycleOwner, Observer {
-            if(!it){
-                binding.welcomeText.visibility = View.GONE
-            }
-        })
 
         return binding.root
     }

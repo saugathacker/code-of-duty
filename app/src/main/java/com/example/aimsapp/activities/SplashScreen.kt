@@ -23,7 +23,7 @@ class SplashScreen: AppCompatActivity() {
     private val SPLASH_TIME_OUT = 1400L
     private var loggedIn = false;
     private lateinit var binding: SplashScreenBinding
-    private var driverIdList = arrayListOf<String>("D1","D2","D3","CodeOfDuty")
+    private var driverIdList = arrayListOf<String>("d1","d2","d3","codeofduty")
 
 
 
@@ -88,8 +88,10 @@ class SplashScreen: AppCompatActivity() {
                 dialog.show()
             }
             else{
-                if (driverIdList.contains(driverId.text.toString())){
+                val driver = driverId.text.toString()
+                if (driverIdList.contains(driver.toLowerCase())){
                     sharedPreferences.edit().putBoolean("loggedIn", true).apply()
+                    sharedPreferences.edit().putString("driverId", driver).apply()
                     val i = Intent(this@SplashScreen, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
                     startActivity(i)
