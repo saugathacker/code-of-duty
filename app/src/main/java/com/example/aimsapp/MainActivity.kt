@@ -12,10 +12,14 @@ import com.example.aimsapp.views.map.MapFragment
 import com.example.aimsapp.views.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+/**
+ *
+ */
 class MainActivity : AppCompatActivity() {
-
-
-
+    /**
+     * please refer to android sdk function for this overridden method
+     * this method calls setUpNavigation
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         setUpNavigation()
     }
 
+    /**
+     * function to set up navigation
+     */
     private fun setUpNavigation(){
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bttm_nav)
         val navController = findNavController(R.id.nav_host_fragment)
