@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_current_trip_to_tripDetailFragment"
             app:destination="@id/tripDetailFragment" />
+        <action
+            android:id="@+id/action_current_trip_to_profile"
+            app:destination="@id/profile" />
     </fragment>
     <fragment
         android:id="@+id/profile"
