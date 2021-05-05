@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/gradient_background"
         tools:context=".views.waypointDetailFragment.WayPointDetailsFragment">
 
 
@@ -33,12 +34,12 @@
 
         <TextView
             android:id="@+id/destinationName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{viewModel.selectedWayPoint.destinationName}"
             android:textAlignment="center"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/waypointTypeDescription"
@@ -61,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{viewModel.selectedWayPoint.address2}"
+            android:text="@{viewModel.address2}"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -291,6 +292,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cornerRadius="15dp"
+            android:backgroundTint="@color/green"
             android:text="Forms"
             app:layout_constraintBaseline_toBaselineOf="@+id/navigate_button"
             app:layout_constraintEnd_toStartOf="@id/navigate_button"
@@ -301,6 +303,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cornerRadius="15dp"
+            android:backgroundTint="@color/green"
             android:text="Navigate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

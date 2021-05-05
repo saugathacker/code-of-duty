@@ -184,7 +184,6 @@
 
         <com.google.android.material.button.MaterialButton
             android:backgroundTint="@color/green"
-            android:textColor="@color/primaryTextColor"
             android:id="@+id/startTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
