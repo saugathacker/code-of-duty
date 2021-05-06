@@ -121,7 +121,7 @@ class MapFragment : Fragment(), LocationListener {
 
                     else -> dialog = SiteFormDialog(viewModel.wayPoint)
                 }
-                dialog.show(childFragmentManager,"Form")
+               showDialogWithChildFragmentManager(dialog)
             }
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
@@ -134,6 +134,11 @@ class MapFragment : Fragment(), LocationListener {
         return binding.root
     }
 
+    private fun showDialogWithChildFragmentManager(dialog: DialogFragment){
+        if(isAdded){
+            dialog.show(childFragmentManager,"Form")
+        }
+    }
     private fun getPoint() {
         if(tripId.equals(-1)){
 
@@ -611,7 +616,7 @@ class MapFragment : Fragment(), LocationListener {
 
                     else -> dialog = SiteFormDialog(viewModel.wayPoint)
                 }
-                dialog.show(childFragmentManager,"Form")
+               showDialogWithChildFragmentManager(dialog)
 
             }
         }
