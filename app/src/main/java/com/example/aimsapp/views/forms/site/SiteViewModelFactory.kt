@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.aimsapp.database.tripDatabase.WayPoint
 
+/**
+ * Constructor for Site view model
+ */
 class SiteViewModelFactory(private val application: Application, private val wayPoint: WayPoint): ViewModelProvider.Factory{
         @Suppress("unchecked_cast")
 
