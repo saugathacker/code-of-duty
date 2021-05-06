@@ -43,6 +43,9 @@ import com.here.android.mpa.mapping.MapRoute
 import com.here.android.mpa.routing.*
 import java.lang.ref.WeakReference
 
+/**
+ * This is the Map fragment. Displays map and handles functions of the map
+ */
 @RequiresApi(Build.VERSION_CODES.O)
 class MapFragment : Fragment(), LocationListener {
 
@@ -148,6 +151,9 @@ class MapFragment : Fragment(), LocationListener {
         }
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
@@ -165,6 +171,9 @@ class MapFragment : Fragment(), LocationListener {
         Toast.makeText(requireContext(),"${viewModel.inNavigationMode}", Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         accessLocationPermission()
@@ -677,6 +686,9 @@ class MapFragment : Fragment(), LocationListener {
             return false
         }
 
+        /**
+         * please refer to android sdk function for this overridden method
+         */
         override fun playFiles(strings: Array<String>): Boolean {
             return false
         }
