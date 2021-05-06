@@ -18,6 +18,9 @@ import com.here.android.mpa.guidance.NavigationManager
 import com.here.android.mpa.guidance.VoiceCatalog
 import com.here.android.mpa.guidance.VoiceSkin
 
+/**
+ * Shows the list of preexisting voices
+ */
 class VoiceSkinsActivity : AppCompatActivity() {
     private var m_voiceSkinsView: RecyclerView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +36,9 @@ class VoiceSkinsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onResume() {
         super.onResume()
         refreshVoiceSkins()
@@ -61,6 +67,9 @@ class VoiceSkinsActivity : AppCompatActivity() {
         }
 
 
+        /**
+         * please refer to android sdk function for this overridden method
+         */
         override fun getItemCount(): Int {
             return m_voiceSkins.size
         }
@@ -98,6 +107,9 @@ class VoiceSkinsActivity : AppCompatActivity() {
             }
         }
 
+        /**
+         * please refer to android sdk function for this overridden method
+         */
         override fun onBindViewHolder(holder: VoiceViewHolder, position: Int) {
             val voiceSkin = m_voiceSkins[position]
             holder.m_idView.text = java.lang.Long.toString(voiceSkin.id)
