@@ -11,12 +11,18 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.example.aimsapp.R
 
+/**
+ * Handels the maps foreground service
+ */
 class ForegroundService : Service() {
     override fun onCreate() {
         super.onCreate()
         initChannels(this.applicationContext)
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         if (intent.action == START_ACTION) {
             val notificationIntent = Intent(this, MapFragment::class.java)
@@ -57,6 +63,9 @@ class ForegroundService : Service() {
         notificationManager.createNotificationChannel(channel)
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onBind(intent: Intent): IBinder? {
         // Used only in case of bound services.
         return null
