@@ -3,27 +3,32 @@ package com.example.aimsapp.activities
 import android.Manifest
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.aimsapp.R
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import java.util.ArrayList
+import java.util.*
 
+/**
+ * This is the apps main activity
+ * This includes all of out app except the login screen
+ */
 class MainActivity : AppCompatActivity() {
-
+    /**
+     * please refer to android sdk function for this overridden method
+     * this method calls setUpNavigation
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.i("MainActivity1", "Main Started")
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        //settting up bottom navigation
         setUpNavigation()
 
+        //permission listeners for storage, location, and camera
         val permissionlistener: PermissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
             }
@@ -53,12 +58,11 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.VIBRATE
             )
             .check()
-
-
-
-
     }
 
+    /**
+     * Function to set up navigation
+     */
     private fun setUpNavigation(){
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bttm_nav)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -69,6 +73,9 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Saves if the user is logged in when the activity is destroyed
+     */
     override fun onDestroy() {
         super.onDestroy()
         val sharedPreferences = this.getSharedPreferences(
