@@ -203,8 +203,8 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
             }
         }
         else{
-            alertDialogBuilder.setTitle("Form Sent to Dispatcher")
-            alertDialogBuilder.setMessage("Demo")
+            alertDialogBuilder.setTitle("Form Completed")
+            alertDialogBuilder.setMessage("Sent to Dispatcher")
             alertDialogBuilder.setCancelable(false)
             alertDialogBuilder.setPositiveButton("Done"){_,_ ->
                 wayPoint.completed = true
