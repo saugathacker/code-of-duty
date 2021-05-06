@@ -1,34 +1,48 @@
 package com.example.aimsapp.database.tripDatabase
 
 import android.os.Parcelable
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-import java.sql.Time
 
+/**
+ * Trip table with primary key tripID and fields tripName, driverCode, driverName, truckId,
+ * truckCode, truckDesc, trailerId, trailerCode, trailerDesc, tripleDate, completed, started.
+ */
 @Entity(tableName = "trip_table")
 @Parcelize
 data class Trip(
     @PrimaryKey
-    var tripId:Long = 0L,
+    var tripId: Long = 0L,
     var tripName: String = "",
     var driverCode: String = "",
     var driverName: String = "",
     var truckId: Long = 0L,
     var truckCode: String = "",
     var truckDesc: String = "",
-    var trailerId:Long = 0L,
-    var trailerCode:String = "",
-    var trailerDesc:String = "",
-    var tripDate:String = "",
+    var trailerId: Long = 0L,
+    var trailerCode: String = "",
+    var trailerDesc: String = "",
+    var tripDate: String = "",
     var completed: Boolean = false,
     var started: Boolean = false
 ) : Parcelable
 
-@Entity(tableName = "way_point_table",foreignKeys = [(ForeignKey(entity = Trip::class,
-    parentColumns = arrayOf("tripId"),
-    childColumns = arrayOf("ownerTripId"),
-    onDelete = ForeignKey.CASCADE))],indices = [
-    Index("ownerTripId")])
+/**
+ * WayPoint table with tripId as foreign key which references ownerTripId
+ * The primary key for WayPoint Table is seqNum
+ */
+@Entity(
+    tableName = "way_point_table", foreignKeys = [(ForeignKey(
+        entity = Trip::class,
+        parentColumns = arrayOf("tripId"),
+        childColumns = arrayOf("ownerTripId"),
+        onDelete = ForeignKey.CASCADE
+    ))], indices = [
+        Index("ownerTripId")]
+)
 @Parcelize
 data class WayPoint(
     @PrimaryKey()
@@ -51,8 +65,8 @@ data class WayPoint(
     var requestedQty: Double? = 0.0,
     var siteContainerCode: String? = "",
     var siteContainerDescription: String? = "",
-    var stateAbbrev: String ="",
-    var uOM: String? ="",
+    var stateAbbrev: String = "",
+    var uOM: String? = "",
     var waypointTypeDescription: String = "",
     var completed: Boolean = false,
     var started: Boolean = false,
@@ -63,18 +77,27 @@ data class WayPoint(
 
 }
 
-
-@Entity(tableName = "form_table", foreignKeys = [(ForeignKey(entity = WayPoint::class,
-    parentColumns = [ "seqNum"],
-    childColumns = [ "ownerSeqNum"],
-    onDelete = ForeignKey.CASCADE)),
-    (ForeignKey(entity = Trip::class,
-    parentColumns = ["tripId"],
-    childColumns = ["ownerTripId"],
-    onDelete = ForeignKey.CASCADE))],
+/**
+ * From table with primary key formId and a number of fields
+ * The foreign key for Form table is seqNum.
+ */
+@Entity(
+    tableName = "form_table", foreignKeys = [(ForeignKey(
+        entity = WayPoint::class,
+        parentColumns = ["seqNum"],
+        childColumns = ["ownerSeqNum"],
+        onDelete = ForeignKey.CASCADE
+    )),
+        (ForeignKey(
+            entity = Trip::class,
+            parentColumns = ["tripId"],
+            childColumns = ["ownerTripId"],
+            onDelete = ForeignKey.CASCADE
+        ))],
     indices = [
-    Index("ownerSeqNum"),
-    Index("ownerTripId")])
+        Index("ownerSeqNum"),
+        Index("ownerTripId")]
+)
 data class Form(
     @PrimaryKey(autoGenerate = true)
     var formId: Long = 0,

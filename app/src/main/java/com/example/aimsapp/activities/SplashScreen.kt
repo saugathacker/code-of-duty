@@ -17,25 +17,30 @@ import androidx.databinding.DataBindingUtil
 import com.example.aimsapp.R
 import com.example.aimsapp.databinding.SplashScreenBinding
 
-
-class SplashScreen: AppCompatActivity() {
+/**
+ * Class SplashScreen for when the app first starts
+ */
+class SplashScreen : AppCompatActivity() {
 
     private val SPLASH_TIME_OUT = 1400L
     private var loggedIn = false;
     private lateinit var binding: SplashScreenBinding
-    private var driverIdList = arrayListOf<String>("d1","d2","d3","codeofduty")
+    private var driverIdList = arrayListOf<String>("d1", "d2", "d3", "codeofduty")
 
 
-
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Log.i("MainActivity1", "started splash")
-        binding = DataBindingUtil.inflate(layoutInflater,R.layout.splash_screen,null,false)
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.splash_screen, null, false)
         setContentView(binding.root)
 
 
-        val sharedPreferences = this.getSharedPreferences("login shared prefs", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            this.getSharedPreferences("login shared prefs", Context.MODE_PRIVATE)
 
         loggedIn = sharedPreferences.getBoolean("loggedIn", false)
 
@@ -58,15 +63,14 @@ class SplashScreen: AppCompatActivity() {
 
         Handler().postDelayed(Runnable { // This method will be executed once the timer is over
             // Start your app main activity
-            if(loggedIn) {
+            if (loggedIn) {
                 val i = Intent(this@SplashScreen, MainActivity::class.java)
                 i.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
                 startActivity(i)
 
                 // close this activity
                 finish()
-            }
-            else{
+            } else {
                 loginLayout.startAnimation(loginAnimation)
                 loginLayout.visibility = View.VISIBLE
 
@@ -76,20 +80,20 @@ class SplashScreen: AppCompatActivity() {
 
         loginButton.setOnClickListener {
             val alertDialogBuilder = AlertDialog.Builder(this)
-            if(driverId.text.isNullOrBlank() || password.text.isNullOrBlank()){
+            if (driverId.text.isNullOrBlank() || password.text.isNullOrBlank()) {
 
                 alertDialogBuilder.setTitle("Incorrect Driver Id or Password")
                 alertDialogBuilder.setMessage("Please enter correct information")
                 alertDialogBuilder.setCancelable(false)
-                alertDialogBuilder.setNegativeButton("OK"
-                ){ _, _ ->
+                alertDialogBuilder.setNegativeButton(
+                    "OK"
+                ) { _, _ ->
                 }
                 val dialog = alertDialogBuilder.create()
                 dialog.show()
-            }
-            else{
+            } else {
                 val driver = driverId.text.toString()
-                if (driverIdList.contains(driver.toLowerCase())){
+                if (driverIdList.contains(driver.toLowerCase())) {
                     sharedPreferences.edit().putBoolean("loggedIn", true).apply()
                     sharedPreferences.edit().putString("driverId", driver).apply()
                     val i = Intent(this@SplashScreen, MainActivity::class.java)
@@ -98,13 +102,12 @@ class SplashScreen: AppCompatActivity() {
 
                     // close this activity
                     finish()
-                }
-                else{
+                } else {
                     alertDialogBuilder.apply {
                         setTitle("Driver Id does not exist!")
                         setMessage("Please enter a valid Driver Id")
                         setCancelable(false)
-                        setNegativeButton("OK"){_,_ ->}
+                        setNegativeButton("OK") { _, _ -> }
                     }
                     val dialog = alertDialogBuilder.create()
                     dialog.show()
