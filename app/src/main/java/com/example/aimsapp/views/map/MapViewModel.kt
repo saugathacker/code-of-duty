@@ -13,6 +13,10 @@ import com.here.android.mpa.routing.Route
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 @RequiresApi(Build.VERSION_CODES.O)
+
+/**
+ * View Model for Map
+ */
 class MapViewModel(application: Application) : AndroidViewModel(application) {
 
 

@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/**
+ *
+ */
 class FormViewModel : ViewModel(){
 
     private val _productType = MutableLiveData<String>()

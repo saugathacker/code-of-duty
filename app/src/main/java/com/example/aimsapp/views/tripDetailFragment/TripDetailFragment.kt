@@ -20,7 +20,9 @@ import com.example.aimsapp.databinding.FragmentTripDetailBinding
 import com.example.aimsapp.views.forms.site.SiteFormDialog
 import com.example.aimsapp.views.forms.source.SourceFormDialog
 
-
+/**
+ * This is the fragment for the trip detail
+ */
 class TripDetailFragment : Fragment()
 {
     private lateinit var binding: FragmentTripDetailBinding
@@ -33,6 +35,9 @@ class TripDetailFragment : Fragment()
         retainInstance = true
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {

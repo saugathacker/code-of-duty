@@ -13,6 +13,9 @@ import com.example.aimsapp.repository.TripRepository
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
+/**
+ * This is the ViewModel for Trip Detail
+ */
 @RequiresApi(Build.VERSION_CODES.O)
 class TripDetailViewModel(val trip: Trip, dataSource: TripDao, application: Application) : AndroidViewModel(application)
 {

@@ -28,7 +28,9 @@ import com.example.aimsapp.views.forms.source.SourceFormFragment
 import com.github.gcacace.signaturepad.views.SignaturePad
 import java.io.*
 
-
+/**
+ * class signature pad to sign on the forms
+ */
 class SignaturePad(num: Int) : DialogFragment() {
     private lateinit var binding: SignaturePadBinding
     private lateinit var mSignaturePad: SignaturePad
@@ -44,6 +46,9 @@ class SignaturePad(num: Int) : DialogFragment() {
         return mDialog
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onStart() {
         super.onStart()
         val dialog = dialog
@@ -54,6 +59,9 @@ class SignaturePad(num: Int) : DialogFragment() {
         }
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,11 +78,17 @@ class SignaturePad(num: Int) : DialogFragment() {
                 Toast.makeText(requireContext(), "OnStartSigning", Toast.LENGTH_SHORT).show()
             }
 
+            /**
+             * please refer to android sdk function for this overridden method
+             */
             override fun onSigned() {
                 mSaveButton!!.isEnabled = true
                 mClearButton!!.isEnabled = true
             }
 
+            /**
+             * please refer to android sdk function for this overridden method
+             */
             override fun onClear() {
                 mSaveButton!!.isEnabled = false
                 mClearButton!!.isEnabled = false

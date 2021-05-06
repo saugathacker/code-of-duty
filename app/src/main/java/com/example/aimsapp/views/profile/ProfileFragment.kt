@@ -21,6 +21,9 @@ import com.example.aimsapp.databinding.FragmentProfileBinding
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
+/**
+ * This is the fragment for the profile page
+ */
 class ProfileFragment : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -28,6 +31,9 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private var onBreak = false
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +44,9 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
@@ -102,6 +111,9 @@ class ProfileFragment : Fragment() {
         })
     }
 
+    /**
+     * Help function
+     */
     private fun showHelp() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -113,6 +125,9 @@ class ProfileFragment : Fragment() {
         dialog.show()
     }
 
+    /**
+     * About function
+     */
     private fun showAbout() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -125,6 +140,9 @@ class ProfileFragment : Fragment() {
 
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
