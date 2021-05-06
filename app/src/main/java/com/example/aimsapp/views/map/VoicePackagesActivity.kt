@@ -13,14 +13,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aimsapp.R
 import com.here.android.mpa.guidance.VoiceCatalog
 import com.here.android.mpa.guidance.VoicePackage
-import kotlinx.coroutines.NonCancellable.cancel
 
-
+/**
+ * This helps us selsect voice
+ */
 class VoicePackagesActivity : AppCompatActivity() {
     private var m_progressBar: ProgressBar? = null
     private var m_packagesView: RecyclerView? = null
