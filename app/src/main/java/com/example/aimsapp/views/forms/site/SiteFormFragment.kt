@@ -40,6 +40,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
+/**
+ * This pops up the site form
+ */
 @RequiresApi(Build.VERSION_CODES.O)
 class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
 
@@ -53,7 +56,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
     private lateinit var frag: SiteFormDialog
     private lateinit var mCurrentPhotoPath: String
 
-
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -156,7 +161,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         return binding1.root
     }
 
-
+    /**
+     * sets the start date and time
+     */
     private fun setStartDateTime() {
         val startDateTime  = LocalDateTime.now()
         val date = startDateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
@@ -169,6 +176,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         }
     }
 
+    /**
+     * sets the end date and time
+     */
     private fun setEndDateTime() {
         val endDateTime  = LocalDateTime.now()
         val date = endDateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
@@ -180,6 +190,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         }
     }
 
+    /**
+     * it handles the function when submit button is pressed
+     */
     private fun submitHandler(){
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
         if(formIsEmpty()){
@@ -210,6 +223,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         alertDialog.show()
     }
 
+    /**
+     * This checks if the form is empty and returns true
+     */
     private fun formIsEmpty(): Boolean{
         if(viewModel.productType.value.toString().isEmpty() || viewModel.startDate.value.toString().isEmpty() || viewModel.startTime.value.toString().isEmpty()
             || viewModel.endDate.value.toString().isEmpty() || viewModel.endTime.value.toString().isEmpty()
@@ -227,6 +243,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         return false
     }
 
+    /**
+     * function to take photo from camera
+     */
     private fun takePhotoFromCamera(requestCode:Int){
         val intent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (intent.resolveActivity(requireActivity().packageManager) != null) {
@@ -246,6 +265,10 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
             }
         }
     }
+
+    /**
+     * function to open camera at the form to click BOL
+     */
     private fun checkPermissionAndOpenCamera(requestCode: Int){
         if (ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_DENIED){
@@ -289,6 +312,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         }
     }
 
+    /**
+     * function to save photos
+     */
     private fun savePhotos(bitmap: Bitmap, photo: Boolean) {
         val filepath = Environment.getExternalStorageDirectory()
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -311,6 +337,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         }
     }
 
+    /**
+     * updates the signature in the signature's display
+     */
     fun updateSignatureDisplay(bitmap: Bitmap) {
         binding2.signatureView.setImageBitmap(bitmap)
         savePhotos(bitmap, false)
@@ -334,12 +363,18 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         return image
     }
 
+    /**
+     * rotates the bitmap to the angle passed on the parameter
+     */
     fun rotateBitmap(source: Bitmap, angle: Float): Bitmap? {
         val matrix = Matrix()
         matrix.postRotate(angle)
         return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
     }
 
+    /**
+     * this returns bitmap from the path passed on the parameter
+     */
     fun getBitmapFromPath(path: String):Bitmap{
         val file = File(path)
         val fullbitmap =
@@ -347,7 +382,9 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         return fullbitmap
     }
 
-
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onPause() {
         super.onPause()
         viewModel.saveForm()
