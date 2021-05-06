@@ -18,10 +18,7 @@ class CurrentTripViewModel(dataSource: TripDao, application: Application) : Andr
 
     private var tripDatabase: TripDatabase = getInstance(application)
     private var repo: TripRepository
-    private var viewModelJob = Job()
-    private val _showWelcomeText = MutableLiveData<Boolean>()
-    val showWelcomeText: LiveData<Boolean>
-        get() = _showWelcomeText
+
 
     init{
         repo = TripRepository(tripDatabase)
@@ -30,7 +27,6 @@ class CurrentTripViewModel(dataSource: TripDao, application: Application) : Andr
     fun refresh(){
         viewModelScope.launch{
             repo.refreshTrips()
-            _showWelcomeText.value = false
         }
     }
 

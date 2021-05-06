@@ -31,7 +31,8 @@
                 android:layout_height="match_parent"
                 android:paddingHorizontal="16dp"
                 android:paddingBottom="8dp"
-               >
+                app:layout_constraintBottom_toBottomOf="@+id/driverName"
+                app:layout_constraintTop_toBottomOf="@+id/driverName">
 
                 <TextView
                     android:id="@+id/wayPointListTitle"
@@ -83,66 +84,80 @@
                     android:id="@+id/driverNameEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Joe Doe"
+                    android:text="@{viewModel.driverName}"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/driverName"
                     app:layout_constraintTop_toTopOf="@id/driverName" />
 
                 <TextView
                     android:id="@+id/sourceNum"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No of sources: "
+                    android:layout_marginTop="8dp"
+                    android:text="Source"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@id/driverName"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintEnd_toStartOf="@+id/siteNum"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/driverName" />
 
                 <TextView
                     android:id="@+id/sourceNumEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.sourceNum.toString()}"
-                    app:layout_constraintTop_toTopOf="@id/sourceNum"
-                    app:layout_constraintStart_toEndOf="@id/sourceNum"/>
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/sourceNum"
+                    app:layout_constraintStart_toStartOf="@id/sourceNum"
+                    app:layout_constraintTop_toBottomOf="@id/sourceNum"
+                    tools:text="1" />
 
                 <TextView
                     android:id="@+id/siteNum"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No of sites: "
+                    android:text="Sites"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@id/sourceNum"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintEnd_toStartOf="@+id/completed"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/sourceNum"
+                    app:layout_constraintTop_toTopOf="@id/sourceNum" />
 
                 <TextView
                     android:id="@+id/siteNumEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.siteNum.toString()}"
-                    app:layout_constraintTop_toTopOf="@id/siteNum"
-                    app:layout_constraintStart_toEndOf="@id/siteNum"/>
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@id/siteNum"
+                    app:layout_constraintStart_toStartOf="@id/siteNum"
+                    app:layout_constraintTop_toBottomOf="@id/siteNum"
+                    tools:text="2" />
 
                 <TextView
                     android:id="@+id/completed"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Completed: "
+                    android:text="Completed"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@id/siteNum"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/siteNum"
+                    app:layout_constraintTop_toTopOf="@id/siteNum" />
 
                 <TextView
                     android:id="@+id/completedEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.completedNum.toString()}"
-                    app:layout_constraintTop_toTopOf="@id/completed"
-                    app:layout_constraintStart_toEndOf="@id/completed"/>
-
-
-
-
-
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/completed"
+                    app:layout_constraintStart_toStartOf="@id/completed"
+                    app:layout_constraintTop_toBottomOf="@id/completed"
+                    tools:text="16" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -168,8 +183,7 @@
             tools:listitem="@layout/list_item_way_point" />
 
         <com.google.android.material.button.MaterialButton
-            android:backgroundTint="@color/white"
-            android:textColor="@color/primaryColor"
+            android:backgroundTint="@color/green"
             android:id="@+id/startTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

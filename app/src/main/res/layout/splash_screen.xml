@@ -88,6 +88,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/driverId"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:endIconMode="clear_text"
                         android:hint="Driver Id"
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="24dp"
@@ -96,6 +97,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/driverIdEdit"
+                            android:inputType="text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -104,6 +106,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/password"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:endIconMode="password_toggle"
+
                         android:hint="Password"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
@@ -113,6 +117,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/passwordEdit"
+                            android:inputType="textPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 

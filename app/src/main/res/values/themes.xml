@@ -15,6 +15,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/primaryLightColor</item>
         <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/ibmmedium</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AIMSApp">

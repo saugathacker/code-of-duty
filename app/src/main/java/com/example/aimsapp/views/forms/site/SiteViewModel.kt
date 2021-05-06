@@ -14,7 +14,7 @@ import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.repository.TripRepository
 import kotlinx.coroutines.launch
 
-class SiteViewModel(application: Application): AndroidViewModel(application), Observable {
+class SiteViewModel(application: Application, wayPoint: WayPoint): AndroidViewModel(application), Observable {
 
     val database = getInstance(application)
     val repo = TripRepository(database)
@@ -48,6 +48,15 @@ class SiteViewModel(application: Application): AndroidViewModel(application), Ob
     val finalMeterReading = MutableLiveData<String>()
     @Bindable
     val finalTrailerReading = MutableLiveData<String>()
+
+    init {
+        val newForm = Form()
+        newForm.ownerSeqNum = wayPoint.seqNum
+        newForm.ownerTripId = wayPoint.ownerTripId
+        viewModelScope.launch {
+            repo.insertForm(newForm)
+        }
+    }
 
     fun startForm(wayPoint: WayPoint){
         var forms = listOf<Form>()
@@ -130,6 +139,18 @@ class SiteViewModel(application: Application): AndroidViewModel(application), Ob
     }
 
     fun updatePoint(wayPoint: WayPoint) {
+        Log.i("AIMS_Dispatcher", "Product picked up information sent to Dispatcher!\n" +
+                "\"DriverCode\": \"CodeOfDuty\",\n" +
+                "\"TripId\": ${wayPoint.ownerTripId},\n" +
+                "\"SourceId\": ${wayPoint.sourceId},\n" +
+                "\"ProductId\": ${wayPoint.productId},\n" +
+                "\"BOLNum\": \"${form.billOfLading}\",\n" +
+                "\"StartTime\":  \"${form.startTime}\",\n" +
+                "\"EndTime\":  \"${form.endTime}\",\n" +
+                "\"GrossQty\":  ${form.grossGallons},\n" +
+                "\"NetQty\":  ${form.netGallons},\n"+
+                "\"InitMtrRead\":  ${form.initialMeterReading},\n"+
+                "\"FinalMtrRead\": ${form.finalMeterReading}")
         viewModelScope.launch {
             repo.updatePoint(wayPoint)
         }

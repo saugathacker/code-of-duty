@@ -100,6 +100,9 @@ data class Trips(
         newTrip.truckCode = truckCode
         newTrip.truckDesc = truckDesc
         newTrip.truckId = truckId
+        newTrip.trailerCode = trailerCode
+        newTrip.trailerDesc = trailerDesc
+        newTrip.tripDate = tripDate
         newTrip.completed = false
         newTrip.started = false
         return newTrip

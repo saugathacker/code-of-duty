@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             .setDeniedMessage(
                 "If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]"
             )
-            .setGotoSettingButtonText("bla bla")
+            .setGotoSettingButtonText("Settings")
             .setPermissions(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_FINE_LOCATION,

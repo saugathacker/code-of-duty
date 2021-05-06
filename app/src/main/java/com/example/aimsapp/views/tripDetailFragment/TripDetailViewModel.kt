@@ -1,6 +1,9 @@
 package com.example.aimsapp.views.tripDetailFragment
 
 import android.app.Application
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.aimsapp.database.tripDatabase.Trip
 import com.example.aimsapp.database.tripDatabase.TripDao
@@ -8,8 +11,10 @@ import com.example.aimsapp.database.tripDatabase.TripDatabase.Companion.getInsta
 import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.repository.TripRepository
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
-class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Application) : AndroidViewModel(application)
+@RequiresApi(Build.VERSION_CODES.O)
+class TripDetailViewModel(val trip: Trip, dataSource: TripDao, application: Application) : AndroidViewModel(application)
 {
 
     val tripDatabase = getInstance(application)
@@ -21,13 +26,23 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
     val selectedTrip: LiveData<Trip>
         get() = _selectedTrip
 
+    private val _driverName = MutableLiveData<String>()
+    val driverName: LiveData<String>
+        get() = _driverName
+
+    private val _tripName = MutableLiveData<String>()
+    val tripName: LiveData<String>
+        get() = _tripName
+
     val sourceNum= MutableLiveData<Int>()
     val siteNum = MutableLiveData<Int>()
-    val completedNum = MutableLiveData<Int>()
+    val completedNum = MutableLiveData<String>()
 
     init
     {
         _selectedTrip.value = trip
+        _driverName.value = trip.driverName
+        _tripName.value = trip.tripName
         wayPoints = repo.getWaPointById(trip.tripId)
     }
 
@@ -39,6 +54,7 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
         repo.updatePoint(point)
     }
 
+
     fun startTrip(){
         _selectedTrip.value?.started = true
         _selectedTrip.value?.let { updateTrip(it) }
@@ -47,6 +63,12 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
             point.started = true
             updatePoint(point)
         }
+        val timestamp = LocalDateTime.now()
+        Log.i("AIMS_Dispatcher", "Trip status sent to Dispatcher!\n\"TripID\": ${trip.tripId},\n" +
+                "\"StatusCode\": \"SelTrip\",\n" +
+                "\"StatusComment\": \"Select Trip\",\n" +
+                "\"Incoming\": true,\n" +
+                "\"StatusDate\":  \"${timestamp.toString()}\"")
     }
 
     fun completedTrip(){
@@ -60,6 +82,7 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
                 return point
             }
         }
+        completedTrip()
         return null
     }
 
@@ -85,6 +108,6 @@ class TripDetailViewModel(trip: Trip, dataSource: TripDao, application: Applicat
 
         sourceNum.value = sourceCounter
         siteNum.value = siteCounter
-        completedNum.value = completedCounter
+        completedNum.value = "${completedCounter.toString()}/${list.size}"
     }
 }

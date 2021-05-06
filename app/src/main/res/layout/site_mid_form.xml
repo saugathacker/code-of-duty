@@ -24,6 +24,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/final_meter_reading"
+                app:startIconDrawable="@drawable/ic_speed_meter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -44,6 +45,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/final_trailer_reading"
+                app:startIconDrawable="@drawable/ic_device_stick"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/final_meter_reading">
 
@@ -64,6 +66,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="32dp"
                 android:hint="@string/gross_gallons_dropped"
+                app:startIconDrawable="@drawable/ic_water_drop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/final_trailer_reading">
 
@@ -83,6 +86,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/net_gallons_dropped"
+                app:startIconDrawable="@drawable/ic_water_drop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gross_gallons_dropped">
 
@@ -103,6 +107,9 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="32dp"
                 android:hint="@string/bill_of_lading"
+                app:startIconDrawable="@drawable/ic_current_trip"
+                app:endIconMode="clear_text"
+                app:endIconDrawable="@drawable/ic_close"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/net_gallons_dropped">
 

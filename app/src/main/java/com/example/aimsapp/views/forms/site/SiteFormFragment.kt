@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,8 +60,11 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val application = requireActivity().application
-        val viewModelFactory = SiteViewModelFactory(application)
+        val viewModelFactory = SiteViewModelFactory(application, wayPoint)
         frag = parentFragment as SiteFormDialog
+
+        viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
+
         if(no == 0){
             binding1 = DataBindingUtil.inflate(inflater,R.layout.site_pre_form,container,false)
 
@@ -78,14 +82,12 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
             if(no == 1){
                 binding3 = DataBindingUtil.inflate(inflater, R.layout.site_mid_form, container, false)
                 binding3.lifecycleOwner = frag
-                viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
                 binding3.viewModel = viewModel
 
                 return binding3.root
             }
             binding2 = DataBindingUtil.inflate(inflater,R.layout.site_post_form,container, false)
             binding2.lifecycleOwner = frag
-            viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
             binding2.viewModel = viewModel
 
             binding2.apply {
@@ -136,7 +138,6 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
             return binding2.root
         }
         binding1.lifecycleOwner = frag
-        viewModel = ViewModelProvider(frag, viewModelFactory).get(SiteViewModel::class.java)
         binding1.viewModel = viewModel
         viewModel.startForm(wayPoint)
         viewModel.startDate.observe(viewLifecycleOwner, Observer {
@@ -183,7 +184,7 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
         if(formIsEmpty()){
             alertDialogBuilder.setTitle("Please fill out the form")
-            alertDialogBuilder.setMessage("You must fill out all the * field!!")
+            alertDialogBuilder.setMessage("You must fill out all the * field and signature!!!")
             alertDialogBuilder.setCancelable(true)
             alertDialogBuilder.setNegativeButton("OK") { _, _ ->
             }
@@ -196,6 +197,12 @@ class SiteFormFragment(num: Int, wayPoint: WayPoint) : Fragment(){
                 wayPoint.completed = true
                 viewModel.updatePoint(wayPoint)
                 frag.dismiss()
+                val timestamp = LocalDateTime.now()
+                Log.i("AIMS_Dispatcher", "Trip status sent to Dispatcher!\n\"TripID\": ${wayPoint.ownerTripId},\n" +
+                        "\"StatusCode\": \"LeaveSite\",\n" +
+                        "\"StatusComment\": \"Leaving Site\",\n" +
+                        "\"Incoming\": true,\n" +
+                        "\"StatusDate\":  \"${timestamp.toString()}\"")
             }
         }
 

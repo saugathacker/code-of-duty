@@ -1,5 +1,6 @@
 package com.example.aimsapp.views.tripDetailFragment
 
+import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ class WayPointAdapter(private val clickListener: WayPointListener) : ListAdapter
             }
             if (item.completed){
                 binding.pointTitle.paintFlags =  Paint.STRIKE_THRU_TEXT_FLAG
+                binding.topBar.setBackgroundResource(R.color.grey_light)
             }
         }
 

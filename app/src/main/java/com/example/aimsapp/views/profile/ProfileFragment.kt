@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.aimsapp.R
 import com.example.aimsapp.activities.SplashScreen
 import com.example.aimsapp.databinding.FragmentProfileBinding
@@ -83,6 +84,22 @@ class ProfileFragment : Fragment() {
             requireActivity().startActivity(i)
             requireActivity().finish()
         }
+
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        viewModel.trips.observe(viewLifecycleOwner, Observer {
+            if(it.isNotEmpty()){
+                viewModel.updateValues(it[0])
+                var completed = 0
+                for (trip in it){
+                    if(trip.completed){
+                        completed++
+                    }
+                }
+                viewModel.updateCompleted(completed)
+            }
+        })
     }
 
     private fun showHelp() {

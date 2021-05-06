@@ -1,7 +1,9 @@
 package com.example.aimsapp.views.forms.source
 
 import android.app.Application
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -13,8 +15,9 @@ import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.repository.TripRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
 
-class SourceViewModel(application: Application): AndroidViewModel(application),Observable {
+class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidViewModel(application),Observable {
     val database = getInstance(application)
     val repo = TripRepository(database)
 
@@ -40,6 +43,16 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
     val billOfLading = MutableLiveData<String>()
     @Bindable
     val notes = MutableLiveData<String>()
+
+    init {
+        val newForm = Form()
+        newForm.ownerSeqNum = wayPoint.seqNum
+        newForm.ownerTripId = wayPoint.ownerTripId
+        viewModelScope.launch {
+            repo.insertForm(newForm)
+            Log.i("CloseForm","Form Inserted")
+        }
+    }
 
 
     fun startForm(wayPoint: WayPoint){
@@ -82,7 +95,7 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
     }
 
     fun saveForm(){
-        viewModelScope.launch {
+
             Log.i("CloseForm","Saved")
             form.productType = productType.value.toString()
             form.startDate = startDate.value.toString()
@@ -98,19 +111,23 @@ class SourceViewModel(application: Application): AndroidViewModel(application),O
             form.billOfLading = billOfLading.value.toString()
             form.notes = notes.value.toString()
             Log.i("CloseForm","Saved2 ${productType.value}")
-            repo.updateForm(form)
+        viewModelScope.launch {
+            repo.insertForm(form)
         }
     }
 
-    fun submitForm(){
-        Log.i("AIMSLOG", "Saved for to the database\n" +
-                " ${productType.value}\n ${startDate.value}, ${startTime.value}\n" +
-                " ${endDate.value}, ${endTime.value} \n" +
-                " ${grossGallons.value}, ${netGallons.value}\n" +
-                " ${billOfLading.value}, ${notes.value}")
-    }
 
     fun updatePoint(wayPoint: WayPoint) {
+        Log.i("AIMS_Dispatcher", "Product picked up information sent to Dispatcher!\n" +
+                "\"DriverCode\": \"CodeOfDuty\",\n" +
+                "\"TripId\": ${wayPoint.ownerTripId},\n" +
+                "\"SourceId\": ${wayPoint.sourceId},\n" +
+                "\"ProductId\": ${wayPoint.productId},\n" +
+                "\"BOLNum\": \"${form.billOfLading}\",\n" +
+                "\"StartTime\":  \"${form.startTime}\",\n" +
+                "\"EndTime\":  \"${form.endTime}\",\n" +
+                "\"GrossQty\":  ${form.grossGallons},\n" +
+                "\"NetQty\":  ${form.netGallons}")
         viewModelScope.launch {
             repo.updatePoint(wayPoint)
         }

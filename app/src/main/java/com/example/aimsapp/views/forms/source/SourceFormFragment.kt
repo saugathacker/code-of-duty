@@ -55,8 +55,10 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
     ): View? {
 
         val application = requireActivity().application
-        val viewModelFactory = SourceViewModelFactory(application)
+        val viewModelFactory = SourceViewModelFactory(application, wayPoint)
         frag = parentFragment as SourceFormDialog
+        viewModel = ViewModelProvider(frag, viewModelFactory).get(SourceViewModel::class.java)
+
         if (no == 0) {
             binding1 = DataBindingUtil.inflate(inflater, R.layout.source_pre_form, container, false)
 
@@ -78,7 +80,6 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
                 false
             )
             binding2.lifecycleOwner = frag
-            viewModel = ViewModelProvider(frag, viewModelFactory).get(SourceViewModel::class.java)
             binding2.viewModel = viewModel
 
             binding2.apply {
@@ -128,13 +129,11 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
             }
 
             Log.i("CloseForm", "Form Created 2")
-
             return binding2.root
         }
 
 
         binding1.lifecycleOwner = frag
-        viewModel = ViewModelProvider(frag, viewModelFactory).get(SourceViewModel::class.java)
         viewModel.startForm(wayPoint)
         binding1.viewModel = viewModel
 
@@ -183,21 +182,27 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
 
     private fun submitHandler() {
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
-
+        viewModel.saveForm()
         if (formIsEmpty()) {
             alertDialogBuilder.setTitle("Please fill out the form")
-            alertDialogBuilder.setMessage("You must fill out all the * field!!")
+            alertDialogBuilder.setMessage("You must fill out all the * field and signature!!!")
             alertDialogBuilder.setCancelable(true)
             alertDialogBuilder.setNegativeButton("OK") { _, _ ->
             }
         } else {
-            alertDialogBuilder.setTitle("Form Sent to Dispatcher")
-            alertDialogBuilder.setMessage("Demo")
+            alertDialogBuilder.setTitle("Form Completed")
+            alertDialogBuilder.setMessage("Sent to Dispatcher")
             alertDialogBuilder.setCancelable(false)
             alertDialogBuilder.setPositiveButton("Done") { _, _ ->
                 wayPoint.completed = true
                 viewModel.updatePoint(wayPoint)
                 frag.dismiss()
+                val timestamp = LocalDateTime.now()
+                Log.i("AIMS_Dispatcher", "Trip status sent to Dispatcher!\n\"TripID\": ${wayPoint.ownerTripId},\n" +
+                        "\"StatusCode\": \"LeaveSrc\",\n" +
+                        "\"StatusComment\": \"Leaving Source\",\n" +
+                        "\"Incoming\": true,\n" +
+                        "\"StatusDate\":  \"${timestamp.toString()}\"")
             }
         }
 

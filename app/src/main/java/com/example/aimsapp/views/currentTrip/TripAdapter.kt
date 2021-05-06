@@ -9,26 +9,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aimsapp.database.tripDatabase.Trip
 import com.example.aimsapp.databinding.ListItemTripBinding
 
-class TripAdapter(private val clickListener: TripListener) : ListAdapter<Trip, TripAdapter.ViewHolder>(TripDiffCallBack()) {
+class TripAdapter(
+    private val clickListener: TripListener,
+    private val onBreak: Boolean,
+    private val tripListener: TripListener
+) : ListAdapter<Trip, TripAdapter.ViewHolder>(TripDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripAdapter.ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: TripAdapter.ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!, clickListener)
+        holder.bind(getItem(position)!!, clickListener, onBreak, tripListener)
     }
 
     class ViewHolder private constructor(private val binding: ListItemTripBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Trip, clickListener: TripListener)
+        fun bind(
+            item: Trip,
+            clickListener: TripListener,
+            onBreak: Boolean,
+            tripListener: TripListener
+        )
         {
             binding.trip = item
-            binding.clickListener = clickListener
+            binding.clickListener = if (onBreak) tripListener else clickListener
             binding.tripTitle.text =
                 "Trip Name: ${item.tripName} \nTrip Id: ${item.tripId}"
             binding.driverDetail.text = "Driver Name: ${item.driverName} Truck Id: ${item.truckId}"
+            binding.date.text = "Trip Date: ${item.tripDate.subSequence(0,10)}"
         }
 
         companion object {

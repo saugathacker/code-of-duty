@@ -10,12 +10,14 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -41,7 +43,7 @@ import com.here.android.mpa.mapping.MapRoute
 import com.here.android.mpa.routing.*
 import java.lang.ref.WeakReference
 
-
+@RequiresApi(Build.VERSION_CODES.O)
 class MapFragment : Fragment(), LocationListener {
 
     private lateinit var binding: FragmentMapBinding
@@ -119,7 +121,7 @@ class MapFragment : Fragment(), LocationListener {
 
                     else -> dialog = SiteFormDialog(viewModel.wayPoint)
                 }
-                dialog.show(childFragmentManager,"Form")
+               showDialogWithChildFragmentManager(dialog)
             }
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
@@ -132,6 +134,11 @@ class MapFragment : Fragment(), LocationListener {
         return binding.root
     }
 
+    private fun showDialogWithChildFragmentManager(dialog: DialogFragment){
+        if(isAdded){
+            dialog.show(childFragmentManager,"Form")
+        }
+    }
     private fun getPoint() {
         if(tripId.equals(-1)){
 
@@ -609,7 +616,7 @@ class MapFragment : Fragment(), LocationListener {
 
                     else -> dialog = SiteFormDialog(viewModel.wayPoint)
                 }
-                dialog.show(childFragmentManager,"Form")
+               showDialogWithChildFragmentManager(dialog)
 
             }
         }
