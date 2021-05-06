@@ -18,7 +18,9 @@ import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.databinding.FragmentCurrentTripsBinding
 
-
+/**
+ * This is a fragment that contains the list of the current trips
+ */
 class CurrentTripFragment : Fragment() {
 
     private lateinit var binding: FragmentCurrentTripsBinding
@@ -29,38 +31,51 @@ class CurrentTripFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private var onBreak = false
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-    {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_current_trips, container, false)
+    /**
+     * please refer to android sdk function for this overridden method
+     */
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_current_trips, container, false)
 
         val application = requireNotNull(this.activity).application
         val dataSource = TripDatabase.getInstance(application).dao
-        val viewModelFactory = CurrentTripViewModelFactory(dataSource,application)
+        val viewModelFactory = CurrentTripViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(CurrentTripViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        sharedPreferences = requireActivity().getSharedPreferences("tripStatus shared prefs", Context.MODE_PRIVATE)
+        sharedPreferences =
+            requireActivity().getSharedPreferences("tripStatus shared prefs", Context.MODE_PRIVATE)
         onBreak = sharedPreferences.getBoolean("break", false)
 
         adapter = TripAdapter(TripListener {
-            this.findNavController().navigate(CurrentTripFragmentDirections.actionCurrentTripToTripDetailFragment(it))
-        }, onBreak, TripListener{
+            this.findNavController()
+                .navigate(CurrentTripFragmentDirections.actionCurrentTripToTripDetailFragment(it))
+        }, onBreak, TripListener {
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
             alertDialogBuilder.apply {
                 setTitle("It looks like you are on a break.")
                 setMessage("Go to Profile page to end the break.")
-                setNegativeButton("Ok"){_,_ ->
+                setNegativeButton("Ok") { _, _ ->
                 }
-                setPositiveButton("Take me there"){_,_->
-                   val frag = parentFragment
+                setPositiveButton("Take me there") { _, _ ->
+                    val frag = parentFragment
                     if (frag != null) {
-                        frag.findNavController().navigate(CurrentTripFragmentDirections.actionCurrentTripToProfile())
+                        frag.findNavController()
+                            .navigate(CurrentTripFragmentDirections.actionCurrentTripToProfile())
                     }
                 }
             }
@@ -85,7 +100,9 @@ class CurrentTripFragment : Fragment() {
     }
 
 
-
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onAttach(activity: Activity) {
         myContext = activity as FragmentActivity
         super.onAttach(activity)
