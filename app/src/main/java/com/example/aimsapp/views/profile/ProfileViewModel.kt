@@ -9,6 +9,9 @@ import com.example.aimsapp.database.tripDatabase.Trip
 import com.example.aimsapp.database.tripDatabase.TripDatabase.Companion.getInstance
 import com.example.aimsapp.repository.TripRepository
 
+/**
+ * The is the ViewModel for the profile page
+ */
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
 
 
