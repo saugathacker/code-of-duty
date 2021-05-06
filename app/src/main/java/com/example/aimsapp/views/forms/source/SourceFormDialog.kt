@@ -12,13 +12,17 @@ import com.example.aimsapp.R
 import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.databinding.DialogSourceFormBinding
 
-
+/**
+ * This pops up once the driver reaches the source
+ */
 class SourceFormDialog(wayPoint: WayPoint) : DialogFragment() {
     private var current_step = 1
     private lateinit var binding: DialogSourceFormBinding
     var wayPoint= wayPoint
 
-
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val dialog = Dialog(requireContext(), R.style.DialogTheme)
@@ -32,7 +36,9 @@ class SourceFormDialog(wayPoint: WayPoint) : DialogFragment() {
         return dialog
     }
 
-
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
