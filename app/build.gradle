@@ -32,7 +32,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             ndk{
-                abiFilters "armebi-v7a", "armeabi"
+                abiFilters "armeabi-v7a", "armeabi"
             }
         }
     }
@@ -115,6 +115,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     //Here Map
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation(name:'HERE-sdk', ext:'aar')
 
     //Google PLay Services Map
