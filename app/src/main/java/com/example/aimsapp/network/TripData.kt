@@ -4,15 +4,28 @@ import com.example.aimsapp.database.tripDatabase.Trip
 import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.squareup.moshi.Json
 
+/**
+ * This file contains the list of data objects that store api's response
+ */
+
+/**
+ * Response object pulled from api.
+ */
 data class Response(
     val data: TripDate
 )
 
+/*
+ * contains two object resultSet2 and resultSet1
+ */
 data class TripDate(
     val resultSet2: List<StatusSet>,
     val resultSet1: List<Trips>
 )
 
+/**
+ * StatusSet class contains two object statusCode and status
+ */
 data class StatusSet(
     @Json(name = "StatusCode")
     val statusCode: Long,
@@ -20,7 +33,9 @@ data class StatusSet(
     val status: String
 )
 
-
+/*
+ * Setting attribute for trips
+ */
 data class Trips(
     @Json(name = "DriverCode")
     val driverCode: String,
@@ -91,6 +106,9 @@ data class Trips(
     @Json(name = "SiteID")
     val siteId: Long?
 ) {
+    /**
+     * getting the attributes for getTrip function
+     */
     fun getTrip(): Trip {
         val newTrip = Trip()
         newTrip.tripId = tripId
@@ -108,6 +126,9 @@ data class Trips(
         return newTrip
     }
 
+    /**
+     * Getting attributes for getWayPoint
+     */
     fun getWayPoint(): WayPoint {
         val newWayPoint = WayPoint()
         newWayPoint.ownerTripId = tripId

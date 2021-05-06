@@ -44,7 +44,7 @@ interface TripApiService {
  * instantiating retrofitService
  * lazy initialization is the tactic of delaying the creation of an object
  */
-object TripApi{
+object TripApi {
     val retrofitService: TripApiService by lazy {
         retrofit.create(TripApiService::class.java)
     }
