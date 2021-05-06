@@ -36,6 +36,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
+/**
+ * this pops of the source form
+ */
 @RequiresApi(Build.VERSION_CODES.O)
 class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
 
@@ -48,6 +51,9 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
     private lateinit var frag: SourceFormDialog
     private lateinit var mCurrentPhotoPath: String
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -155,7 +161,9 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
         return binding1.root
     }
 
-
+    /**
+     * sets the start date and time on the form white loading the item
+     */
     private fun setStartDateTime() {
         val startDateTime = LocalDateTime.now()
         val date = startDateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
@@ -168,6 +176,9 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
         }
     }
 
+    /**
+     * sets the end date and time on the form
+     */
     private fun setEndDateTime() {
         val endDateTime = LocalDateTime.now()
         val date = endDateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
@@ -179,7 +190,9 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
         }
     }
 
-
+    /**
+     * it handles the function when submit button is pressed
+     */
     private fun submitHandler() {
         val alertDialogBuilder = AlertDialog.Builder(requireActivity())
         viewModel.saveForm()
@@ -210,7 +223,9 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
         alertDialog.show()
     }
 
-
+    /**
+     * checks if the form is empty and returns true
+     */
     private fun formIsEmpty(): Boolean {
         if (viewModel.productType.value.toString().isEmpty() || viewModel.startDate.value.toString()
                 .isEmpty() || viewModel.startTime.value.toString().isEmpty()
@@ -229,6 +244,9 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
         return false
     }
 
+    /**
+     * function to take picture of BOL
+     */
     private fun takePhotoFromCamera(requestCode: Int) {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (intent.resolveActivity(requireActivity().packageManager) != null) {
@@ -250,6 +268,9 @@ class SourceFormFragment(num: Int, wayPoint: WayPoint) : Fragment() {
 
     }
 
+    /**
+     * permission to open camera
+     */
     private fun checkPermissionAndOpenCamera(requestCode: Int) {
         if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_DENIED

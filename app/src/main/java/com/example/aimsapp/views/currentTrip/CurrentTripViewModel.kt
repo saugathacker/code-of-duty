@@ -1,37 +1,37 @@
 package com.example.aimsapp.views.currentTrip
 
 import android.app.Application
-import androidx.lifecycle.*
-import com.example.aimsapp.database.tripDatabase.Trip
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aimsapp.database.tripDatabase.TripDao
 import com.example.aimsapp.database.tripDatabase.TripDatabase
 import com.example.aimsapp.database.tripDatabase.TripDatabase.Companion.getInstance
-import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.repository.TripRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CurrentTripViewModel(dataSource: TripDao, application: Application) : AndroidViewModel(application)
-{
-
+/**
+ * This is the view model of the current trip
+ */
+class CurrentTripViewModel(dataSource: TripDao, application: Application) :
+    AndroidViewModel(application) {
+    //creating instance for tripDatabase and repo
     private var tripDatabase: TripDatabase = getInstance(application)
     private var repo: TripRepository
 
-
-    init{
+    //initialize the view model
+    init {
         repo = TripRepository(tripDatabase)
     }
 
-    fun refresh(){
-        viewModelScope.launch{
+    //refresh the trips
+    fun refresh() {
+        viewModelScope.launch {
             repo.refreshTrips()
         }
     }
 
+    //gets trip from the repository
     val trips = repo.getTrips()
-
 
 
 }

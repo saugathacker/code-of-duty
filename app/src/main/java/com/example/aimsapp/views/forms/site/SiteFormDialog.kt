@@ -15,13 +15,18 @@ import com.example.aimsapp.database.tripDatabase.WayPoint
 import com.example.aimsapp.databinding.DialogSiteFormBinding
 import com.example.aimsapp.databinding.DialogSourceFormBinding
 
-class SiteFormDialog(wayPoint: WayPoint): DialogFragment() {
+/**
+ * This pops up once the driver reaches the site
+ */
+class SiteFormDialog(wayPoint: WayPoint) : DialogFragment() {
 
     private var current_step = 1
     private lateinit var binding: DialogSourceFormBinding
     private val wayPoint = wayPoint
 
-
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         val dialog = Dialog(requireContext(), R.style.DialogTheme)
@@ -33,7 +38,9 @@ class SiteFormDialog(wayPoint: WayPoint): DialogFragment() {
         return dialog
     }
 
-
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
@@ -57,7 +64,7 @@ class SiteFormDialog(wayPoint: WayPoint): DialogFragment() {
         } else if (current_step == 2) {
             binding.lytNext.visibility = View.VISIBLE
             binding.lytBack.visibility = View.VISIBLE
-        } else{
+        } else {
             binding.lytNext.visibility = View.GONE
             binding.lytBack.visibility = View.VISIBLE
         }
@@ -81,7 +88,7 @@ class SiteFormDialog(wayPoint: WayPoint): DialogFragment() {
         if (progress < MAX_STEP) {
             progress++
             current_step = progress
-            binding.viewPager.currentItem = current_step-1
+            binding.viewPager.currentItem = current_step - 1
         }
     }
 
@@ -90,17 +97,18 @@ class SiteFormDialog(wayPoint: WayPoint): DialogFragment() {
         if (progress > 1) {
             progress--
             current_step = progress
-            binding.viewPager.currentItem = current_step-1
+            binding.viewPager.currentItem = current_step - 1
         }
     }
-
-
 
 
     companion object {
         private const val MAX_STEP = 3
     }
 
+    /**
+     *
+     */
     class ViewPagerAdapter(fm: SiteFormDialog, wayPoint: WayPoint) : FragmentStateAdapter(fm!!) {
 
         private var wayPoint = wayPoint

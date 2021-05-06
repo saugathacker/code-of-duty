@@ -17,6 +17,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 
+/**
+ * ViewModel for source forms
+ */
 class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidViewModel(application),Observable {
     val database = getInstance(application)
     val repo = TripRepository(database)
@@ -54,7 +57,9 @@ class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidView
         }
     }
 
-
+    /**
+     * function startform
+     */
     fun startForm(wayPoint: WayPoint){
         var forms = listOf<Form>()
         viewModelScope.launch {
@@ -78,6 +83,9 @@ class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidView
         }
     }
 
+    /**
+     * retrieves data from database
+     */
     fun retriveData(get: Form) {
         form = get
         productType.value = get.productType
@@ -94,6 +102,9 @@ class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidView
 
     }
 
+    /**
+     * function to save form
+     */
     fun saveForm(){
 
             Log.i("CloseForm","Saved")
@@ -116,7 +127,9 @@ class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidView
         }
     }
 
-
+    /**
+     * updates the point and insertes into database
+     */
     fun updatePoint(wayPoint: WayPoint) {
         Log.i("AIMS_Dispatcher", "Product picked up information sent to Dispatcher!\n" +
                 "\"DriverCode\": \"CodeOfDuty\",\n" +
@@ -133,6 +146,9 @@ class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidView
         }
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun onCleared() {
         super.onCleared()
         Log.i("CloseForm", "ViewModel destroyed")
@@ -140,10 +156,16 @@ class SourceViewModel(application: Application, wayPoint: WayPoint): AndroidView
 
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry()}
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
         callbacks.add(callback)
     }
 
+    /**
+     * please refer to android sdk function for this overridden method
+     */
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
         callbacks.remove(callback)
     }
